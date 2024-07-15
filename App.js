@@ -4,6 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import FirstScreen from './src/screens/firstScreen';
 import CadastroAgricultor from './src/screens/cadastroAgricultor';
+import CadastroPropriedade from './src/screens/cadastroPropriedade';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +16,7 @@ export default function App() {
         <Stack.Navigator initialRouteName="FirstScreen">
           <Stack.Screen name="FirstScreen" component={FirstScreen} options={{ headerShown: false }} />
           <Stack.Screen name="CadastroAgricultor" component={CadastroAgricultor} options={{ headerShown: false }} />
+          <Stack.Screen name="CadastroPropriedade" component={CadastroPropriedade} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
