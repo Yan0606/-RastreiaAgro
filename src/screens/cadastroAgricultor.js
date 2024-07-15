@@ -5,6 +5,8 @@ import logo from '../assets/images/icon.png';
 import TextInputComponent from '../components/input';
 import Btn from '../components/button';
 import BtnVoltar from '../components/btnVoltar';
+import PersonagemComBalao from '../components/PersonagemComBalao';
+
 
 const CadastroAgricultor = () => {
   return (
@@ -18,6 +20,7 @@ const CadastroAgricultor = () => {
         <TextInputComponent text="Telefone" />
         <TextInputComponent text="E-mail" />
         <Btn text="PRÓXIMO" />
+        <PersonagemComBalao texto="Para continuar com cadastro informe algumas informaçoes suas" />
       </View>
     </PaperProvider>
   );
