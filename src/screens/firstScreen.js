@@ -12,6 +12,10 @@ const FirstScreen = () => {
   const handleCadastroAgricultor = () => {
     navigation.navigate('CadastroAgricultor');
   };
+  
+  const handleLogin = () => {
+    navigation.navigate('Login');
+  }
 
   return (
     <PaperProvider>
@@ -19,7 +23,8 @@ const FirstScreen = () => {
         <Image source={logo} style={styles.image} />
         <Text variant="headlineSmall" style={styles.h1}>Bem-Vindo ao Rastreia Agro</Text>
         <Text variant="titleSmall" style={styles.h2}>Já tenho cadastro</Text>
-        <Btn />
+        <Btn onPress={handleLogin}/>
+        
         <Text variant="titleSmall" style={styles.h2}>Sou novo, ainda não tenho cadastro</Text>
         <Btn text="Cadastrar-se" onPress={handleCadastroAgricultor} />
         <PersonagemComBalao texto="Selecione qual opção você se encaixa" />
