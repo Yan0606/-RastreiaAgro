@@ -7,6 +7,7 @@ import CadastroAgricultor from './src/screens/cadastroAgricultor';
 import CadastroPropriedade from './src/screens/cadastroPropriedade';
 import Obrigado from './src/screens/obrigado';
 import Login from './src/screens/login';
+import Menu from './src/screens/menu';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ export default function App() {
           <Stack.Screen name="CadastroPropriedade" component={CadastroPropriedade} options={{ headerShown: false }} />
           <Stack.Screen name="Obrigado" component={Obrigado} options={{ headerShown: false }} />
           <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+          <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }} />
 
         </Stack.Navigator>
       </NavigationContainer>
