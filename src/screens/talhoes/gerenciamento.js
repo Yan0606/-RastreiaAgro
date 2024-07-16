@@ -8,6 +8,9 @@ import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
 
 const Gerenciamento = ({ navigation }) => {
+    const handleGerenciamento2 = () => {
+        navigation.navigate('Gerenciamento2');
+    };
 
     return (
         <PaperProvider>
@@ -29,7 +32,7 @@ const Gerenciamento = ({ navigation }) => {
                 <Text variant="titleSmall" style={styles.h2}>
                     Ou gerenciar existentes
                 </Text>
-                <Btn text="PRÓXIMO"  />
+                <Btn text="PRÓXIMO"  onPress={handleGerenciamento2}/>
 
                 <PersonagemComBalao texto="Selecione se deseja cadastrar ou editar seu talhões" />
             </View>

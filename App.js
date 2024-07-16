@@ -9,6 +9,7 @@ import Obrigado from './src/screens/obrigado';
 import Login from './src/screens/login';
 import Menu from './src/screens/menu';
 import Gerenciamento from './src/screens/talhoes/gerenciamento';
+import Gerenciamento2 from './src/screens/talhoes/gerenciamento2';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,7 @@ export default function App() {
           <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
           <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }} />
           <Stack.Screen name="Gerenciamento" component={Gerenciamento} options={{ headerShown: false }} />
+          <Stack.Screen name="Gerenciamento2" component={Gerenciamento2} options={{ headerShown: false }} />
 
         </Stack.Navigator>
       </NavigationContainer>
