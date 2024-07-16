@@ -15,8 +15,8 @@ const windowWidth = Dimensions.get('window').width;
 
 const Login = ({ navigation }) => {
 
-    const renderButton = (icon, label) => (
-        <TouchableOpacity style={styles.button}>
+    const renderButton = (icon, label, onPress) => (
+        <TouchableOpacity style={styles.button} onPress={onPress}>
             <Image source={icon} style={styles.icon} />
             <Text>{label}</Text>
         </TouchableOpacity>
@@ -43,7 +43,7 @@ const Login = ({ navigation }) => {
                     {renderButton(safra, 'Safra')}
                     {renderButton(caderno, 'Caderno')}
                     {renderButton(cultura, 'Cultura')}
-                    {renderButton(talhoes, 'Talhões')}
+                    {renderButton(talhoes, 'Talhões', () => navigation.navigate('Gerenciamento'))}
                     {renderButton(maquinas, 'Máquinas')}
                     {renderButton(insumos, 'Insumos')}
                 </View>
