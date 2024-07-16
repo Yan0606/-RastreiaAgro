@@ -9,7 +9,10 @@ import BtnVoltar from '../components/btnVoltar';
 import PersonagemComBalao from '../components/PersonagemComBalao';
 
 
-const CadastroPropriedade = () => {
+const CadastroPropriedade = ({ navigation }) => {
+  const handleObrigado = () => {
+    navigation.navigate('Obrigado');
+};
   return (
     <PaperProvider>
       <View style={styles.container}>
@@ -22,7 +25,7 @@ const CadastroPropriedade = () => {
         <TextInputComponent text="Estado" />
         <TextInputComponent text="Cidade" />
         <TextInputComponent text="Rua" />
-        <Btn text="PRÓXIMO" />
+        <Btn text="PRÓXIMO" onPress={handleObrigado}/>
         <PersonagemComBalao texto="Ótimo (Nome) agora informe sobre o local de empreendimento" />
       </View>
     </PaperProvider>

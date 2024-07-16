@@ -5,7 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import FirstScreen from './src/screens/firstScreen';
 import CadastroAgricultor from './src/screens/cadastroAgricultor';
 import CadastroPropriedade from './src/screens/cadastroPropriedade';
-
+import Obrigado from './src/screens/obrigado';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +17,8 @@ export default function App() {
           <Stack.Screen name="FirstScreen" component={FirstScreen} options={{ headerShown: false }} />
           <Stack.Screen name="CadastroAgricultor" component={CadastroAgricultor} options={{ headerShown: false }} />
           <Stack.Screen name="CadastroPropriedade" component={CadastroPropriedade} options={{ headerShown: false }} />
+          <Stack.Screen name="Obrigado" component={Obrigado} options={{ headerShown: false }} />
+          
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

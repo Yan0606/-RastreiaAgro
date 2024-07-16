@@ -1,34 +1,26 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 import logo from '../assets/images/icon.png';
-import TextInputComponent from '../components/input';
 import Btn from '../components/button';
 import BtnVoltar from '../components/btnVoltar';
 import PersonagemComBalao from '../components/PersonagemComBalao';
 
-const CadastroAgricultor = ({ navigation }) => {
-    const handleCadastroPropriedade = () => {
-        navigation.navigate('CadastroPropriedade');
-    };
 
+const Obrigado = ({ navigation }) => {
+    const handleFirstScreen = () => {
+        navigation.navigate('FirstScreen');
+    };
     return (
         <PaperProvider>
             <View style={styles.container}>
-                <BtnVoltar route="FirstScreen" />
-
+                <BtnVoltar route="CadastroPropriedade" />
                 <Image source={logo} style={styles.image} />
-                
-                <Text variant="titleMedium" style={styles.h2}>
-                    INFORMAÇÕES SOBRE O RESPONSÁVEL PELO EMPREENDIMENTO
-                </Text>
-
-                <TextInputComponent />
-                <TextInputComponent text="CPF" />
-                <TextInputComponent text="Telefone" />
-                <TextInputComponent text="E-mail" />
-                <Btn text="PRÓXIMO" onPress={handleCadastroPropriedade} />
-                <PersonagemComBalao texto="Para continuar com cadastro informe algumas informações suas" />
+                <Text variant="headlineLarge" style={styles.h2}>Obrigado por terminar seu cadastro conosco</Text>
+                <Btn text="VOLTAR PARA O INÍCIO" onPress={handleFirstScreen}/>
+                <PersonagemComBalao texto="Ótimo (Nome), 
+                agora entraremos em contato para terminarmor seu cadastro" />
             </View>
         </PaperProvider>
     );
@@ -54,4 +46,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default CadastroAgricultor;
+export default Obrigado;
