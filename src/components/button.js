@@ -2,10 +2,10 @@ import React from 'react';
 import { Button } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
 
-const Btn = ({ text, onPress }) => {
+const Btn = ({ label, onPress }) => {
   return (
     <Button mode="contained" onPress={onPress} style={styles.button}>
-      {text || 'ENTRAR'}
+      {label || 'ENTRAR'}
     </Button>
   );
 };

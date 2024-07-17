@@ -14,6 +14,9 @@ import insumos from '../assets/images/insumos.png';
 const windowWidth = Dimensions.get('window').width;
 
 const Login = ({ navigation }) => {
+    const handleMenuConfig = () => {
+        navigation.navigate('MenuConfig');
+    }
 
     const renderButton = (icon, label, onPress) => (
         <TouchableOpacity style={styles.button} onPress={onPress}>
@@ -31,7 +34,7 @@ const Login = ({ navigation }) => {
                         <Text style={styles.profileName}>Nome do agricultor</Text>
                     </View>
                     <View style={styles.headerIcons}>
-                        <TouchableOpacity>
+                        <TouchableOpacity  onPress={handleMenuConfig}>
                             <Image source={config} style={styles.headerIcon} />
                         </TouchableOpacity>
                         <TouchableOpacity>
