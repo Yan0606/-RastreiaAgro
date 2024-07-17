@@ -12,6 +12,7 @@ import Gerenciamento from './src/screens/talhoes/gerenciamento';
 import Gerenciamento2 from './src/screens/talhoes/gerenciamento2';
 import MenuConfig from './src/screens/menuConfig';
 import EditarPerfil from './src/screens/editarPerfil';
+import EditarPropriedade from './src/screens/editarPropriedade';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +31,7 @@ export default function App() {
           <Stack.Screen name="Gerenciamento2" component={Gerenciamento2} options={{ headerShown: false }} />
           <Stack.Screen name="MenuConfig" component={MenuConfig} options={{ headerShown: false }} />
           <Stack.Screen name="EditarPerfil" component={EditarPerfil} options={{ headerShown: false }} />
+          <Stack.Screen name="EditarPropriedade" component={EditarPropriedade} options={{ headerShown: false }} />
 
         </Stack.Navigator>
       </NavigationContainer>

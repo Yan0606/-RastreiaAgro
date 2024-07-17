@@ -25,6 +25,10 @@ const MenuConfig = () => {
         navigation.navigate('EditarPerfil');
     }
 
+    const EditarPropriedade = () => {
+        navigation.navigate('EditarPropriedade');
+    }
+
     return (
         <View style={styles.container}>
             <Modal
@@ -43,7 +47,7 @@ const MenuConfig = () => {
                                 <TouchableOpacity style={styles.button} onPress={() => { EditarPerfil() }}>
                                     <Text style={styles.text}>Editar perfil</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.button} onPress={() => { /* Editar propriedade */ }}>
+                                <TouchableOpacity style={styles.button} onPress={() => { EditarPropriedade() }}>
                                     <Text style={styles.text}>Editar propriedade</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.button} onPress={() => { /* Ver QR Code */ }}>
