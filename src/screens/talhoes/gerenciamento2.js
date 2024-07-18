@@ -1,17 +1,18 @@
 import React from 'react';
-import { View, Image, StyleSheet, ScrollView } from 'react-native';
-import { Provider as PaperProvider, Text, IconButton } from 'react-native-paper';
+import { View, Image, StyleSheet } from 'react-native';
+import { Provider as PaperProvider, Text } from 'react-native-paper';
 import logo from '../../assets/images/logoTalhoes.png';
 import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
+import ScrollVieww from '../../components/scrollView';
 
 const Gerenciamento2 = ({ navigation }) => {
-    const EditarTalhao = () => {
-        navigation.navigate('EditarTalhao');
+    const EditarTalhao = (id) => {
+        navigation.navigate('EditarTalhao', { id });
     };
 
-    const ExcluirTalhao = () => {
-        navigation.navigate('ExcluirTalhao');
+    const ExcluirTalhao = (id) => {
+        navigation.navigate('ExcluirTalhao', { id });
     };
 
     const talhoes = [
@@ -32,31 +33,12 @@ const Gerenciamento2 = ({ navigation }) => {
                     Gerenciamento de Talhões
                 </Text>
 
-                <ScrollView contentContainerStyle={styles.talhoesContainer}>
-                    {talhoes.map((talhao) => (
-                        <View key={talhao.id} style={styles.talhao}>
-                            <Text style={styles.talhaoText}>{talhao.nome}</Text>
-                            <View style={styles.actionButton}>
-                                <IconButton
-                                    icon="pencil"
-                                    color="#FFA500"
-                                    size={20}
-                                    onPress={EditarTalhao}
-                                />
-                                <Text style={styles.actionButtonText}>Editar</Text>
-                            </View>
-                            <View style={styles.actionButton2}>
-                                <IconButton
-                                    icon="delete"
-                                    color="#FF6347"
-                                    size={20}
-                                    onPress={ExcluirTalhao}
-                                />
-                                <Text style={styles.actionButtonText}>Excluir</Text>
-                            </View>
-                        </View>
-                    ))}
-                </ScrollView>
+                <ScrollVieww
+                    talhoes={talhoes}
+                    onEdit={EditarTalhao}
+                    onDelete={ExcluirTalhao}
+                />
+
                 <PersonagemComBalao texto="Selecione se deseja editar ou excluir seus talhões" />
             </View>
         </PaperProvider>
@@ -81,40 +63,6 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 20,
         color: 'white',
-    },
-    talhoesContainer: {
-        width: 350,
-        paddingHorizontal: 10,
-    },
-    talhao: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        backgroundColor: 'white',
-        borderRadius: 10,
-        marginVertical: 5,
-        padding: 10,
-    },
-    talhaoText: {
-        fontSize: 16,
-    },
-    actionButton: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#D88B30',
-        borderRadius: 10,
-        height: '75%',
-    },
-    actionButton2: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#BB2929',
-        borderRadius: 10,
-        height: '75%',
-    },
-    actionButtonText: {
-        marginLeft: 5,
-        marginRight: 10,
     },
 });
 
