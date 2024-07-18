@@ -47,7 +47,7 @@ const Login = ({ navigation }) => {
                     {renderButton(caderno, 'Caderno')}
                     {renderButton(cultura, 'Cultura')}
                     {renderButton(talhoes, 'Talhões', () => navigation.navigate('Gerenciamento'))}
-                    {renderButton(maquinas, 'Máquinas')}
+                    {renderButton(maquinas, 'Máquinas', () => navigation.navigate('GerenciamentoMaquina'))}
                     {renderButton(insumos, 'Insumos')}
                 </View>
             </View>
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         backgroundColor: '#F5F5F5',
+        marginTop:15,
     },
     header: {
         flexDirection: 'row',
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
-        marginTop: 20,
+        marginTop: 30,
     },
     button: {
         width: (windowWidth - 60) / 2,

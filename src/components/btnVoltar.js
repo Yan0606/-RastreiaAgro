@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         margin: 10,
         position: 'absolute',
         top: 10,
-        left: 10,
+        left: 1,
         zIndex: 10,
     },
     touch: {
