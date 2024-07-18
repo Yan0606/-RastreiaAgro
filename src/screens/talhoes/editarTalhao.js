@@ -1,43 +1,30 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
-import logo from '../../assets/images/logoTalhoes.png';
 import TextInputComponent from '../../components/input';
 import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
+import Imagem from '../../components/image';
 
-const Gerenciamento = ({ navigation }) => {
+const EditarTalhao = ({ navigation }) => {
     const handleGerenciamento2 = () => {
         navigation.navigate('Gerenciamento2');
     };
-const handleNovoTalhao = () => {
-    navigation.navigate('NovoTalhao')
-};
 
     return (
         <PaperProvider>
             <View style={styles.container}>
                 <BtnVoltar route="Menu" />
-
-                <Image source={logo} style={styles.image} />
-                
                 <Text variant="titleSmall" style={styles.h2}>
                     Gerenciamento de Talhões
                 </Text>
-                <Text variant="titleSmall" style={styles.h2}>
-                    Cadastrar um novo
-                </Text>
-
-                <TextInputComponent />
-                <Btn label="PRÓXIMO"  onPress={handleNovoTalhao}/>
-
-                <Text variant="titleSmall" style={styles.h2}>
-                    Ou gerenciar existentes
-                </Text>
-                <Btn label="PRÓXIMO"  onPress={handleGerenciamento2}/>
-
-                <PersonagemComBalao texto="Selecione se deseja cadastrar ou editar seu talhões" />
+                <TextInputComponent text="Nome do Talhão" defaultValue="Talhão 1" />
+                <TextInputComponent text="Rua" defaultValue="Rua terezinha 75 - Vila Paulo Roberto" />
+                <TextInputComponent text="Área" defaultValue="25m" />
+                <Imagem/>
+                <Btn label="Editar" onPress={handleGerenciamento2} backgroundColor="#D88B30"/>
+                <PersonagemComBalao texto="Confirme se as informações estão corretas" />
             </View>
         </PaperProvider>
     );
@@ -51,16 +38,10 @@ const styles = StyleSheet.create({
         paddingTop: 50,
         backgroundColor: '#18603A',
     },
-    image: {
-        marginTop: 10,
-        width: 80,
-        height: 80,
-        resizeMode: 'contain',
-    },
     h2: {
         marginTop: 20,
         marginBottom: 20,
     },
 });
 
-export default Gerenciamento;
+export default EditarTalhao;

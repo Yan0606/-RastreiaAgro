@@ -6,6 +6,13 @@ import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
 
 const Gerenciamento2 = ({ navigation }) => {
+    const EditarTalhao = () => {
+        navigation.navigate('EditarTalhao');
+    };
+
+    const ExcluirTalhao = () => {
+        navigation.navigate('ExcluirTalhao');
+    };
 
     const talhoes = [
         { id: 1, nome: 'Talhão 1' },
@@ -34,7 +41,7 @@ const Gerenciamento2 = ({ navigation }) => {
                                     icon="pencil"
                                     color="#FFA500"
                                     size={20}
-                                    onPress={() => console.log('Editar', talhao.id)}
+                                    onPress={EditarTalhao}
                                 />
                                 <Text style={styles.actionButtonText}>Editar</Text>
                             </View>
@@ -43,7 +50,7 @@ const Gerenciamento2 = ({ navigation }) => {
                                     icon="delete"
                                     color="#FF6347"
                                     size={20}
-                                    onPress={() => console.log('Excluir', talhao.id)}
+                                    onPress={ExcluirTalhao}
                                 />
                                 <Text style={styles.actionButtonText}>Excluir</Text>
                             </View>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-paper';
 
-const InputIcon = ({ label }) => {
+const InputIcon = ({ label, icon }) => {
     const [text, setText] = React.useState('');
 
     return (
@@ -12,7 +12,7 @@ const InputIcon = ({ label }) => {
             style={styles.input}
             value={text}
             onChangeText={setText}
-            right={<TextInput.Icon icon="pencil" />}
+            right={<TextInput.Icon icon={icon || 'pencil'} />}
             theme={{
                 roundness: 40,
                 colors: {

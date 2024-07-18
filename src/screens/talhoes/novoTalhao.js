@@ -2,42 +2,41 @@ import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 import logo from '../../assets/images/logoTalhoes.png';
-import TextInputComponent from '../../components/input';
+import InputIcon from '../../components/inputIcon';
 import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
 
-const Gerenciamento = ({ navigation }) => {
-    const handleGerenciamento2 = () => {
-        navigation.navigate('Gerenciamento2');
+const NovoTalhao = ({ navigation }) => {
+    const Gerenciamento = () => {
+        navigation.navigate('Gerenciamento');
     };
-const handleNovoTalhao = () => {
-    navigation.navigate('NovoTalhao')
-};
+
+    const ConfirmaNovoTalhao = () => {
+        navigation.navigate('ConfirmaNovoTalhao');
+    };
 
     return (
         <PaperProvider>
             <View style={styles.container}>
-                <BtnVoltar route="Menu" />
+                <BtnVoltar route={Gerenciamento} />
 
                 <Image source={logo} style={styles.image} />
-                
-                <Text variant="titleSmall" style={styles.h2}>
+
+                <Text variant="titleMedium" style={styles.h2}>
                     Gerenciamento de Talhões
                 </Text>
                 <Text variant="titleSmall" style={styles.h2}>
                     Cadastrar um novo
                 </Text>
 
-                <TextInputComponent />
-                <Btn label="PRÓXIMO"  onPress={handleNovoTalhao}/>
+                <InputIcon label="Local:" icon="map-marker-outline" />
+                <InputIcon label="Área:" icon="ruler" />
+                <InputIcon label="Foto:" icon="camera" />
 
-                <Text variant="titleSmall" style={styles.h2}>
-                    Ou gerenciar existentes
-                </Text>
-                <Btn label="PRÓXIMO"  onPress={handleGerenciamento2}/>
+                <Btn label="PRÓXIMO" onPress={ConfirmaNovoTalhao}  />
 
-                <PersonagemComBalao texto="Selecione se deseja cadastrar ou editar seu talhões" />
+                <PersonagemComBalao texto="Informe os detalhes do Talhão a ser cadastrado" />
             </View>
         </PaperProvider>
     );
@@ -59,8 +58,8 @@ const styles = StyleSheet.create({
     },
     h2: {
         marginTop: 20,
-        marginBottom: 20,
+        marginBottom: 5,
     },
 });
 
-export default Gerenciamento;
+export default NovoTalhao;

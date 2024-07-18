@@ -13,6 +13,10 @@ import Gerenciamento2 from './src/screens/talhoes/gerenciamento2';
 import MenuConfig from './src/screens/menuConfig';
 import EditarPerfil from './src/screens/editarPerfil';
 import EditarPropriedade from './src/screens/editarPropriedade';
+import EditarTalhao from './src/screens/talhoes/editarTalhao';
+import ExcluirTalhao from './src/screens/talhoes/excluirTalhao';
+import NovoTalhao from './src/screens/talhoes/novoTalhao';
+import ConfirmaNovoTalhao from './src/screens/talhoes/confirmaNovoTalhao';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,7 +36,11 @@ export default function App() {
           <Stack.Screen name="MenuConfig" component={MenuConfig} options={{ headerShown: false }} />
           <Stack.Screen name="EditarPerfil" component={EditarPerfil} options={{ headerShown: false }} />
           <Stack.Screen name="EditarPropriedade" component={EditarPropriedade} options={{ headerShown: false }} />
-
+          <Stack.Screen name="EditarTalhao" component={EditarTalhao} options={{ headerShown: false }} />
+          <Stack.Screen name="ExcluirTalhao" component={ExcluirTalhao} options={{ headerShown: false }} />
+          <Stack.Screen name="NovoTalhao" component={NovoTalhao} options={{ headerShown: false }} />
+          <Stack.Screen name="ConfirmaNovoTalhao" component={ConfirmaNovoTalhao} options={{ headerShown: false }} />
+        
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
