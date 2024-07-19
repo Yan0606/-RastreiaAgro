@@ -21,6 +21,10 @@ import GerenciamentoMaquina from './src/screens/maquinas/gerenciamentoMaquina';
 import GerenciamentoMaquina2 from './src/screens/maquinas/gerenciamentoMaquina2';
 import EditarMaquina from './src/screens/maquinas/editarMaquina';
 import NovaMaquina from './src/screens/maquinas/novaMaquina';
+import GerenciamentoSafra from './src/screens/safra/gerenciamentoSafra';
+import GerenciamentoInsumos from './src/screens/insumos/gerenciamentoInsumos';
+import GerenciamentoInsumos2 from './src/screens/insumos/gerenciamentoInsumos2';
+import NovoInsumo from './src/screens/insumos/novoInsumo';
 
 const Stack = createNativeStackNavigator();
 
@@ -48,6 +52,10 @@ export default function App() {
           <Stack.Screen name="GerenciamentoMaquina2" component={GerenciamentoMaquina2} options={{ headerShown: false }} />
           <Stack.Screen name="EditarMaquina" component={EditarMaquina} options={{ headerShown: false }} />
           <Stack.Screen name="NovaMaquina" component={NovaMaquina} options={{ headerShown: false }} />
+          <Stack.Screen name="GerenciamentoSafra" component={GerenciamentoSafra} options={{ headerShown: false }} />
+          <Stack.Screen name="GerenciamentoInsumos" component={GerenciamentoInsumos} options={{ headerShown: false }} />
+          <Stack.Screen name="GerenciamentoInsumos2" component={GerenciamentoInsumos2} options={{ headerShown: false }} />
+          <Stack.Screen name="NovoInsumo" component={NovoInsumo} options={{ headerShown: false }} />
 
         </Stack.Navigator>
       </NavigationContainer>
