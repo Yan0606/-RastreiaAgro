@@ -9,14 +9,14 @@ import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
 
 const NovoInsumo = ({ navigation }) => {
-    const Gerenciamento = () => {
-        navigation.navigate('Gerenciamento');
+    const GerenciamentoInsumos = () => {
+        navigation.navigate('GerenciamentoInsumos');
     };
 
     return (
         <PaperProvider>
             <View style={styles.container}>
-                <BtnVoltar route={Gerenciamento} />
+                <BtnVoltar route={GerenciamentoInsumos} />
 
                 <Image source={logo} style={styles.image} />
 
