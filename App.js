@@ -25,6 +25,11 @@ import GerenciamentoSafra from './src/screens/safra/gerenciamentoSafra';
 import GerenciamentoInsumos from './src/screens/insumos/gerenciamentoInsumos';
 import GerenciamentoInsumos2 from './src/screens/insumos/gerenciamentoInsumos2';
 import NovoInsumo from './src/screens/insumos/novoInsumo';
+import GerenciamentoCultura from './src/screens/cultura/gerenciamentoCultura';
+import GerenciamentoCultura2 from './src/screens/cultura/gerenciamentoCultura2';
+import NovaCultura from './src/screens/cultura/novaCultura';
+import GerenciamentoCaderno from './src/screens/caderno/gerenciamentoCaderno';
+import GerenciamentoCaderno2 from './src/screens/caderno/gerenciamentoCaderno2';
 
 const Stack = createNativeStackNavigator();
 
@@ -56,6 +61,11 @@ export default function App() {
           <Stack.Screen name="GerenciamentoInsumos" component={GerenciamentoInsumos} options={{ headerShown: false }} />
           <Stack.Screen name="GerenciamentoInsumos2" component={GerenciamentoInsumos2} options={{ headerShown: false }} />
           <Stack.Screen name="NovoInsumo" component={NovoInsumo} options={{ headerShown: false }} />
+          <Stack.Screen name="GerenciamentoCultura" component={GerenciamentoCultura} options={{ headerShown: false }} />
+          <Stack.Screen name="GerenciamentoCultura2" component={GerenciamentoCultura2} options={{ headerShown: false }} />
+          <Stack.Screen name="NovaCultura" component={NovaCultura} options={{ headerShown: false }} />
+          <Stack.Screen name="GerenciamentoCaderno" component={GerenciamentoCaderno} options={{ headerShown: false }} />
+          <Stack.Screen name="GerenciamentoCaderno2" component={GerenciamentoCaderno2} options={{ headerShown: false }} />
 
         </Stack.Navigator>
       </NavigationContainer>
