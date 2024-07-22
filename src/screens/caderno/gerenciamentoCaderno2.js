@@ -1,22 +1,29 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
-import { Button, Card, Text, IconButton } from 'react-native-paper';
+import { Card, Text } from 'react-native-paper';
 import logo from '../../assets/images/logoCaderno.png';
 import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
+import DataSafra from '../../components/dataSafra';
+import RegistroPraticas from './registroPraticas';
 
-export default function GerenciamentoCaderno2({ navigation }) {
+
+const GerenciamentoCaderno2 = ({ navigation }) => {
+    const RegistroPraticas = () => {
+        navigation.navigate('RegistroPraticas');
+    };
+    
     return (
         <View style={styles.container}>
             <BtnVoltar route="GerenciamentoCaderno" />
             <Image source={logo} style={styles.image} />
             <Text style={styles.title}>Detalhes da safra</Text>
-            <Text style={styles.subtitle}>Safra 1 - Início: 26/04/24 - Fim: 02/12/24</Text>
+            <DataSafra/>
             <Card style={styles.card}>
                 <Card.Content>
                     <Text>Talhão 1: Milho</Text>
-                    <Btn label="ABRIR"/>
+                    <Btn label="ABRIR" onPress={RegistroPraticas}/>
                 </Card.Content>
             </Card>
             <Card style={styles.card}>
@@ -74,3 +81,5 @@ const styles = StyleSheet.create({
         marginTop: 8,
     },
 });
+
+export default GerenciamentoCaderno2;
