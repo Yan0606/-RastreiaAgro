@@ -48,9 +48,11 @@ const styles = StyleSheet.create({
   },
   h1: {
     marginTop: 50,
+    color:'#fff'
   },
   h2: {
     marginVertical: 10,
+    color:'#fff'
   },
 });
 

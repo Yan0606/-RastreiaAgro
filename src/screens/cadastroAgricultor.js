@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     h2: {
         marginTop: 20,
         marginBottom: 20,
+        color:'#fff',
     },
 });
 
