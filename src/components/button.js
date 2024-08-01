@@ -2,12 +2,12 @@ import React from 'react';
 import { Button } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
 
-const Btn = ({ label, onPress, backgroundColor }) => {
+const Btn = ({ label, onPress, backgroundColor, width }) => {
   return (
     <Button 
       mode="contained" 
       onPress={onPress} 
-      style={[styles.button, { backgroundColor: backgroundColor || '#009846' }]}
+      style={[styles.button, { backgroundColor: backgroundColor || '#009846', width: width || '90%' }]}
     >
       {label || 'ENTRAR'}
     </Button>
@@ -16,7 +16,6 @@ const Btn = ({ label, onPress, backgroundColor }) => {
 
 const styles = StyleSheet.create({
   button: {
-    width: '90%',
     marginTop: 15,
   },
 });

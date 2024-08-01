@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Image, ScrollView, KeyboardAvoidingView, Platform, Modal, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Image, ScrollView, KeyboardAvoidingView, Platform, Modal, TouchableOpacity, TextInput } from 'react-native';
 import { Text, IconButton, Searchbar } from 'react-native-paper';
 import logo from '../../assets/images/logoCaderno.png';
 import BtnVoltar from '../../components/btnVoltar';
 import DataSafra from '../../components/dataSafra';
 import InfoTalhao from '../../components/infoTalhao';
 import BlockRegistro from '../../components/blockRegistro';
-import PersonagemComBalao from '../../components/PersonagemComBalao'; // Importe o componente aqui
+import PersonagemComBalao from '../../components/PersonagemComBalao';
+import Btn from '../../components/button';
+
 
 const registros = [
     { data: '25/04/2023', pratica: 'Irrigação' },
@@ -21,6 +23,7 @@ export default function RegistroPraticas({ navigation }) {
     const [filteredRegistros, setFilteredRegistros] = useState(registros);
     const [searchBarFocused, setSearchBarFocused] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
+    const [modalNovaAtividadeVisible, setModalNovaAtividadeVisible] = useState(false); // Novo estado para o modal de nova atividade
     const [message, setMessage] = useState('Tem certeza que deseja encerrar a Safra?');
 
     const onChangeSearch = (query) => {
@@ -47,6 +50,14 @@ export default function RegistroPraticas({ navigation }) {
         setMessage('Tem certeza que deseja encerrar a Safra?');
     };
 
+    const onNovaAtividade = () => {
+        setModalNovaAtividadeVisible(true);
+    };
+
+    const closeModalNovaAtividade = () => {
+        setModalNovaAtividadeVisible(false);
+    };
+
     useEffect(() => {
         if (message === 'Safra encerrada com sucesso') {
             setTimeout(() => {
@@ -70,15 +81,14 @@ export default function RegistroPraticas({ navigation }) {
                         <DataSafra />
                         <InfoTalhao />
                         <View style={styles.talhao}>
-                            <View style={styles.actionButton}>
+                            <TouchableOpacity style={styles.actionButton} onPress={onNovaAtividade}>
                                 <IconButton
                                     icon="plus-thick"
                                     iconColor="white"
                                     size={20}
-                                    onPress={() => onEdit(talhao.id)}
                                 />
                                 <Text style={styles.actionButtonText}>Nova Atividade</Text>
-                            </View>
+                            </TouchableOpacity>
 
                             <TouchableOpacity style={styles.actionButton2} onPress={onEncerrarSafra}>
                                 <IconButton
@@ -114,6 +124,27 @@ export default function RegistroPraticas({ navigation }) {
                     <TouchableOpacity onPress={onEncerrarSafra}>
                         <PersonagemComBalao texto={message} />
                     </TouchableOpacity>
+                </View>
+            </Modal>
+            {/* Modal para Nova Atividade */}
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalNovaAtividadeVisible}
+                onRequestClose={closeModalNovaAtividade}
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.modalContent}>
+                        {/* Conteúdo da nova atividade */}
+                        <Text style={styles.modalTitle}>Cadastro de Prática Agrícola</Text>
+                        <View style={styles.inputEditar}>
+                            <TextInput placeholder="Tipo de Irrigação" style={styles.inputW} />
+                            <Btn label="Editar" backgroundColor="#D88B30" width={"30%"}></Btn>
+                        </View>
+                        <TextInput placeholder="Outra atividade" style={styles.input} />
+                        <TextInput placeholder="Quantidade (se houver)" style={styles.input} />
+                        <Btn label={"Cadastrar"} onPress={closeModalNovaAtividade}></Btn>
+                    </View>
                 </View>
             </Modal>
         </KeyboardAvoidingView>
@@ -190,6 +221,53 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'rgba(0, 0, 0, 0.8)',
         justifyContent: 'flex-end',
+        alignItems: 'center',
     },
-
+    modalContent: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderTopLeftRadius:40,
+        width: '100%',
+        alignItems: 'center',
+    },
+    modalTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        color:'#009846'
+    },
+    input: {
+        width: '100%',
+        padding: 10,
+        marginVertical: 10,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        borderRadius: 5,
+    },
+    inputW: {
+        width: '67%',
+        padding: 10,
+        marginVertical: 10,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        borderRadius: 5,
+        marginRight: 8,
+    },
+    inputEditar:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginVertical: 5,
+    },
+    button: {
+        marginTop: 10,
+        backgroundColor: '#009846',
+        padding: 10,
+        borderRadius: 5,
+        alignItems: 'center',
+    },
+    buttonText: {
+        color: 'white',
+        fontWeight: 'bold',
+    },
 });
