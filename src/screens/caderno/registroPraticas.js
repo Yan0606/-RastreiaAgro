@@ -24,6 +24,8 @@ export default function RegistroPraticas({ navigation }) {
     const [searchBarFocused, setSearchBarFocused] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [modalNovaAtividadeVisible, setModalNovaAtividadeVisible] = useState(false); // Novo estado para o modal de nova atividade
+    const [modalEditarAtividadeVisible, setModalEditarAtividadeVisible] = useState(false); // Novo estado para o modal de nova atividade
+
     const [message, setMessage] = useState('Tem certeza que deseja encerrar a Safra?');
 
     const onChangeSearch = (query) => {
@@ -56,6 +58,14 @@ export default function RegistroPraticas({ navigation }) {
 
     const closeModalNovaAtividade = () => {
         setModalNovaAtividadeVisible(false);
+    };
+
+    const onEditarAtividade = () => {
+        setModalEditarAtividadeVisible(true);
+    };
+
+    const closeModalEditarAtividade = () => {
+        setModalEditarAtividadeVisible(false);
     };
 
     useEffect(() => {
@@ -139,11 +149,34 @@ export default function RegistroPraticas({ navigation }) {
                         <Text style={styles.modalTitle}>Cadastro de Prática Agrícola</Text>
                         <View style={styles.inputEditar}>
                             <TextInput placeholder="Tipo de Irrigação" style={styles.inputW} />
-                            <Btn label="Editar" backgroundColor="#D88B30" width={"30%"}></Btn>
+                            <Btn label="Editar" backgroundColor="#D88B30" width={"30%"} onPress={onEditarAtividade}></Btn>
                         </View>
                         <TextInput placeholder="Outra atividade" style={styles.input} />
                         <TextInput placeholder="Quantidade (se houver)" style={styles.input} />
                         <Btn label={"Cadastrar"} onPress={closeModalNovaAtividade}></Btn>
+                    </View>
+                </View>
+            </Modal>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalEditarAtividadeVisible}
+                onRequestClose={closeModalEditarAtividade}
+            >
+
+                <View style={styles.modalOverlay}>
+                    <View style={styles.modalContent}>
+                        {/* Conteúdo da nova atividade */}
+                        <TouchableOpacity
+                            style={styles.modalCloseButton}
+                            onPress={closeModalEditarAtividade}
+                        >
+                            <Text style={{ fontSize: 34, color: '#FF0000' }}>✕</Text>
+                        </TouchableOpacity>
+                        <TextInput placeholder="Talhão selecionado" style={styles.input} />
+                        <TextInput placeholder="Culturas" style={styles.input} />   
+                        <TextInput placeholder="Tipo de Irrigação" style={styles.input} />
+                        <Btn label="Editar" backgroundColor="#D88B30" width={"30%"} onPress={onEditarAtividade}></Btn>
                     </View>
                 </View>
             </Modal>
@@ -226,15 +259,18 @@ const styles = StyleSheet.create({
     modalContent: {
         backgroundColor: 'white',
         padding: 20,
-        borderTopLeftRadius:40,
+        borderTopLeftRadius: 40,
         width: '100%',
         alignItems: 'center',
+    },
+    modalCloseButton: {
+        alignSelf: 'flex-end',
     },
     modalTitle: {
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 10,
-        color:'#009846'
+        color: '#009846'
     },
     input: {
         width: '100%',
@@ -253,7 +289,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginRight: 8,
     },
-    inputEditar:{
+    inputEditar: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
