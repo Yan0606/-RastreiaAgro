@@ -25,6 +25,7 @@ export default function RegistroPraticas({ navigation }) {
     const [modalNovaAtividadeVisible, setModalNovaAtividadeVisible] = useState(false);
     const [modalEditarAtividadeVisible, setModalEditarAtividadeVisible] = useState(false);
     const [modalPersonagemVisible, setModalPersonagemVisible] = useState(false); // Estado para o personagem
+    const [modalEdicaoConfirmada, setModalEdicaoConfirmada] = useState(false);
 
     const [message, setMessage] = useState('Tem certeza que deseja encerrar a Safra?');
 
@@ -70,6 +71,15 @@ export default function RegistroPraticas({ navigation }) {
 
     const onEditarConfirmacao = () => {
         setModalPersonagemVisible(true);
+    };
+
+
+    const onEdicaoConfirmada = () => {
+        setModalEdicaoConfirmada(true);
+    };
+
+    const closeModalEdicaoConfirmada = () => {
+        setModalEdicaoConfirmada(false);
     };
 
     const closeModalPersonagem = () => {
@@ -191,7 +201,20 @@ export default function RegistroPraticas({ navigation }) {
                 onRequestClose={closeModalPersonagem}
             >
                 <View style={styles.modalOverlay}>
+                <Btn style={styles.btnEntrar} label="Editar" backgroundColor="#D88B30" width={"40%"} onPress={onEdicaoConfirmada} />
                     <PersonagemComBalao texto="Tem certeza que deseja editar o tipo de irrigação do talhão 1?" />
+                </View>
+            </Modal>
+
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalEdicaoConfirmada}
+                onRequestClose={closeModalEdicaoConfirmada}
+            >
+                <View style={styles.modalOverlay}>
+                <Btn style={styles.btnEntrar} label="Continuar" backgroundColor="#009846" width={"40%"} onPress={closeModalEdicaoConfirmada} />
+                    <PersonagemComBalao texto="Tipo de irrigação do talhão 1 alterado com sucesso para Aspersão  " />
                 </View>
             </Modal>
         </KeyboardAvoidingView>
