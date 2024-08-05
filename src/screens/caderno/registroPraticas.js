@@ -9,7 +9,6 @@ import BlockRegistro from '../../components/blockRegistro';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
 import Btn from '../../components/button';
 
-
 const registros = [
     { data: '25/04/2023', pratica: 'Irrigação' },
     { data: '23/04/2023', pratica: 'Adubação' },
@@ -23,8 +22,9 @@ export default function RegistroPraticas({ navigation }) {
     const [filteredRegistros, setFilteredRegistros] = useState(registros);
     const [searchBarFocused, setSearchBarFocused] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
-    const [modalNovaAtividadeVisible, setModalNovaAtividadeVisible] = useState(false); // Novo estado para o modal de nova atividade
-    const [modalEditarAtividadeVisible, setModalEditarAtividadeVisible] = useState(false); // Novo estado para o modal de nova atividade
+    const [modalNovaAtividadeVisible, setModalNovaAtividadeVisible] = useState(false);
+    const [modalEditarAtividadeVisible, setModalEditarAtividadeVisible] = useState(false);
+    const [modalPersonagemVisible, setModalPersonagemVisible] = useState(false); // Estado para o personagem
 
     const [message, setMessage] = useState('Tem certeza que deseja encerrar a Safra?');
 
@@ -68,12 +68,20 @@ export default function RegistroPraticas({ navigation }) {
         setModalEditarAtividadeVisible(false);
     };
 
+    const onEditarConfirmacao = () => {
+        setModalPersonagemVisible(true);
+    };
+
+    const closeModalPersonagem = () => {
+        setModalPersonagemVisible(false);
+    };
+
     useEffect(() => {
         if (message === 'Safra encerrada com sucesso') {
             setTimeout(() => {
                 navigation.navigate('GerenciamentoCaderno');
                 closeModal();
-            }, 2000); //2 segundos para navegar a página
+            }, 2000); // 2 segundos para navegar para a próxima página
         }
     }, [message, navigation]);
 
@@ -136,7 +144,6 @@ export default function RegistroPraticas({ navigation }) {
                     </TouchableOpacity>
                 </View>
             </Modal>
-            {/* Modal para Nova Atividade */}
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -145,15 +152,14 @@ export default function RegistroPraticas({ navigation }) {
             >
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
-                        {/* Conteúdo da nova atividade */}
                         <Text style={styles.modalTitle}>Cadastro de Prática Agrícola</Text>
                         <View style={styles.inputEditar}>
                             <TextInput placeholder="Tipo de Irrigação" style={styles.inputW} />
-                            <Btn label="Editar" backgroundColor="#D88B30" width={"30%"} onPress={onEditarAtividade}></Btn>
+                            <Btn label="Editar" backgroundColor="#D88B30" width={"30%"} onPress={onEditarAtividade} />
                         </View>
                         <TextInput placeholder="Outra atividade" style={styles.input} />
                         <TextInput placeholder="Quantidade (se houver)" style={styles.input} />
-                        <Btn label={"Cadastrar"} onPress={closeModalNovaAtividade}></Btn>
+                        <Btn label="Cadastrar" onPress={closeModalNovaAtividade} />
                     </View>
                 </View>
             </Modal>
@@ -163,10 +169,8 @@ export default function RegistroPraticas({ navigation }) {
                 visible={modalEditarAtividadeVisible}
                 onRequestClose={closeModalEditarAtividade}
             >
-
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
-                        {/* Conteúdo da nova atividade */}
                         <TouchableOpacity
                             style={styles.modalCloseButton}
                             onPress={closeModalEditarAtividade}
@@ -174,10 +178,20 @@ export default function RegistroPraticas({ navigation }) {
                             <Text style={{ fontSize: 34, color: '#FF0000' }}>✕</Text>
                         </TouchableOpacity>
                         <TextInput placeholder="Talhão selecionado" style={styles.input} />
-                        <TextInput placeholder="Culturas" style={styles.input} />   
+                        <TextInput placeholder="Culturas" style={styles.input} />
                         <TextInput placeholder="Tipo de Irrigação" style={styles.input} />
-                        <Btn label="Editar" backgroundColor="#D88B30" width={"30%"} onPress={onEditarAtividade}></Btn>
+                        <Btn label="Editar" backgroundColor="#D88B30" width={"30%"} onPress={onEditarConfirmacao} />
                     </View>
+                </View>
+            </Modal>
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalPersonagemVisible}
+                onRequestClose={closeModalPersonagem}
+            >
+                <View style={styles.modalOverlay}>
+                    <PersonagemComBalao texto="Tem certeza que deseja editar o tipo de irrigação do talhão 1?" />
                 </View>
             </Modal>
         </KeyboardAvoidingView>
@@ -237,8 +251,9 @@ const styles = StyleSheet.create({
     },
     searchBar: {
         margin: 15,
-        borderRadius: 15,
-        width: '90%',
+        width: '95%',
+        backgroundColor: '#fff',
+        borderRadius: 5,
     },
     text: {
         fontSize: 16,
