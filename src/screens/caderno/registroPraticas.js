@@ -26,6 +26,8 @@ export default function RegistroPraticas({ navigation }) {
     const [modalEditarAtividadeVisible, setModalEditarAtividadeVisible] = useState(false);
     const [modalPersonagemVisible, setModalPersonagemVisible] = useState(false); // Estado para o personagem
     const [modalEdicaoConfirmada, setModalEdicaoConfirmada] = useState(false);
+    const [modalEscolherFotoVisible, setModalEscolherFotoVisible] = useState(false); // Novo estado para escolher foto
+    const [modalAdicionarFotoVisible, setModalAdicionarFotoVisible] = useState(false); // Novo estado para adicionar foto
 
     const [message, setMessage] = useState('Tem certeza que deseja encerrar a Safra?');
 
@@ -84,6 +86,28 @@ export default function RegistroPraticas({ navigation }) {
 
     const closeModalPersonagem = () => {
         setModalPersonagemVisible(false);
+    };
+
+    const closeModalEscolherFoto = () => {
+        setModalEscolherFotoVisible(false);
+    };
+
+    const closeModalAdicionarFoto = () => {
+        setModalAdicionarFotoVisible(false);
+    };
+
+    const onNaoPress = () => {
+        closeModalAdicionarFoto();
+    };
+
+    const onSimPress = () => {
+        setModalEscolherFotoVisible(true);
+        setModalAdicionarFotoVisible(false);
+    };
+
+    const onCadastrarAtividade = () => {
+        setModalAdicionarFotoVisible(true);
+        closeModalNovaAtividade();
     };
 
     useEffect(() => {
@@ -169,7 +193,7 @@ export default function RegistroPraticas({ navigation }) {
                         </View>
                         <TextInput placeholder="Outra atividade" style={styles.input} />
                         <TextInput placeholder="Quantidade (se houver)" style={styles.input} />
-                        <Btn label="Cadastrar" onPress={closeModalNovaAtividade} />
+                        <Btn label="Cadastrar" onPress={onCadastrarAtividade} />
                     </View>
                 </View>
             </Modal>
@@ -201,11 +225,10 @@ export default function RegistroPraticas({ navigation }) {
                 onRequestClose={closeModalPersonagem}
             >
                 <View style={styles.modalOverlay}>
-                <Btn style={styles.btnEntrar} label="Editar" backgroundColor="#D88B30" width={"40%"} onPress={onEdicaoConfirmada} />
                     <PersonagemComBalao texto="Tem certeza que deseja editar o tipo de irrigação do talhão 1?" />
+                    <Btn style={styles.btnEntrar} label="Editar" backgroundColor="#D88B30" width={"40%"} onPress={onEdicaoConfirmada} />
                 </View>
             </Modal>
-
             <Modal
                 animationType="fade"
                 transparent={true}
@@ -213,8 +236,32 @@ export default function RegistroPraticas({ navigation }) {
                 onRequestClose={closeModalEdicaoConfirmada}
             >
                 <View style={styles.modalOverlay}>
-                <Btn style={styles.btnEntrar} label="Continuar" backgroundColor="#009846" width={"40%"} onPress={closeModalEdicaoConfirmada} />
-                    <PersonagemComBalao texto="Tipo de irrigação do talhão 1 alterado com sucesso para Aspersão  " />
+                    <PersonagemComBalao texto="Tipo de irrigação do talhão 1 alterado com sucesso" />
+                </View>
+            </Modal>
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalAdicionarFotoVisible}
+                onRequestClose={closeModalAdicionarFoto}
+            >
+                <View style={styles.modalOverlay}>
+                    <PersonagemComBalao texto="Antes de cadastrarmos sua atividade podemos armazenar também uma foto do registro. Deseja adicionar uma foto do registro?" />
+                    <Btn style={styles.btnEntrar} label="Sim" backgroundColor="#009846" width={"40%"} onPress={onSimPress} />
+                    <Btn style={styles.btnEntrar} label="Não" backgroundColor="#009846" width={"40%"} onPress={onNaoPress} />
+                </View>
+            </Modal>
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalEscolherFotoVisible}
+                onRequestClose={closeModalEscolherFoto}
+            >
+                <View style={styles.modalOverlay}>
+                    <Btn style={styles.btnEntrar} label="Tirar foto agora" backgroundColor="#009846" width={"40%"} onPress={onSimPress} />
+                    <Btn style={styles.btnEntrar} label="Escolher" backgroundColor="#009846" width={"40%"} onPress={onNaoPress} />
+
+                    <PersonagemComBalao texto="Deseja tirar uma foto agora ou escolher uma foto da galeria?" />
                 </View>
             </Modal>
         </KeyboardAvoidingView>
@@ -343,5 +390,12 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white',
         fontWeight: 'bold',
+    },
+    btnContainer: {
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        width: '50%',
+        marginTop: 20,
     },
 });
