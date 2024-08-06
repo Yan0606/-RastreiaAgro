@@ -21,22 +21,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   balaoContainer: {
+    maxWidth: '80%', // Limita a largura máxima do balão
+    minHeight: '25%',
+    paddingHorizontal: 20, // Adiciona algum espaço ao redor do texto
+    paddingVertical: 10, // Adiciona algum espaço ao redor do texto
     position: 'relative',
-    width: 180,
-    height: 150,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 10, // Espaço entre o balão e o personagem
   },
   balaoConversa: {
+    position: 'absolute',
     width: '100%',
     height: '100%',
-    resizeMode: 'contain',
+    resizeMode: 'stretch', // Permite que a imagem estique para cobrir a área do texto
   },
   balaoText: {
-    position: 'absolute',
     color: '#009846',
     textAlign: 'center',
-    padding: 10,
+    paddingHorizontal: 0, // Espaço interno no texto
+    zIndex: 1, // Certifica-se de que o texto esteja acima do balão
   },
   personagem: {
     height: 250,
