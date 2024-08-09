@@ -55,8 +55,13 @@ Para obter o máximo de aproveitamento do RastreiaAgro, consulte a documentaçã
 
 # Licença
 
-Este projeto está licenciado sob a Licença GPL (General Public License). Você pode visualizar os detalhes da licença no arquivo LICENSE incluído no repositório. A Licença GPL permite que você modifique e redistribua o software, desde que todas as cópias derivadas também sejam licenciadas sob a GPL.
+Este projeto está licenciado sob a Licença Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0). Você pode visualizar os detalhes da licença no site Creative Commons.
 
+Resumo da Licença:
+
+Não Comercial: Você não pode usar este material para fins comerciais.
+Atribuição: Você deve dar o devido crédito ao autor original, fornecer um link para a licença e indicar se foram feitas alterações. Você pode fazê-lo de qualquer maneira razoável, mas não de forma que sugira que o licenciante endossa você ou o seu uso.
+Sem Derivações: Se você remixar, transformar ou criar a partir deste material, você não pode distribuir o material modificado.
 # Contato
 
 Para dúvidas, suporte ou sugestões, entre em contato com:
