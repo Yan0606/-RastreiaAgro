@@ -55,15 +55,20 @@ Para obter o máximo de aproveitamento do RastreiaAgro, consulte a documentaçã
 
 # Licença
 
-Este projeto está licenciado sob a Licença Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0). Você pode visualizar os detalhes da licença no site Creative Commons.
+## Licença
 
-Resumo da Licença:
+Este projeto está licenciado sob a Licença Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0).
 
-Não Comercial: Você não pode usar este material para fins comerciais.
+**Resumo da Licença:**
 
-Atribuição: Você deve dar o devido crédito ao autor original, fornecer um link para a licença e indicar se foram feitas alterações. Você pode fazê-lo de qualquer maneira razoável, mas não de forma que sugira que o licenciante endossa você ou o seu uso.
+- **Não Comercial**: Você não pode usar este material para fins comerciais.
 
-Sem Derivações: Se você remixar, transformar ou criar a partir deste material, você não pode distribuir o material modificado.
+- **Atribuição**: Você deve dar o devido crédito ao autor original, fornecer um link para a licença e indicar se foram feitas alterações. Você pode fazê-lo de qualquer maneira razoável, mas não de forma que sugira que o licenciante endossa você ou o seu uso.
+
+- **Sem Derivações**: Se você remixar, transformar ou criar a partir deste material, você não pode distribuir o material modificado.
+
+Para mais informações sobre a licença, visite [Creative Commons](https://creativecommons.org/licenses/by-nc/4.0/).
+
 
 # Contato
 
