@@ -47,7 +47,9 @@ Após iniciar o servidor, você pode acessar a aplicação no navegador. O ender
 Dentro da aplicação, você encontrará as seguintes funcionalidades principais:
 
 Cadastro de Itens: Permite registrar novos itens e informações relacionadas ao setor agropecuário.
+
 Gerenciamento de Inventário: Oferece uma visão geral dos itens cadastrados e facilita a atualização de informações.
+
 Rastreamento e Relatórios: Fornece ferramentas para monitorar o status dos itens e gerar relatórios detalhados.
 Para obter o máximo de aproveitamento do RastreiaAgro, consulte a documentação da aplicação e explore as funcionalidades disponíveis.
 
