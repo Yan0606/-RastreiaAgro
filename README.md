@@ -55,8 +55,6 @@ Para obter o máximo de aproveitamento do RastreiaAgro, consulte a documentaçã
 
 # Licença
 
-## Licença
-
 Este projeto está licenciado sob a Licença Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0).
 
 **Resumo da Licença:**
