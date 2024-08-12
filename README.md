@@ -72,7 +72,7 @@ Para mais informações sobre a licença, visite [Creative Commons](https://crea
 
 Para dúvidas, suporte ou sugestões, entre em contato com:
 
-# E-mail: yan@gmail.com
+# E-mail: yan060604@gmail.com
 
 Fique à vontade para enviar e-mails para obter ajuda com problemas, relatar bugs ou discutir melhorias para o projeto.
 
