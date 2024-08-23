@@ -30,6 +30,7 @@ import NovaCultura from './src/screens/cultura/novaCultura';
 import GerenciamentoCaderno from './src/screens/caderno/gerenciamentoCaderno';
 import GerenciamentoCaderno2 from './src/screens/caderno/gerenciamentoCaderno2';
 import RegistroPraticas from './src/screens/caderno/registroPraticas';
+import Qrcodescreen from './src/screens/qrcodescreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -66,6 +67,8 @@ export default function App() {
           <Stack.Screen name="GerenciamentoCaderno" component={GerenciamentoCaderno} options={{ headerShown: false }} />
           <Stack.Screen name="GerenciamentoCaderno2" component={GerenciamentoCaderno2} options={{ headerShown: false }} />
           <Stack.Screen name="RegistroPraticas" component={RegistroPraticas} options={{ headerShown: false }} />
+          <Stack.Screen name="Qrcodescreen" component={Qrcodescreen} options={{ headerShown: false }} />
+
 
         </Stack.Navigator>
       </NavigationContainer>

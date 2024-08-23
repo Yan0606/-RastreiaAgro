@@ -7,6 +7,7 @@ import cultura from '../assets/images/cultura.png';
 import talhoes from '../assets/images/talhoes.png';
 import maquinas from '../assets/images/maquinas.png';
 import insumos from '../assets/images/insumos.png';
+import Qrcodescreen from './qrcodescreen';
 
 const MenuConfig = () => {
     const [modalVisible, setModalVisible] = useState(true);
@@ -27,6 +28,9 @@ const MenuConfig = () => {
 
     const EditarPropriedade = () => {
         navigation.navigate('EditarPropriedade');
+    }
+    const Qrcodescreen = () => {
+        navigation.navigate('Qrcodescreen');
     }
 
     return (
@@ -50,7 +54,7 @@ const MenuConfig = () => {
                                 <TouchableOpacity style={styles.button} onPress={() => { EditarPropriedade() }}>
                                     <Text style={styles.text}>Editar propriedade</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.button} onPress={() => { /* Ver QR Code */ }}>
+                                <TouchableOpacity style={styles.button} onPress={() => { Qrcodescreen() }}>
                                     <Text style={styles.text}>Ver Qr Code</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.button, styles.logoutButton]} onPress={() => { FirstScreen() }}>
