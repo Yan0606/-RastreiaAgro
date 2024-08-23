@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, View, Text, Image, TouchableOpacity, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import safra from '../assets/images/safra.png';
@@ -7,29 +7,39 @@ import cultura from '../assets/images/cultura.png';
 import talhoes from '../assets/images/talhoes.png';
 import maquinas from '../assets/images/maquinas.png';
 import insumos from '../assets/images/insumos.png';
-import Qrcodescreen from './qrcodescreen';
 
 const MenuConfig = () => {
     const [modalVisible, setModalVisible] = useState(true);
-
     const navigation = useNavigation();
-    
+
+    useEffect(() => {
+        return () => {
+            setModalVisible(false);  // Fecha o modal ao desmontar o componente
+        };
+    }, []);
+
     const Menu = () => {
+        setModalVisible(false);
         navigation.navigate('Menu');
     }
 
     const FirstScreen = () => {
+        setModalVisible(false);
         navigation.navigate('FirstScreen');
     }
 
     const EditarPerfil = () => {
+        setModalVisible(false);
         navigation.navigate('EditarPerfil');
     }
 
     const EditarPropriedade = () => {
+        setModalVisible(false);
         navigation.navigate('EditarPropriedade');
     }
+
     const Qrcodescreen = () => {
+        setModalVisible(false);
         navigation.navigate('Qrcodescreen');
     }
 
@@ -41,23 +51,23 @@ const MenuConfig = () => {
                 visible={modalVisible}
                 onRequestClose={() => setModalVisible(false)}
             >
-                <TouchableWithoutFeedback onPress={() => { Menu() }}>
+                <TouchableWithoutFeedback onPress={Menu}>
                     <View style={styles.overlay}>
                         <TouchableWithoutFeedback>
                             <View style={styles.modalView}>
-                                <TouchableOpacity style={styles.closeButton} onPress={() => { Menu() }}>
+                                <TouchableOpacity style={styles.closeButton} onPress={Menu}>
                                     <Text style={styles.closeButtonText}>X</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.button} onPress={() => { EditarPerfil() }}>
+                                <TouchableOpacity style={styles.button} onPress={EditarPerfil}>
                                     <Text style={styles.text}>Editar perfil</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.button} onPress={() => { EditarPropriedade() }}>
+                                <TouchableOpacity style={styles.button} onPress={EditarPropriedade}>
                                     <Text style={styles.text}>Editar propriedade</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.button} onPress={() => { Qrcodescreen() }}>
+                                <TouchableOpacity style={styles.button} onPress={Qrcodescreen}>
                                     <Text style={styles.text}>Ver Qr Code</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={[styles.button, styles.logoutButton]} onPress={() => { FirstScreen() }}>
+                                <TouchableOpacity style={[styles.button, styles.logoutButton]} onPress={FirstScreen}>
                                     <Text style={[styles.text, styles.logoutText]}>Sair da minha conta</Text>
                                 </TouchableOpacity>
                             </View>
@@ -67,44 +77,31 @@ const MenuConfig = () => {
             </Modal>
             <View style={styles.gridContainer}>
                 <View style={styles.gridItem}>
-                    <Image style={styles.icon}
-                        source={safra}>
-                    </Image>
+                    <Image style={styles.icon} source={safra} />
                     <Text style={styles.gridText}>Safra</Text>
                 </View>
                 <View style={styles.gridItem}>
-                    <Image style={styles.icon}
-                        source={caderno}>
-                    </Image>
+                    <Image style={styles.icon} source={caderno} />
                     <Text style={styles.gridText}>Caderno</Text>
                 </View>
                 <View style={styles.gridItem}>
-                    <Image style={styles.icon}
-                        source={cultura}>
-                    </Image>
+                    <Image style={styles.icon} source={cultura} />
                     <Text style={styles.gridText}>Cultura</Text>
                 </View>
                 <View style={styles.gridItem}>
-                    <Image style={styles.icon}
-                        source={talhoes}>
-                    </Image>
+                    <Image style={styles.icon} source={talhoes} />
                     <Text style={styles.gridText}>Talhões</Text>
                 </View>
                 <View style={styles.gridItem}>
-                    <Image style={styles.icon}
-                        source={maquinas}>
-                    </Image>
+                    <Image style={styles.icon} source={maquinas} />
                     <Text style={styles.gridText}>Máquinas</Text>
                 </View>
                 <View style={styles.gridItem}>
-                    <Image style={styles.icon}
-                        source={insumos}>
-                    </Image>
+                    <Image style={styles.icon} source={insumos} />
                     <Text style={styles.gridText}>Insumos</Text>
                 </View>
             </View>
         </View>
-
     );
 };
 
@@ -156,15 +153,11 @@ const styles = StyleSheet.create({
     logoutText: {
         color: 'red',
     },
-
-
     gridContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
         marginTop: '40%',
-
-
     },
     gridItem: {
         width: 150,
@@ -176,7 +169,6 @@ const styles = StyleSheet.create({
         margin: 5,
         borderRadius: 10,
         border: 'solid',
-
     },
     gridText: {
         fontSize: 16,
