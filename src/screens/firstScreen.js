@@ -26,7 +26,7 @@ const FirstScreen = () => {
         <Btn onPress={handleLogin}/>
         
         <Text variant="titleSmall" style={styles.h2}>Sou novo, ainda não tenho cadastro</Text>
-        <Btn label="Cadastrar-se" onPress={handleCadastroAgricultor} />
+        <Btn label="CADASTRAR-SE" onPress={handleCadastroAgricultor} />
         <PersonagemComBalao texto="Selecione qual opção você se encaixa" />
       </View>
     </PaperProvider>

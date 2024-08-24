@@ -15,7 +15,6 @@ const ScrollVieww = ({ talhoes, onEdit, onDelete }) => {
                             size={20}
                             onPress={() => onEdit(talhao.id)}
                         />
-                        <Text style={styles.actionButtonText}>Editar</Text>
                     </View>
                     <View style={styles.actionButton2}>
                         <IconButton
@@ -24,7 +23,6 @@ const ScrollVieww = ({ talhoes, onEdit, onDelete }) => {
                             size={20}
                             onPress={() => onDelete(talhao.id)}
                         />
-                        <Text style={styles.actionButtonText}>Excluir</Text>
                     </View>
                 </View>
             ))}
