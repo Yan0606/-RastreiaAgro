@@ -31,6 +31,7 @@ import GerenciamentoCaderno from './src/screens/caderno/gerenciamentoCaderno';
 import GerenciamentoCaderno2 from './src/screens/caderno/gerenciamentoCaderno2';
 import RegistroPraticas from './src/screens/caderno/registroPraticas';
 import Qrcodescreen from './src/screens/qrcodescreen';
+import TimelineScreen from './src/screens/TimelineScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -68,6 +69,7 @@ export default function App() {
           <Stack.Screen name="GerenciamentoCaderno2" component={GerenciamentoCaderno2} options={{ headerShown: false }} />
           <Stack.Screen name="RegistroPraticas" component={RegistroPraticas} options={{ headerShown: false }} />
           <Stack.Screen name="Qrcodescreen" component={Qrcodescreen} options={{ headerShown: false }} />
+          <Stack.Screen name="TimelineScreen" component={TimelineScreen} options={{ headerShown: false }} />
 
 
         </Stack.Navigator>

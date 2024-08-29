@@ -22,6 +22,10 @@ const MenuConfig = () => {
         setModalVisible(false);
         navigation.navigate('Menu');
     }
+    const TimelineScreen = () => {
+        setModalVisible(false);
+        navigation.navigate('TimelineScreen');
+    }
 
     const FirstScreen = () => {
         setModalVisible(false);
@@ -42,6 +46,7 @@ const MenuConfig = () => {
         setModalVisible(false);
         navigation.navigate('Qrcodescreen');
     }
+   
 
     return (
         <View style={styles.container}>
@@ -67,6 +72,10 @@ const MenuConfig = () => {
                                 <TouchableOpacity style={styles.button} onPress={Qrcodescreen}>
                                     <Text style={styles.text}>Ver Qr Code</Text>
                                 </TouchableOpacity>
+                                <TouchableOpacity style={styles.button} onPress={TimelineScreen}>
+                                    <Text style={styles.text}>Ver linha do tempo</Text>
+                                </TouchableOpacity>
+                                
                                 <TouchableOpacity style={[styles.button, styles.logoutButton]} onPress={FirstScreen}>
                                     <Text style={[styles.text, styles.logoutText]}>Sair da minha conta</Text>
                                 </TouchableOpacity>
