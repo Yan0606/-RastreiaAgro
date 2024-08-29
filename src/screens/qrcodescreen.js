@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import Button from '../components/button';
-import InputIcon from '../components/inputIcon';
+// import InputIcon from '../components/inputIcon';
 import BtnVoltar from '../components/btnVoltar';
 const Qrcodescreen = () => {
     return (
         
         <View style={styles.container}>
-             <BtnVoltar route="FirstScreen" />
-             <InputIcon />
+             <BtnVoltar route="Menu" />
+             {/* <InputIcon /> */}
             <Text style={styles.scanText}>Scan QR code</Text>
             <Image source={require('../assets/images/qrcode.png')} style={styles.qrCode} />
             <Button label="BAIXAR"></Button>
