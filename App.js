@@ -21,6 +21,7 @@ import GerenciamentoMaquina from './src/screens/maquinas/gerenciamentoMaquina';
 import GerenciamentoMaquina2 from './src/screens/maquinas/gerenciamentoMaquina2';
 import EditarMaquina from './src/screens/maquinas/editarMaquina';
 import NovaMaquina from './src/screens/maquinas/novaMaquina';
+import ExcluirMaquina from './src/screens/maquinas/excluirMaquina';
 import GerenciamentoInsumos from './src/screens/insumos/gerenciamentoInsumos';
 import GerenciamentoInsumos2 from './src/screens/insumos/gerenciamentoInsumos2';
 import NovoInsumo from './src/screens/insumos/novoInsumo';
@@ -30,6 +31,12 @@ import NovaCultura from './src/screens/cultura/novaCultura';
 import GerenciamentoCaderno from './src/screens/caderno/gerenciamentoCaderno';
 import GerenciamentoCaderno2 from './src/screens/caderno/gerenciamentoCaderno2';
 import RegistroPraticas from './src/screens/caderno/registroPraticas';
+import GerenciamentoSafra from './src/screens/safra/gerenciamentoSafra';
+import GerenciamentoSafra2 from './src/screens/safra/gerenciamentoSafra2';
+import NovaSafra from './src/screens/safra/novaSafra';
+import EditarSafra from './src/screens/safra/editarSafra';
+import ExcluirSafra from './src/screens/safra/excluirSafra';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -54,9 +61,11 @@ export default function App() {
           <Stack.Screen name="NovoTalhao" component={NovoTalhao} options={{ headerShown: false }} />
           <Stack.Screen name="ConfirmaNovoTalhao" component={ConfirmaNovoTalhao} options={{ headerShown: false }} />
           <Stack.Screen name="GerenciamentoMaquina" component={GerenciamentoMaquina} options={{ headerShown: false }} />
+          
           <Stack.Screen name="GerenciamentoMaquina2" component={GerenciamentoMaquina2} options={{ headerShown: false }} />
           <Stack.Screen name="EditarMaquina" component={EditarMaquina} options={{ headerShown: false }} />
           <Stack.Screen name="NovaMaquina" component={NovaMaquina} options={{ headerShown: false }} />
+          <Stack.Screen name="ExcluirMaquina" component={ExcluirMaquina} options={{ headerShown: false }} />
           <Stack.Screen name="GerenciamentoInsumos" component={GerenciamentoInsumos} options={{ headerShown: false }} />
           <Stack.Screen name="GerenciamentoInsumos2" component={GerenciamentoInsumos2} options={{ headerShown: false }} />
           <Stack.Screen name="NovoInsumo" component={NovoInsumo} options={{ headerShown: false }} />
@@ -66,6 +75,15 @@ export default function App() {
           <Stack.Screen name="GerenciamentoCaderno" component={GerenciamentoCaderno} options={{ headerShown: false }} />
           <Stack.Screen name="GerenciamentoCaderno2" component={GerenciamentoCaderno2} options={{ headerShown: false }} />
           <Stack.Screen name="RegistroPraticas" component={RegistroPraticas} options={{ headerShown: false }} />
+          <Stack.Screen name="GerenciamentoSafra" component={GerenciamentoSafra} options={{ headerShown: false }} />
+          <Stack.Screen name="GerenciamentoSafra2" component={GerenciamentoSafra2} options={{ headerShown: false }} />
+          <Stack.Screen name="NovaSafra" component={NovaSafra} options={{ headerShown: false }} />
+          <Stack.Screen name="EditarSafra" component={EditarSafra} options={{ headerShown: false }} />
+          <Stack.Screen name="ExcluirSafra" component={ExcluirSafra} options={{ headerShown: false }} />
+
+
+
+
 
         </Stack.Navigator>
       </NavigationContainer>

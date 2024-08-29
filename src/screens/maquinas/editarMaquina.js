@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View,Image, StyleSheet } from 'react-native';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
+import logo from '../../assets/images/logoMaquina.png';
+
 import TextInputComponent from '../../components/input';
 import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
@@ -10,12 +12,13 @@ const EditarMaquina = ({ navigation }) => {
     const handleGerenciamentoMaquina2 = () => {
         navigation.navigate('GerenciamentoMaquina2');
     };
-    const [selectedDate, setSelectedDate] = useState('');
     
     return (
         <PaperProvider>
             <View style={styles.container}>
                 <BtnVoltar route="GerenciamentoMaquina2" />
+                <Image source={logo} style={styles.image} />
+
                 <Text variant="titleMedium" style={styles.h2}>
                     Editar Trator
                 </Text>
