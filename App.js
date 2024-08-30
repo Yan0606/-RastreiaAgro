@@ -25,6 +25,8 @@ import ExcluirMaquina from './src/screens/maquinas/excluirMaquina';
 import GerenciamentoInsumos from './src/screens/insumos/gerenciamentoInsumos';
 import GerenciamentoInsumos2 from './src/screens/insumos/gerenciamentoInsumos2';
 import NovoInsumo from './src/screens/insumos/novoInsumo';
+import EditarInsumo from './src/screens/insumos/editarInsumo';
+import ExcluirInsumo from './src/screens/insumos/excluirInsumo';
 import GerenciamentoCultura from './src/screens/cultura/gerenciamentoCultura';
 import GerenciamentoCultura2 from './src/screens/cultura/gerenciamentoCultura2';
 import NovaCultura from './src/screens/cultura/novaCultura';
@@ -61,7 +63,6 @@ export default function App() {
           <Stack.Screen name="NovoTalhao" component={NovoTalhao} options={{ headerShown: false }} />
           <Stack.Screen name="ConfirmaNovoTalhao" component={ConfirmaNovoTalhao} options={{ headerShown: false }} />
           <Stack.Screen name="GerenciamentoMaquina" component={GerenciamentoMaquina} options={{ headerShown: false }} />
-          
           <Stack.Screen name="GerenciamentoMaquina2" component={GerenciamentoMaquina2} options={{ headerShown: false }} />
           <Stack.Screen name="EditarMaquina" component={EditarMaquina} options={{ headerShown: false }} />
           <Stack.Screen name="NovaMaquina" component={NovaMaquina} options={{ headerShown: false }} />
@@ -69,6 +70,8 @@ export default function App() {
           <Stack.Screen name="GerenciamentoInsumos" component={GerenciamentoInsumos} options={{ headerShown: false }} />
           <Stack.Screen name="GerenciamentoInsumos2" component={GerenciamentoInsumos2} options={{ headerShown: false }} />
           <Stack.Screen name="NovoInsumo" component={NovoInsumo} options={{ headerShown: false }} />
+          <Stack.Screen name="EditarInsumo" component={NovoInsumo} options={{ headerShown: false }} />
+          <Stack.Screen name="ExcluirInsumo" component={NovoInsumo} options={{ headerShown: false }} />
           <Stack.Screen name="GerenciamentoCultura" component={GerenciamentoCultura} options={{ headerShown: false }} />
           <Stack.Screen name="GerenciamentoCultura2" component={GerenciamentoCultura2} options={{ headerShown: false }} />
           <Stack.Screen name="NovaCultura" component={NovaCultura} options={{ headerShown: false }} />

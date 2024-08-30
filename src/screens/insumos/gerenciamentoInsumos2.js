@@ -29,7 +29,7 @@ const GerenciamentoInsumos2 = ({ navigation }) => {
                 <Image source={logo} style={styles.image} />
 
                 <Text variant="titleLarge" style={styles.title}>
-                    Gerenciamento de Talhões
+                    Gerenciamento de Insumos
                 </Text>
 
                 <ScrollVieww
