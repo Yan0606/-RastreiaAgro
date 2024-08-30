@@ -1,4 +1,4 @@
-# RastreiaAgro
+# RastreiaAgro 🧑‍🌾
 
 O RastreiaAgro é um aplicativo inovador projetado para o cadastro e gerenciamento de itens no setor agropecuário. Este projeto visa facilitar o registro, a organização e o rastreamento de informações essenciais para o setor, promovendo uma gestão mais eficiente e informada.
 
@@ -6,39 +6,21 @@ O RastreiaAgro é um aplicativo inovador projetado para o cadastro e gerenciamen
 
 O RastreiaAgro oferece uma solução prática para os profissionais da agropecuária que precisam manter o controle sobre diversos aspectos de suas operações, desde o inventário de equipamentos até o acompanhamento de atividades e recursos. O sistema é desenvolvido com a intenção de ser intuitivo e fácil de usar, proporcionando uma interface amigável e recursos robustos para atender às necessidades do setor.
 
-# Instalação
+# Instalação 🔧
 
-Para configurar o RastreiaAgro em seu ambiente local, siga as instruções abaixo:
+De que coisas você precisa para instalar e executar o projeto?
 
-# Clone o Repositório
-
-Primeiro, você precisa clonar o repositório do projeto para o seu computador. Use o comando abaixo para fazer isso:
-
-bash
-Copiar código
-git clone https://github.com/Yan0606/rastreiaagro.git
-Navegue para o Diretório do Projeto
-
-Após clonar o repositório, entre no diretório do projeto:
-
-bash
-Copiar código
-cd rastreiaagro
-Instale as Dependências
-
-O projeto utiliza o Node.js para gerenciamento de pacotes e execução. Instale as dependências necessárias com o seguinte comando:
-
-bash
-Copiar código
+```
+git clone https://github.com/Yan0606/RastreiaAgro-ReactNative.git
+```
+```
 npm install
-Inicie o Servidor Web
+```
 
-Para iniciar a aplicação e visualizá-la no seu navegador, execute o comando:
-
-bash
-Copiar código
+```
 npm run web
-Isso iniciará o servidor e você poderá acessar a interface do RastreiaAgro localmente através do seu navegador web.
+```
+Para abrir você precisa ter o aplicativo EXPO em seu celular, se já o tem basta abri-lo e ler o QR code depois de ter dado o comando acima.
 
 # Uso
 
@@ -52,6 +34,16 @@ Gerenciamento de Inventário: Oferece uma visão geral dos itens cadastrados e f
 
 Rastreamento e Relatórios: Fornece ferramentas para monitorar o status dos itens e gerar relatórios detalhados.
 Para obter o máximo de aproveitamento do RastreiaAgro, consulte a documentação da aplicação e explore as funcionalidades disponíveis.
+
+## 📱 Protótipo
+
+* [Link do protótipo]([https://www.figma.com/design/y2IZy9BP577fjhPkRhLw9p/RastreiaAgro?node-id=33-154&t=WExdDYMeH63PVgPF-0](https://www.figma.com/proto/y2IZy9BP577fjhPkRhLw9p/RastreiaAgro?page-id=33%3A154&node-id=1185-5917&node-type=CANVAS&viewport=1050%2C342%2C0.34&t=1c9LzPsGpij1RiUM-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1185%3A5917)) 
+
+## ✒️ Autores
+* **Yan Andrade** 
+* **Rafael Perez**
+* **Adryan Freire**
+* **João Pedro Bagli**
 
 # Licença
 
