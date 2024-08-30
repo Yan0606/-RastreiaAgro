@@ -37,7 +37,7 @@ Para obter o máximo de aproveitamento do RastreiaAgro, consulte a documentaçã
 
 ## 📱 Protótipo
 
-* [Link do protótipo]([https://www.figma.com/design/y2IZy9BP577fjhPkRhLw9p/RastreiaAgro?node-id=33-154&t=WExdDYMeH63PVgPF-0](https://www.figma.com/proto/y2IZy9BP577fjhPkRhLw9p/RastreiaAgro?page-id=33%3A154&node-id=1185-5917&node-type=CANVAS&viewport=1050%2C342%2C0.34&t=1c9LzPsGpij1RiUM-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1185%3A5917)) 
+* [Link do protótipo](https://www.figma.com/proto/y2IZy9BP577fjhPkRhLw9p/RastreiaAgro?page-id=33%3A154&node-id=1185-5917&node-type=CANVAS&viewport=1050%2C342%2C0.34&t=1c9LzPsGpij1RiUM-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1185%3A5917)) 
 
 ## ✒️ Autores
 * **Yan Andrade** 
