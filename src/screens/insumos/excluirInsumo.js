@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
-import logo from '../../assets/images/logoMaquina.png';
+import logo from '../../assets/images/logoInsumos.png';
 import TextInputComponent from '../../components/input';
 import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
-import InputData from '../../components/inputData';
 
 const ExcluirInsumo = ({ navigation }) => {
-
     const [isReadonly, setIsReadonly] = useState(true); // Estado para controlar o modo readonly
 
-    const handleGerenciamentoMaquina2 = () => {
-        navigation.navigate('GerenciamentoMaquina2');
+    const handleGerenciamentoInsumos2 = () => {
+        navigation.navigate('GerenciamentoInsumos2');
     };
 
     return (
@@ -21,27 +19,27 @@ const ExcluirInsumo = ({ navigation }) => {
             <View style={styles.container}>
                 {/* Botão de Voltar fora do pointerEvents */}
                 <View style={styles.interactiveContainer}>
-                    <BtnVoltar route="GerenciamentoMaquina2" />
+                    <BtnVoltar route="GerenciamentoInsumos2" />
                 </View>
 
                 <Image source={logo} style={styles.image} />
 
                 <Text variant="titleMedium" style={styles.h2}>
-                    Excluir Trator
+                    Excluir Insumos
                 </Text>
 
                 {/* View com pointerEvents="none" para tornar os inputs readonly */}
                 <View style={isReadonly ? styles.readonlyContainer : null} pointerEvents={isReadonly ? 'none' : 'auto'}>
-                    <TextInputComponent text="Nome " defaultValue="JHON DEERE" />
-                    <TextInputComponent text="Marca " defaultValue="6135M" />
-                    <TextInputComponent text="Modelo " defaultValue="AAA-123" />
-
+                    <TextInputComponent text="Adubo orgânico" style={styles.input} />
+                    <TextInputComponent text="Vaca Muu" style={styles.input} />
+                    <TextInputComponent text="Cocô natural de vaca" style={styles.input} />
+                    <TextInputComponent text="Foto" style={styles.input} />
 
                 </View>
 
                 {/* Botão de Excluir fora do pointerEvents */}
                 <View style={styles.interactiveContainer}>
-                    <Btn label="EXCLUIR" onPress={handleGerenciamentoMaquina2} backgroundColor="red" />
+                    <Btn label="EXCLUIR" onPress={handleGerenciamentoInsumos2} backgroundColor="red" />
                 </View>
 
                 <PersonagemComBalao texto="Tem certeza que deseja excluir essa safra?" />

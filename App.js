@@ -70,8 +70,8 @@ export default function App() {
           <Stack.Screen name="GerenciamentoInsumos" component={GerenciamentoInsumos} options={{ headerShown: false }} />
           <Stack.Screen name="GerenciamentoInsumos2" component={GerenciamentoInsumos2} options={{ headerShown: false }} />
           <Stack.Screen name="NovoInsumo" component={NovoInsumo} options={{ headerShown: false }} />
-          <Stack.Screen name="EditarInsumo" component={NovoInsumo} options={{ headerShown: false }} />
-          <Stack.Screen name="ExcluirInsumo" component={NovoInsumo} options={{ headerShown: false }} />
+          <Stack.Screen name="EditarInsumo" component={EditarInsumo} options={{ headerShown: false }} />
+          <Stack.Screen name="ExcluirInsumo" component={ExcluirInsumo} options={{ headerShown: false }} />
           <Stack.Screen name="GerenciamentoCultura" component={GerenciamentoCultura} options={{ headerShown: false }} />
           <Stack.Screen name="GerenciamentoCultura2" component={GerenciamentoCultura2} options={{ headerShown: false }} />
           <Stack.Screen name="NovaCultura" component={NovaCultura} options={{ headerShown: false }} />
