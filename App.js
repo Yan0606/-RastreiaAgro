@@ -30,6 +30,8 @@ import ExcluirInsumo from './src/screens/insumos/excluirInsumo';
 import GerenciamentoCultura from './src/screens/cultura/gerenciamentoCultura';
 import GerenciamentoCultura2 from './src/screens/cultura/gerenciamentoCultura2';
 import NovaCultura from './src/screens/cultura/novaCultura';
+import EditarCultura from './src/screens/cultura/editarCultura';
+import ExcluirCultura from './src/screens/cultura/excluirCultura';
 import GerenciamentoCaderno from './src/screens/caderno/gerenciamentoCaderno';
 import GerenciamentoCaderno2 from './src/screens/caderno/gerenciamentoCaderno2';
 import RegistroPraticas from './src/screens/caderno/registroPraticas';
@@ -75,6 +77,8 @@ export default function App() {
           <Stack.Screen name="GerenciamentoCultura" component={GerenciamentoCultura} options={{ headerShown: false }} />
           <Stack.Screen name="GerenciamentoCultura2" component={GerenciamentoCultura2} options={{ headerShown: false }} />
           <Stack.Screen name="NovaCultura" component={NovaCultura} options={{ headerShown: false }} />
+          <Stack.Screen name="EditarCultura" component={EditarCultura} options={{ headerShown: false }} />
+          <Stack.Screen name="ExcluirCultura" component={ExcluirCultura} options={{ headerShown: false }} />
           <Stack.Screen name="GerenciamentoCaderno" component={GerenciamentoCaderno} options={{ headerShown: false }} />
           <Stack.Screen name="GerenciamentoCaderno2" component={GerenciamentoCaderno2} options={{ headerShown: false }} />
           <Stack.Screen name="RegistroPraticas" component={RegistroPraticas} options={{ headerShown: false }} />

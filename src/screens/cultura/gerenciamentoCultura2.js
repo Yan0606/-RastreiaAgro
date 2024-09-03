@@ -7,12 +7,12 @@ import PersonagemComBalao from '../../components/PersonagemComBalao';
 import ScrollVieww from '../../components/scrollView';
 
 const GerenciamentoCultura2 = ({ navigation }) => {
-    const EditarTalhao = (id) => {
-        navigation.navigate('EditarTalhao', { id });
+    const EditarCultura = (id) => {
+        navigation.navigate('EditarCultura', { id });
     };
 
-    const ExcluirTalhao = (id) => {
-        navigation.navigate('ExcluirTalhao', { id });
+    const ExcluirCultura = (id) => {
+        navigation.navigate('ExcluirCultura', { id });
     };
 
     const talhoes = [
@@ -30,13 +30,13 @@ const GerenciamentoCultura2 = ({ navigation }) => {
                 <Image source={logo} style={styles.image} />
 
                 <Text variant="titleLarge" style={styles.title}>
-                    Gerenciamento de Talhões
+                    Gerenciamento de Cultura
                 </Text>
 
                 <ScrollVieww
                     talhoes={talhoes}
-                    onEdit={EditarTalhao}
-                    onDelete={ExcluirTalhao}
+                    onEdit={EditarCultura}
+                    onDelete={ExcluirCultura}
                 />
 
                 <PersonagemComBalao texto="Selecione se deseja editar ou excluir seus Cultura" />
