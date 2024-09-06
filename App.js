@@ -40,6 +40,8 @@ import GerenciamentoSafra2 from './src/screens/safra/gerenciamentoSafra2';
 import NovaSafra from './src/screens/safra/novaSafra';
 import EditarSafra from './src/screens/safra/editarSafra';
 import ExcluirSafra from './src/screens/safra/excluirSafra';
+import Qrcodescreen from './src/screens/qrcodescreen';
+import TimelineScreen from './src/screens/TimelineScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -87,7 +89,8 @@ export default function App() {
           <Stack.Screen name="NovaSafra" component={NovaSafra} options={{ headerShown: false }} />
           <Stack.Screen name="EditarSafra" component={EditarSafra} options={{ headerShown: false }} />
           <Stack.Screen name="ExcluirSafra" component={ExcluirSafra} options={{ headerShown: false }} />
-
+          <Stack.Screen name="Qrcodescreen" component={Qrcodescreen} options={{ headerShown: false }} />
+          <Stack.Screen name="TimelineScreen" component={TimelineScreen} options={{ headerShown: false }} />
 
 
 
