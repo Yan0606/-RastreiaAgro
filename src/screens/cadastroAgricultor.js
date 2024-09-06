@@ -27,7 +27,7 @@ const CadastroAgricultor = ({ navigation }) => {
                 <TextInputComponent text="CPF" />
                 <TextInputComponent text="Telefone" />
                 <TextInputComponent text="E-mail" />
-                <Btn text="PRÓXIMO" onPress={handleCadastroPropriedade} />
+                <Btn label="PRÓXIMO" onPress={handleCadastroPropriedade} />
                 <PersonagemComBalao texto="Para continuar com cadastro informe algumas informações suas" />
             </View>
         </PaperProvider>

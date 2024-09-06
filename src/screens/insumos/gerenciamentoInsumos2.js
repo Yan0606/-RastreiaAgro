@@ -7,15 +7,15 @@ import PersonagemComBalao from '../../components/PersonagemComBalao';
 import ScrollVieww from '../../components/scrollView';
 
 const GerenciamentoInsumos2 = ({ navigation }) => {
-    const EditarTalhao = (id) => {
-        navigation.navigate('EditarTalhao', { id });
+    const EditarInsumo = (id) => {
+        navigation.navigate('EditarInsumo', { id });
     };
 
-    const ExcluirTalhao = (id) => {
-        navigation.navigate('ExcluirTalhao', { id });
+    const ExcluirInsumo = (id) => {
+        navigation.navigate('ExcluirInsumo', { id });
     };
 
-    const talhoes = [
+    const insumos = [
         { id: 1, nome: 'Adubo orgânico' },
         { id: 2, nome: 'Fertilizante' },
         { id: 3, nome: 'Fungicidas' },
@@ -29,13 +29,13 @@ const GerenciamentoInsumos2 = ({ navigation }) => {
                 <Image source={logo} style={styles.image} />
 
                 <Text variant="titleLarge" style={styles.title}>
-                    Gerenciamento de Talhões
+                    Gerenciamento de Insumos
                 </Text>
 
                 <ScrollVieww
-                    talhoes={talhoes}
-                    onEdit={EditarTalhao}
-                    onDelete={ExcluirTalhao}
+                    talhoes={insumos}
+                    onEdit={EditarInsumo}
+                    onDelete={ExcluirInsumo}
                 />
 
                 <PersonagemComBalao texto="Selecione se deseja editar ou excluir seus insumos" />

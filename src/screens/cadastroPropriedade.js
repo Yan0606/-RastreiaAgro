@@ -25,7 +25,7 @@ const CadastroPropriedade = ({ navigation }) => {
         <TextInputComponent text="Estado" />
         <TextInputComponent text="Cidade" />
         <TextInputComponent text="Rua" />
-        <Btn text="PRÓXIMO" onPress={handleObrigado}/>
+        <Btn label="PRÓXIMO" onPress={handleObrigado}/>
         <PersonagemComBalao texto="Ótimo (Nome) agora informe sobre o local de empreendimento" />
       </View>
     </PaperProvider>

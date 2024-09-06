@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 import logo from '../../assets/images/logoInsumos.png';
-import InputIcon from '../../components/inputIcon';
+// import InputIcon from '../../components/inputIcon'; SAPORRA AQUI ENVOLVE A PORRA LA EM BAIXO
 import TextInputComponent from '../../components/input';
 import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
@@ -26,7 +26,9 @@ const NovoInsumo = ({ navigation }) => {
 
                 <TextInputComponent text="Marca:" style={styles.input}/>
                 <TextInputComponent text="Descrição:" style={styles.input}/>
-                <InputIcon label="Foto:" icon="camera" />
+                <TextInputComponent text="Foto:" style={styles.input}/>
+
+                {/* <InputIcon label="Foto:" icon="camera" />  SAPORRA AQI TAVA DANDO B.O - YAN OLHA ISSO*/}
 
                 <Btn label="CADASTRAR"   />
 

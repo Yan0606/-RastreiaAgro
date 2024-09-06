@@ -11,8 +11,8 @@ const GerenciamentoMaquina2 = ({ navigation }) => {
         navigation.navigate('EditarMaquina', { id });
     };
 
-    const ExcluirTalhao = (id) => {
-        navigation.navigate('ExcluirTalhao', { id });
+    const ExcluirMaquina = (id) => {
+        navigation.navigate('ExcluirMaquina', { id });
     };
 
     const talhoes = [
@@ -36,7 +36,7 @@ const GerenciamentoMaquina2 = ({ navigation }) => {
                 <ScrollVieww
                     talhoes={talhoes}
                     onEdit={EditarMaquina}
-                    onDelete={ExcluirTalhao}
+                    onDelete={ExcluirMaquina}
                 />
 
                 <PersonagemComBalao texto="Selecione se deseja editar ou excluir suas máquinas" />
