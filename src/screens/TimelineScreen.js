@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import TimelineEvent from './TimelineEvent';
 import BtnVoltar from '../components/btnVoltar';
+import TimelineEvent from './TimelineEvent';
 
 const TimelineScreen = () => {
   const events = [
@@ -11,24 +11,25 @@ const TimelineScreen = () => {
     { id: 3, type: 'Adubação', date: '23/04' },
     { id: 4, type: 'Irrigação', date: '25/04' },
     { id: 5, type: 'Adubação', date: '23/04' },
-   
-    
   ];
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      
       <TouchableOpacity style={styles.backButton}>
         <Icon name="arrow-back" size={24} color="#fff" />
       </TouchableOpacity>
+
       <Text style={styles.title}>SUA LINHA DO TEMPO</Text>
+
       <View style={styles.timelineContainer}>
-      <BtnVoltar route="Menu" />
-        {events.map((event, index) => (
+        <BtnVoltar route="Menu" />
+        {events.map((event) => (
           <TimelineEvent 
-            key={event.id} 
-            index={index} 
+            index={event.id} 
             type={event.type} 
             date={event.date} 
+            total={Object.keys(events).length}
           />
         ))}
       </View>

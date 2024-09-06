@@ -1,19 +1,19 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const TimelineEvent = ({ index, type, date }) => {
+const TimelineEvent = ({ index, type, date, total }) => {
   return (
     <View style={styles.eventContainer}>
-      <View style={styles.circleContainer}>
+       <View style={styles.circleContainer}>
         <View style={styles.circle}>
-          <Text style={styles.circleText}>{index + 1}</Text>
+          <Text style={styles.circleText}>{ index }</Text>
         </View>
-        {index < 5 && <View style={styles.line} />} {/* Esconde a linha no último item */}
+        {index != total ? <Text style={styles.line} > </Text> : <Text> </Text>} 
       </View>
       <View style={styles.eventDetails}>
         <Text style={styles.eventType}>{type}</Text>
         <Text style={styles.eventDate}>{date}</Text>
-      </View>
+      </View> 
     </View>
   );
 };
