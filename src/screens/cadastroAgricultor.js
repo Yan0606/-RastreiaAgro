@@ -52,6 +52,9 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 20,
         color:'#fff',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
     },
 });
 

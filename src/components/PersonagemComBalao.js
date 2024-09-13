@@ -22,13 +22,14 @@ const styles = StyleSheet.create({
   },
   balaoContainer: {
     maxWidth: '80%', // Limita a largura máxima do balão
-    minHeight: '25%',
+    minHeight: '35%',
     paddingHorizontal: 20, // Adiciona algum espaço ao redor do texto
     paddingVertical: 10, // Adiciona algum espaço ao redor do texto
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10, // Espaço entre o balão e o personagem
+    marginTop: 40,
+    marginBottom: 5, // Espaço entre o balão e o personagem
   },
   balaoConversa: {
     position: 'absolute',
@@ -45,6 +46,7 @@ const styles = StyleSheet.create({
   personagem: {
     height: 250,
     resizeMode: 'contain',
+   
   },
 });
 
