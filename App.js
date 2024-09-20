@@ -44,29 +44,7 @@ import Qrcodescreen from './src/screens/qrcodescreen';
 import TimelineScreen from './src/screens/TimelineScreen';
 
 
-const App = () => {
-  const [modalVisible, setModalVisible] = useState(false);
 
-  const showModal = () => {
-    setModalVisible(true);
-  };
-
-  const hideModal = () => {
-    console.log('Modal fechado'); // Para depuração
-    setModalVisible(false);
-  };
-
-  return (
-    <View>
-      <Button title="Mostrar Personagem" onPress={showModal} />
-      <PersonagemComBalao 
-        texto="Selecione qual opção você se encaixa" 
-        visible={modalVisible} 
-        onClose={hideModal} 
-      />
-    </View>
-  );
-};
 
 const Stack = createNativeStackNavigator();
 
