@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
@@ -8,25 +8,43 @@ import Btn from '../components/button';
 import BtnVoltar from '../components/btnVoltar';
 import PersonagemComBalao from '../components/PersonagemComBalao';
 
-
 const CadastroPropriedade = ({ navigation }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  
+  useEffect(() => {
+    // Mostrar o modal ao carregar a tela
+    setModalVisible(true);
+  }, []);
+
   const handleObrigado = () => {
     navigation.navigate('Obrigado');
-};
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
   return (
     <PaperProvider>
       <View style={styles.container}>
-        <BtnVoltar route="CadastroAgricultor"/>
+        <BtnVoltar route="CadastroAgricultor" />
         <Image source={logo} style={styles.image} />
         <Text variant="titleMedium" style={styles.h2}>INFORMAÇÕES SOBRE O LOCAL DO EMPREENDIMENTO</Text>
+        
         <TextInputComponent />
         <TextInputComponent text="CNPJ" />
         <TextInputComponent text="ÁREA(ha)" />
         <TextInputComponent text="Estado" />
         <TextInputComponent text="Cidade" />
         <TextInputComponent text="Rua" />
-        <Btn label="PRÓXIMO" onPress={handleObrigado}/>
-        <PersonagemComBalao texto="Ótimo (Nome) agora informe sobre o local de empreendimento" />
+        
+        <Btn label="PRÓXIMO" onPress={handleObrigado} />
+        
+        <PersonagemComBalao 
+          texto="Ótimo (Nome), agora informe sobre o local de empreendimento" 
+          visible={modalVisible} 
+          onClose={closeModal} 
+        />
       </View>
     </PaperProvider>
   );
@@ -41,7 +59,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#18603A',
   },
   image: {
-    marginTop:10,
+    marginTop: 10,
     width: 80,
     height: 80,
     resizeMode: 'contain',
@@ -49,7 +67,7 @@ const styles = StyleSheet.create({
   h2: {
     marginTop: 20,
     marginBottom: 20,
-    color:'#fff',
+    color: '#fff',
     alignItems: 'center',
     textAlign: 'center',
   },

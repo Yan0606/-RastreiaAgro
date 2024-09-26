@@ -21,7 +21,7 @@ const PersonagemComBalao = ({ texto, visible, onClose }) => {
         }).start(() => {
           onClose(); // Fechar após a animação
         });
-      }, 10000); // 10 segundos
+      }, 3000); // 3 segundos
 
       // Limpeza do timer ao desmontar ou ao fechar
       return () => clearTimeout(timer);
