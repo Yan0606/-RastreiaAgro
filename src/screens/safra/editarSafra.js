@@ -5,7 +5,6 @@ import logo from '../../assets/images/logoSafra.png';
 import TextInputComponent from '../../components/input';
 import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
-import PersonagemComBalao from '../../components/PersonagemComBalao';
 import InputData from '../../components/inputData';
 
 const EditarSafra = ({ navigation }) => {
@@ -41,7 +40,7 @@ const EditarSafra = ({ navigation }) => {
 
 
                 <Btn label="Editar" onPress={handleGerenciamentoSafra2} backgroundColor="#D88B30"/>
-                <PersonagemComBalao texto="Edite as informações que deseja" />
+               
             </View>
         </PaperProvider>
     );

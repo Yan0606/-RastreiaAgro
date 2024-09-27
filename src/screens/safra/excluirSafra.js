@@ -5,7 +5,6 @@ import logo from '../../assets/images/logoSafra.png';
 import TextInputComponent from '../../components/input';
 import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
-import PersonagemComBalao from '../../components/PersonagemComBalao';
 import InputData from '../../components/inputData';
 
 const ExcluirSafra = ({ navigation }) => {
@@ -51,7 +50,7 @@ const ExcluirSafra = ({ navigation }) => {
                     <Btn label="EXCLUIR" onPress={handleGerenciamentoSafra2} backgroundColor="red" />
                 </View>
 
-                <PersonagemComBalao texto="Tem certeza que deseja excluir essa safra?" />
+               
             </View>
         </PaperProvider>
     );

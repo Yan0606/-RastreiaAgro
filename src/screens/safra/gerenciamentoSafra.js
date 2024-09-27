@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 import logo from '../../assets/images/logoSafra.png';
+import { useNavigation } from '@react-navigation/native';
 import TextInputComponent from '../../components/input';
 import InputData from '../../components/inputData';
 import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
 
-const GerenciamentoSafra = ({ navigation }) => {
+    const GerenciamentoSafra = () => {
+        const navigation = useNavigation();
+        const [modalVisible, setModalVisible] = useState(true); // Modal inicialmente visível
+      
 
     const [selectedDate, setSelectedDate] = useState('');
 
@@ -18,6 +22,14 @@ const GerenciamentoSafra = ({ navigation }) => {
     const handleNovaSafra = () => {
         navigation.navigate('NovaSafra');
     };
+    const closeModal = () => {
+        setModalVisible(false);
+      };
+    
+      useEffect(() => {
+        // Mostrar o modal ao carregar a tela
+        setModalVisible(true);
+      }, []);
 
 
     return (
@@ -51,7 +63,9 @@ const GerenciamentoSafra = ({ navigation }) => {
                 </Text>
                 <Btn label="SELECIONAR" onPress={handleGerenciamentoSafra2} />
 
-                <PersonagemComBalao texto="Selecione se deseja cadastrar ou editar suas safras" />
+                <PersonagemComBalao texto="Selecione se deseja cadastrar ou editar suas safras" 
+                visible={modalVisible} 
+                onClose={closeModal} />
             </View>
         </PaperProvider>
     );
