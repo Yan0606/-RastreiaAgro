@@ -1,23 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { TextInput } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
 
-const TextInputComponent = ({ text, defaultValue }) => {
-  const [value, setValue] = useState('');
-
-  useEffect(() => {
-    if (defaultValue) {
-      setValue(defaultValue);
-    }
-  }, [defaultValue]);
-
+const TextInputComponent = ({ label, value, onChangeText }) => {
   return (
     <TextInput
-      label={text || 'Nome'}
+      label={label || 'Nome'}  // Define a label dinamicamente
       mode="outlined"
       style={styles.input}
-      value={value}
-      onChangeText={text => setValue(text)}
+      value={value}            // Usa o valor vindo da prop
+      onChangeText={onChangeText}  // Chama a função passada via prop
       theme={{
         roundness: 40,
         colors: {
@@ -25,7 +17,6 @@ const TextInputComponent = ({ text, defaultValue }) => {
           outline: '#18603A', // Cor da borda quando o input não está focado
         },
       }}
-      
     />
   );
 };

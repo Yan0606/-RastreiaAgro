@@ -43,6 +43,8 @@ import ExcluirSafra from './src/screens/safra/excluirSafra';
 import Qrcodescreen from './src/screens/qrcodescreen';
 import TimelineScreen from './src/screens/TimelineScreen';
 
+import { UserProvider } from './src/contexts/UserContext';
+
 
 
 
@@ -50,6 +52,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
+    <UserProvider>
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="FirstScreen">
@@ -100,5 +103,6 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
+    </UserProvider>
   );
 }

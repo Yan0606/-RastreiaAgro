@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   },
   balaoText: {
     color: '#009846',
-    fontFamily: 'Poppins-Bold',
+    fontFamily: '',
     textAlign: 'center',
     zIndex: 1,
   },
