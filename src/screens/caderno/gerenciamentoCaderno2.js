@@ -38,7 +38,7 @@ const GerenciamentoCaderno2 = ({ navigation }) => {
                     <Btn label="ABRIR"/>
                 </Card.Content>
             </Card>
-            <PersonagemComBalao texto="Selecione qual talhão referente a safra deseja cadastrar nova atividade"/>
+            
         </View>
     );
 }

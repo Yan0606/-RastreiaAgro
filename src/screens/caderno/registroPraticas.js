@@ -75,7 +75,6 @@ export default function RegistroPraticas({ navigation }) {
         setModalPersonagemVisible(true);
     };
 
-
     const onEdicaoConfirmada = () => {
         setModalEdicaoConfirmada(true);
     };

@@ -28,9 +28,7 @@ export default function GerenciamentoCaderno({ navigation }) {
                 </Card.Content>
             </Card>
             <Btn label="PRÓXIMO" />
-            <Text style={styles.label} >Ou cadastre uma nova...</Text>
-            <PersonagemComBalao texto="Selecione qual safra deseja cadastrar atividades ou cadastre uma 
-nova"/>
+            
         </View>
     );
 }
