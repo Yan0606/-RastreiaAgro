@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+
 import { View, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { PaperProvider, Text } from "react-native-paper";
 import config from '../assets/images/config.png';
@@ -11,9 +12,13 @@ import talhoes from '../assets/images/talhoes.png';
 import maquinas from '../assets/images/maquinas.png';
 import insumos from '../assets/images/insumos.png';
 
+import { UserContext } from '../contexts/UserContext';
 const windowWidth = Dimensions.get('window').width;
 
 const Login = ({ navigation }) => {
+    const { user } = useContext(UserContext); // Adiciona o setToken
+
+
     const handleMenuConfig = () => {
         navigation.navigate('MenuConfig');
     }
@@ -31,7 +36,7 @@ const Login = ({ navigation }) => {
                 <View style={styles.header}>
                     <View style={styles.profileSection}>
                         <Image source={person} style={styles.profileIcon} />
-                        <Text style={styles.profileName}>Nome do agricultor</Text>
+                        <Text style={styles.profileName}>{user}</Text>
                     </View>
                     <View style={styles.headerIcons}>
                         <TouchableOpacity  onPress={handleMenuConfig}>

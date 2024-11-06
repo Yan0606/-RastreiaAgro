@@ -25,11 +25,10 @@ const CadastroAgricultor = ({ navigation }) => {
     try {
       await axios.post('http://localhost:3000/api/auth/cadastrar', {
         nome: nome,
-        email: 'email1@email.com',
+        email: email,
         cpf: cpf,
-        telefone: 'telefone',
+        telefone: telefone,
         senha: 'senha',
-        nivel: 'nivel'
       });
       navigation.navigate('CadastroPropriedade');
     } catch (error) {
@@ -70,6 +69,17 @@ const CadastroAgricultor = ({ navigation }) => {
           label="Digite seu CPF"
           value={cpf}
           onChangeText={text => setCPF(text)}
+        />
+
+        <TextInputComponent
+          label="Digite seu Email"
+          value={email}
+          onChangeText={text => setEmail(text)}
+        />
+        <TextInputComponent
+          label="Digite seu Telefone"
+          value={telefone}
+          onChangeText={text => setTelefone(text)}
         />
 
 
