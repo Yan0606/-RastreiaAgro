@@ -10,7 +10,12 @@ import PersonagemComBalao from '../components/PersonagemComBalao';
 
 const CadastroPropriedade = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  
+  const [cnpj, setCnpj] = useState('');
+  const [area, setArea] = useState('');
+  const [estado, setEstado] = useState('');
+  const [cidade, setCidade] = useState('');
+  const [rua, setRua] = useState('');
+
   useEffect(() => {
     // Mostrar o modal ao carregar a tela
     setModalVisible(true);
@@ -30,20 +35,44 @@ const CadastroPropriedade = ({ navigation }) => {
         <BtnVoltar route="CadastroAgricultor" />
         <Image source={logo} style={styles.image} />
         <Text variant="titleMedium" style={styles.h2}>INFORMAÇÕES SOBRE O LOCAL DO EMPREENDIMENTO</Text>
-        
-        <TextInputComponent />
-        <TextInputComponent text="CNPJ" />
-        <TextInputComponent text="ÁREA(ha)" />
-        <TextInputComponent text="Estado" />
-        <TextInputComponent text="Cidade" />
-        <TextInputComponent text="Rua" />
-        
+
+        <TextInputComponent
+          label="Digite seu CNPJ"
+          value={cnpj}
+          onChangeInt={int => setNome(int)}
+        />
+
+        <TextInputComponent
+          label="Área (ha)"
+          value={area}
+          onChangeInt={int => setArea(int)}
+        />
+
+
+        <TextInputComponent
+          label="Estado"
+          value={estado}
+          onChangeText={text => setEstado(text)}
+        />
+
+        <TextInputComponent
+          label="Cidade"
+          value={cidade}
+          onChangeText={text => setCidade(text)}
+        />
+
+        <TextInputComponent
+          label="Rua"
+          value={rua}
+          onChangeText={text => setRua(text)}
+        />
+
         <Btn label="PRÓXIMO" onPress={handleObrigado} />
-        
-        <PersonagemComBalao 
-          texto="Ótimo (Nome), agora informe sobre o local de empreendimento" 
-          visible={modalVisible} 
-          onClose={closeModal} 
+
+        <PersonagemComBalao
+          texto="Ótimo (Nome), agora informe sobre o local de empreendimento"
+          visible={modalVisible}
+          onClose={closeModal}
         />
       </View>
     </PaperProvider>
