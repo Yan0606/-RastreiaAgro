@@ -47,11 +47,13 @@ const Login = ({ navigation }) => {
                     value={email}
                     onChangeText={text => setEmail(text)}
                 />
-                <TextInputComponent
-                    label="Digite sua Senha"
-                    value={senha}
-                    onChangeText={text => setSenha(text)}
-                />
+                   <TextInputComponent
+  label="Digite sua Senha"
+  value={senha}
+  onChangeText={text => setSenha(text)}
+  secureTextEntry={true}  
+/>
+
                 <Btn text="ENTRAR" onPress={handleMenu} />
                 <Text style={styles.label} onPress={handleFirstScreen}>Entre ou Cadastre-se</Text>
 

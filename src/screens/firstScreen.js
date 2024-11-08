@@ -11,7 +11,7 @@ const FirstScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    // Mostrar o modal ao carregar a tela
+    
     setModalVisible(true);
   }, []);
 

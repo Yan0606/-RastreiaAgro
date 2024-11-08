@@ -15,6 +15,7 @@ const CadastroAgricultor = ({ navigation }) => {
   const [cpf, setCPF] = useState('');
   const [email, setEmail] = useState('');
   const [telefone, setTelefone] = useState('');
+  const [senha, setSenha] = useState('');
 
   useEffect(() => {
     // Mostrar o modal ao carregar a tela
@@ -28,7 +29,7 @@ const CadastroAgricultor = ({ navigation }) => {
         email: email,
         cpf: cpf,
         telefone: telefone,
-        senha: 'senha',
+        senha: senha,
       });
       navigation.navigate('CadastroPropriedade');
     } catch (error) {
@@ -81,6 +82,13 @@ const CadastroAgricultor = ({ navigation }) => {
           value={telefone}
           onChangeText={text => setTelefone(text)}
         />
+        <TextInputComponent
+  label="Digite sua Senha"
+  value={senha}
+  onChangeText={text => setSenha(text)}
+  secureTextEntry={true}  
+/>
+
 
 
         <Btn label="PRÓXIMO" onPress={handleCadastroPropriedade} />
