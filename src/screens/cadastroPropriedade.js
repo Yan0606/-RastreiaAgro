@@ -39,15 +39,14 @@ const CadastroPropriedade = ({ navigation }) => {
         <TextInputComponent
           label="Digite seu CNPJ"
           value={cnpj}
-          onChangeInt={int => setNome(int)}
+          onChangeText={text => setCnpj(text)}
         />
 
-        <TextInputComponent
+        <TextInputComponent 
           label="Área (ha)"
           value={area}
-          onChangeInt={int => setArea(int)}
+          onChangeText={text => setArea(text)}
         />
-
 
         <TextInputComponent
           label="Estado"
