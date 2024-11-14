@@ -1,25 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Image, StyleSheet, Alert } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 import logo from '../../assets/images/logoSafra.png';
-import InputData from '../../components/inputData';
 import BtnVoltar from '../../components/btnVoltar';
 import CardSafra from '../../components/cardSafra';
 import BtnAddTalhao from '../../components/btnAddTalhao';
 import BottomModal from '../../components/bottomModal';
 import Btn from '../../components/button';
 import axios from 'axios';
+import { UserContext } from '../../contexts/UserContext';
 
-const NovaSafra = ({ navigation }) => {
+const NovaSafra = ({ route, navigation }) => {
+    const { token } = useContext(UserContext); // Obtém o token do contexto
+    const safraId = route?.params?.safraId || null; // Usa um valor padrão para safraId
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItems, setSelectedItems] = useState({
         talhao: null,
         cultura: null,
         tipoIrriga: null,
     });
-    const [dataInicio, setDataInicio] = useState('');
-    const [dataTermino, setDataTermino] = useState('');
+    const [dataInicio, setDataInicio] = useState(''); // Estado para data de início
+    const [dataTermino, setDataTermino] = useState(''); // Estado para data de término
+    const [nomeSafra, setNomeSafra] = useState(''); // Nome da safra
+
+    // Função para buscar dados da safra usando o ID
+    const fetchSafraData = async () => {
+        if (!safraId) return; // Se safraId for nulo, não faz a requisição
+
+        try {
+            const response = await axios.get(`http://localhost:3000/api/safra/editar/${safraId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Adiciona o token ao cabeçalho da requisição
+                },
+            });
+            if (response.status === 200) {
+                const { nome, dataInicio, dataFim } = response.data;
+                setNomeSafra(nome); // Define o nome da safra
+                setDataInicio(dataInicio); // Define a data de início
+                setDataTermino(dataFim); // Define a data de término
+            }
+        } catch (error) {
+            console.error('Erro ao buscar dados da safra:', error);
+            Alert.alert('Erro', 'Não foi possível carregar os dados da safra.');
+        }
+    };
+
+    useEffect(() => {
+        fetchSafraData(); // Busca os dados da safra ao carregar a tela
+    }, []);
 
     const handleOpenModal = () => {
         setModalVisible(true);
@@ -35,25 +64,6 @@ const NovaSafra = ({ navigation }) => {
             [type]: value,
         }));
         console.log(`Selected ${type}:`, value);
-    };
-
-    const handleCadastrarSafra = async () => {
-        const novaSafra = {
-            talhao: selectedItems.talhao,
-            cultura: selectedItems.cultura,
-            tipoIrriga: selectedItems.tipoIrriga,
-            dataInicio,
-            dataTermino,
-        };
-
-        try {
-            const response = await axios.post('http://localhost:3000/api/safra', novaSafra);
-            Alert.alert('Sucesso', 'Safra cadastrada com sucesso!');
-            handleCloseModal();
-        } catch (error) {
-            console.error(error);
-            Alert.alert('Erro', 'Não foi possível cadastrar a safra. Tente novamente.');
-        }
     };
 
     const dropdownDataTalhao = [
@@ -80,20 +90,17 @@ const NovaSafra = ({ navigation }) => {
                 <Image source={logo} style={styles.image} />
 
                 <Text style={styles.h1}>
-                    Safra 1
+                    {nomeSafra || 'Safra'} {/* Exibe o nome da safra */}
                 </Text>
 
-                <View style={styles.inputRow}>
-                    <InputData
-                        label="Data de início"
-                        value={dataInicio}
-                        onChangeText={setDataInicio}
-                    />
-                    <InputData
-                        label="Data de término"
-                        value={dataTermino}
-                        onChangeText={setDataTermino}
-                    />
+                <View style={styles.infoRow}>
+                    <Text style={styles.label}>Data de Início:</Text>
+                    <Text style={styles.value}>{dataInicio}</Text> {/* Exibe a data de início */}
+                </View>
+
+                <View style={styles.infoRow}>
+                    <Text style={styles.label}>Data de Término:</Text>
+                    <Text style={styles.value}>{dataTermino}</Text> {/* Exibe a data de término */}
                 </View>
 
                 <View style={styles.inputRow}>
@@ -154,7 +161,7 @@ const NovaSafra = ({ navigation }) => {
                         onChange={(item) => handleSelect(item.value, 'tipoIrriga')}
                     />
 
-                    <Btn label="CADASTRAR" width={'100%'} onPress={handleCadastrarSafra} />
+                    <Btn label="CADASTRAR" width={'100%'} onPress={() => Alert.alert('Safra cadastrada!')} />
                 </BottomModal>
             </View>
         </PaperProvider>
@@ -189,11 +196,20 @@ const styles = StyleSheet.create({
         fontSize: 20,
         alignSelf: 'center',
     },
-    inputRow: {
+    infoRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '90%',
-        marginBottom: 15,
+        marginBottom: 10,
+    },
+    label: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    value: {
+        color: '#fff',
+        fontSize: 16,
     },
     dropdown: {
         width: '100%',

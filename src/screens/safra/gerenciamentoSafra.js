@@ -52,8 +52,11 @@ const GerenciamentoSafra = () => {
             );
 
             if (response.status === 201) {
+                const safraId = response.data.id; // Captura o ID da safra retornado pela API
                 Alert.alert('Sucesso', 'Safra cadastrada com sucesso!');
-                navigation.navigate('NovaSafra');
+                
+                // Navega para a tela NovaSafra, passando o safraId como parâmetro
+                navigation.navigate('NovaSafra', { safraId });
             }
         } catch (error) {
             console.error(error);
