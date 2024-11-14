@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, Alert } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 import logo from '../../assets/images/logoSafra.png';
@@ -9,6 +9,7 @@ import CardSafra from '../../components/cardSafra';
 import BtnAddTalhao from '../../components/btnAddTalhao';
 import BottomModal from '../../components/bottomModal';
 import Btn from '../../components/button';
+import axios from 'axios';
 
 const NovaSafra = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -17,6 +18,8 @@ const NovaSafra = ({ navigation }) => {
         cultura: null,
         tipoIrriga: null,
     });
+    const [dataInicio, setDataInicio] = useState('');
+    const [dataTermino, setDataTermino] = useState('');
 
     const handleOpenModal = () => {
         setModalVisible(true);
@@ -32,6 +35,25 @@ const NovaSafra = ({ navigation }) => {
             [type]: value,
         }));
         console.log(`Selected ${type}:`, value);
+    };
+
+    const handleCadastrarSafra = async () => {
+        const novaSafra = {
+            talhao: selectedItems.talhao,
+            cultura: selectedItems.cultura,
+            tipoIrriga: selectedItems.tipoIrriga,
+            dataInicio,
+            dataTermino,
+        };
+
+        try {
+            const response = await axios.post('http://localhost:3000/api/safra', novaSafra);
+            Alert.alert('Sucesso', 'Safra cadastrada com sucesso!');
+            handleCloseModal();
+        } catch (error) {
+            console.error(error);
+            Alert.alert('Erro', 'Não foi possível cadastrar a safra. Tente novamente.');
+        }
     };
 
     const dropdownDataTalhao = [
@@ -64,11 +86,13 @@ const NovaSafra = ({ navigation }) => {
                 <View style={styles.inputRow}>
                     <InputData
                         label="Data de início"
-                        defaultValue=""
+                        value={dataInicio}
+                        onChangeText={setDataInicio}
                     />
                     <InputData
                         label="Data de término"
-                        defaultValue=""
+                        value={dataTermino}
+                        onChangeText={setDataTermino}
                     />
                 </View>
 
@@ -88,7 +112,7 @@ const NovaSafra = ({ navigation }) => {
                     <CardSafra
                         talhao="1"
                         cultura="Milho"
-                        onDelete={() => console.log('Excluir Talhão 2')}
+                        onDelete={() => console.log('Excluir Talhão 1')}
                     />
                 </View>
 
@@ -130,7 +154,7 @@ const NovaSafra = ({ navigation }) => {
                         onChange={(item) => handleSelect(item.value, 'tipoIrriga')}
                     />
 
-                    <Btn label="CADASTRAR" width={'100%'} onPress={() => console.log('Cadastrar')} />
+                    <Btn label="CADASTRAR" width={'100%'} onPress={handleCadastrarSafra} />
                 </BottomModal>
             </View>
         </PaperProvider>

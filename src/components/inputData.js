@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, Platform, StyleSheet } from 'react-native';
+import { View, Text, Platform, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { TextInput } from 'react-native-paper';
 
-const InputData = ({ label, defaultValue }) => {
+const InputData = ({ label, defaultValue, onChangeDate }) => {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
   const [formattedDate, setFormattedDate] = useState('');
@@ -21,6 +21,10 @@ const InputData = ({ label, defaultValue }) => {
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
     setFormattedDate(formatDate(currentDate));
+
+    if (onChangeDate) {
+      onChangeDate(currentDate);
+    }
   };
 
   const formatDate = (date) => {
@@ -33,21 +37,47 @@ const InputData = ({ label, defaultValue }) => {
   return (
     <View>
       {label && <Text style={styles.label}>{label}</Text>}
-      <TextInput
-        mode="outlined"
-        style={styles.input}
-        value={formattedDate}
-        onFocus={() => setShow(true)}
-        theme={{
-          roundness: 40,
-          colors: {
-            primary: '#18603A',
-            outline: '#18603A',
-          },
-        }}
-      />
+      
+      {Platform.OS === 'web' ? (
+        // Campo de entrada para a web
+        <TextInput
+          mode="outlined"
+          style={styles.input}
+          value={formattedDate}
+          onChangeText={(text) => {
+            setFormattedDate(text);
+            if (onChangeDate) {
+              onChangeDate(new Date(text));
+            }
+          }}
+          placeholder="dd/mm/yyyy"
+          theme={{
+            roundness: 40,
+            colors: {
+              primary: '#18603A',
+              outline: '#18603A',
+            },
+          }}
+        />
+      ) : (
+        // Picker de data para dispositivos móveis
+        <TextInput
+          mode="outlined"
+          style={styles.input}
+          value={formattedDate}
+          onFocus={() => setShow(true)}
+          showSoftInputOnFocus={false}
+          theme={{
+            roundness: 40,
+            colors: {
+              primary: '#18603A',
+              outline: '#18603A',
+            },
+          }}
+        />
+      )}
 
-      {show && (
+      {show && Platform.OS !== 'web' && (
         <DateTimePicker
           value={date}
           mode="date"
@@ -67,7 +97,6 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '75%',
-    marginLeft: '10',
     height: 34,
     marginBottom: 15,
   },
