@@ -1,47 +1,67 @@
-import React, { useEffect, useState } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import React, { useEffect, useState, useContext } from 'react';
+import { View, Image, StyleSheet, Alert } from 'react-native';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 import logo from '../../assets/images/logoSafra.png';
-import { useNavigation } from '@react-navigation/native';
-import TextInputComponent from '../../components/input';
-import Btn from '../../components/button';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
 import ScrollVieww from '../../components/scrollView';
-
+import axios from 'axios';
+import { UserContext } from '../../contexts/UserContext';
 
 const GerenciamentoSafra2 = () => {
     const navigation = useNavigation();
-    const [modalVisible, setModalVisible] = useState(true); // Modal inicialmente visível
-  
+    const { token } = useContext(UserContext); // Obtém o token do contexto
+    const [modalVisible, setModalVisible] = useState(true);
+    const [safras, setSafras] = useState([]); // Estado para armazenar as safras do banco
+    const isFocused = useIsFocused(); // Hook para detectar quando a tela está em foco
 
-
-    const handleGerenciamentoSafra = () => {
-        navigation.navigate('GerenciamentoSafra');
+    // Função para buscar todas as safras
+    const fetchSafras = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/api/safra', {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Adiciona o token ao cabeçalho da requisição
+                },
+            });
+            if (response.status === 200) {
+                setSafras(response.data); // Atualiza o estado com as safras retornadas
+            }
+        } catch (error) {
+            console.error('Erro ao buscar as safras:', error);
+            Alert.alert('Erro', 'Não foi possível carregar as safras.');
+        }
     };
 
-    const handleEditarSafra = () => {
-        navigation.navigate('EditarSafra');
+    // Atualiza a lista de safras sempre que a tela for focada
+    useEffect(() => {
+        if (isFocused) {
+            fetchSafras();
+        }
+    }, [isFocused]);
+
+    const handleEditarSafra = (id) => {
+        navigation.navigate('EditarSafra', { safraId: id });
     };
 
-    const ExcluirSafra = (id) => {
-        navigation.navigate('ExcluirSafra', { id });
+    const handleExcluirSafra = async (id) => {
+        try {
+            await axios.delete(`http://localhost:3000/api/safra/excluir/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setSafras(safras.filter(safra => safra.id !== id)); // Atualiza o estado para remover a safra excluída
+            Alert.alert('Sucesso', 'Safra excluída com sucesso!');
+        } catch (error) {
+            console.error('Erro ao excluir safra:', error);
+            Alert.alert('Erro', 'Não foi possível excluir a safra.');
+        }
     };
+
     const closeModal = () => {
         setModalVisible(false);
-      };
-    
-      useEffect(() => {
-        // Mostrar o modal ao carregar a tela
-        setModalVisible(true);
-      }, []);
-    
-
-    const safras = [
-        { id: 1, nome: 'Safra 1' },
-        { id: 2, nome: 'Safra 2' },
-
-    ];
+    };
 
     return (
         <PaperProvider>
@@ -57,14 +77,13 @@ const GerenciamentoSafra2 = () => {
                 <ScrollVieww
                     talhoes={safras}
                     onEdit={handleEditarSafra}
-                    onDelete={ExcluirSafra}
+                    onDelete={handleExcluirSafra}
                 />
 
-
-
-                <PersonagemComBalao texto="Selecione se deseja editar ou excluir suas safras" 
-                visible={modalVisible} 
-                onClose={closeModal} 
+                <PersonagemComBalao 
+                    texto="Selecione se deseja editar ou excluir suas safras" 
+                    visible={modalVisible} 
+                    onClose={closeModal} 
                 />
             </View>
         </PaperProvider>
@@ -89,16 +108,6 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 5,
         color: "white",
-    },
-    inputRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '90%',
-        marginBottom: 15,
-    },
-    input: {
-        flex: 1,
-        marginHorizontal: 5,
     },
 });
 

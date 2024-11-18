@@ -24,6 +24,16 @@ const NovaSafra = ({ route, navigation }) => {
     const [dataTermino, setDataTermino] = useState(''); // Estado para data de término
     const [nomeSafra, setNomeSafra] = useState(''); // Nome da safra
 
+    // Função para formatar a data no formato "DD/MM/YYYY"
+    const formatDate = (dateString) => {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    };
+
     // Função para buscar dados da safra usando o ID
     const fetchSafraData = async () => {
         if (!safraId) return; // Se safraId for nulo, não faz a requisição
@@ -37,8 +47,8 @@ const NovaSafra = ({ route, navigation }) => {
             if (response.status === 200) {
                 const { nome, dataInicio, dataFim } = response.data;
                 setNomeSafra(nome); // Define o nome da safra
-                setDataInicio(dataInicio); // Define a data de início
-                setDataTermino(dataFim); // Define a data de término
+                setDataInicio(formatDate(dataInicio)); // Define a data de início formatada
+                setDataTermino(formatDate(dataFim)); // Define a data de término formatada
             }
         } catch (error) {
             console.error('Erro ao buscar dados da safra:', error);
@@ -95,12 +105,12 @@ const NovaSafra = ({ route, navigation }) => {
 
                 <View style={styles.infoRow}>
                     <Text style={styles.label}>Data de Início:</Text>
-                    <Text style={styles.value}>{dataInicio}</Text> {/* Exibe a data de início */}
+                    <Text style={styles.value}>{dataInicio}</Text> {/* Exibe a data de início formatada */}
                 </View>
 
                 <View style={styles.infoRow}>
                     <Text style={styles.label}>Data de Término:</Text>
-                    <Text style={styles.value}>{dataTermino}</Text> {/* Exibe a data de término */}
+                    <Text style={styles.value}>{dataTermino}</Text> {/* Exibe a data de término formatada */}
                 </View>
 
                 <View style={styles.inputRow}>
