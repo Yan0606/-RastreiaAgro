@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import React, { useEffect, useState, useContext } from 'react';
+import { View, Image, StyleSheet, Alert } from 'react-native';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
 import logo from '../assets/images/icon.png';
 import TextInputComponent from '../components/input';
 import Btn from '../components/button';
 import BtnVoltar from '../components/btnVoltar';
 import PersonagemComBalao from '../components/PersonagemComBalao';
+import axios from 'axios';
+import { UserContext } from '../contexts/UserContext';
 
 const CadastroPropriedade = ({ navigation }) => {
+  const { token } = useContext(UserContext); // Obtém o token do contexto
   const [modalVisible, setModalVisible] = useState(false);
+  const [usuarioId, setUsuarioId] = useState(null); // Armazena o ID do usuário após o GET
+  const [nome, setNome] = useState('');
   const [cnpj, setCnpj] = useState('');
   const [area, setArea] = useState('');
   const [estado, setEstado] = useState('');
@@ -17,12 +21,60 @@ const CadastroPropriedade = ({ navigation }) => {
   const [rua, setRua] = useState('');
 
   useEffect(() => {
-    // Mostrar o modal ao carregar a tela
     setModalVisible(true);
-  }, []);
+    if (!token) {
+      Alert.alert("Erro", "Token de autenticação ausente.");
+      return;
+    }
 
-  const handleObrigado = () => {
-    navigation.navigate('Obrigado');
+    // Faz a requisição GET para obter o usuarioId
+    const fetchUsuarioId = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/auth/usuario', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        
+        setUsuarioId(response.data.id);
+        console.log("usuarioId recebido:", response.data.id);
+      } catch (error) {
+        console.error('Erro ao obter o usuarioId:', error);
+        Alert.alert('Erro', 'Erro ao obter o ID do usuário.');
+      }
+    };
+
+    fetchUsuarioId();
+  }, [token]);
+
+  const handleCadastroPropriedade = async () => {
+    if (!usuarioId || !token) {
+      Alert.alert("Erro", "ID do usuário ou token de autenticação ausente.");
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:3000/api/propriedade/novo', {
+        nome: nome || "Nome da Propriedade",
+        cnpj: cnpj,
+        area: area,
+        estado: estado,
+        cidade: cidade,
+        endereco: rua,
+        usuarioId: usuarioId
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      if (response.status === 201) {
+        navigation.navigate('Obrigado');
+      }
+    } catch (error) {
+      console.error('Erro ao cadastrar a propriedade:', error);
+      Alert.alert('Erro', 'Erro ao cadastrar a propriedade. Tente novamente.');
+    }
   };
 
   const closeModal = () => {
@@ -34,7 +86,15 @@ const CadastroPropriedade = ({ navigation }) => {
       <View style={styles.container}>
         <BtnVoltar route="CadastroAgricultor" />
         <Image source={logo} style={styles.image} />
-        <Text variant="titleMedium" style={styles.h2}>INFORMAÇÕES SOBRE O LOCAL DO EMPREENDIMENTO</Text>
+        <Text variant="titleMedium" style={styles.h2}>
+          INFORMAÇÕES SOBRE O LOCAL DO EMPREENDIMENTO
+        </Text>
+
+        <TextInputComponent
+          label="Nome da Propriedade"
+          value={nome}
+          onChangeText={text => setNome(text)}
+        />
 
         <TextInputComponent
           label="Digite seu CNPJ"
@@ -66,7 +126,7 @@ const CadastroPropriedade = ({ navigation }) => {
           onChangeText={text => setRua(text)}
         />
 
-        <Btn label="PRÓXIMO" onPress={handleObrigado} />
+        <Btn label="PRÓXIMO" onPress={handleCadastroPropriedade} />
 
         <PersonagemComBalao
           texto="Ótimo (Nome), agora informe sobre o local de empreendimento"
