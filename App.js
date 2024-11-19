@@ -53,56 +53,56 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <UserProvider>
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="FirstScreen">
-          <Stack.Screen name="FirstScreen" component={FirstScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="CadastroAgricultor" component={CadastroAgricultor} options={{ headerShown: false }} />
-          <Stack.Screen name="CadastroPropriedade" component={CadastroPropriedade} options={{ headerShown: false }} />
-          <Stack.Screen name="Obrigado" component={Obrigado} options={{ headerShown: false }} />
-          <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-          <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }} />
-          <Stack.Screen name="Gerenciamento" component={Gerenciamento} options={{ headerShown: false }} />
-          <Stack.Screen name="Gerenciamento2" component={Gerenciamento2} options={{ headerShown: false }} />
-          <Stack.Screen name="MenuConfig" component={MenuConfig} options={{ headerShown: false }} />
-          <Stack.Screen name="EditarPerfil" component={EditarPerfil} options={{ headerShown: false }} />
-          <Stack.Screen name="EditarPropriedade" component={EditarPropriedade} options={{ headerShown: false }} />
-          <Stack.Screen name="EditarTalhao" component={EditarTalhao} options={{ headerShown: false }} />
-          <Stack.Screen name="ExcluirTalhao" component={ExcluirTalhao} options={{ headerShown: false }} />
-          <Stack.Screen name="NovoTalhao" component={NovoTalhao} options={{ headerShown: false }} />
-          <Stack.Screen name="ConfirmaNovoTalhao" component={ConfirmaNovoTalhao} options={{ headerShown: false }} />
-          <Stack.Screen name="GerenciamentoMaquina" component={GerenciamentoMaquina} options={{ headerShown: false }} />
-          <Stack.Screen name="GerenciamentoMaquina2" component={GerenciamentoMaquina2} options={{ headerShown: false }} />
-          <Stack.Screen name="EditarMaquina" component={EditarMaquina} options={{ headerShown: false }} />
-          <Stack.Screen name="NovaMaquina" component={NovaMaquina} options={{ headerShown: false }} />
-          <Stack.Screen name="ExcluirMaquina" component={ExcluirMaquina} options={{ headerShown: false }} />
-          <Stack.Screen name="GerenciamentoInsumos" component={GerenciamentoInsumos} options={{ headerShown: false }} />
-          <Stack.Screen name="GerenciamentoInsumos2" component={GerenciamentoInsumos2} options={{ headerShown: false }} />
-          <Stack.Screen name="NovoInsumo" component={NovoInsumo} options={{ headerShown: false }} />
-          <Stack.Screen name="EditarInsumo" component={EditarInsumo} options={{ headerShown: false }} />
-          <Stack.Screen name="ExcluirInsumo" component={ExcluirInsumo} options={{ headerShown: false }} />
-          <Stack.Screen name="GerenciamentoCultura" component={GerenciamentoCultura} options={{ headerShown: false }} />
-          <Stack.Screen name="GerenciamentoCultura2" component={GerenciamentoCultura2} options={{ headerShown: false }} />
-          <Stack.Screen name="NovaCultura" component={NovaCultura} options={{ headerShown: false }} />
-          <Stack.Screen name="EditarCultura" component={EditarCultura} options={{ headerShown: false }} />
-          <Stack.Screen name="ExcluirCultura" component={ExcluirCultura} options={{ headerShown: false }} />
-          <Stack.Screen name="GerenciamentoCaderno" component={GerenciamentoCaderno} options={{ headerShown: false }} />
-          <Stack.Screen name="GerenciamentoCaderno2" component={GerenciamentoCaderno2} options={{ headerShown: false }} />
-          <Stack.Screen name="RegistroPraticas" component={RegistroPraticas} options={{ headerShown: false }} />
-          <Stack.Screen name="GerenciamentoSafra" component={GerenciamentoSafra} options={{ headerShown: false }} />
-          <Stack.Screen name="GerenciamentoSafra2" component={GerenciamentoSafra2} options={{ headerShown: false }} />
-          <Stack.Screen name="NovaSafra" component={NovaSafra} options={{ headerShown: false }} />
-          <Stack.Screen name="EditarSafra" component={EditarSafra} options={{ headerShown: false }} />
-          <Stack.Screen name="ExcluirSafra" component={ExcluirSafra} options={{ headerShown: false }} />
-          <Stack.Screen name="Qrcodescreen" component={Qrcodescreen} options={{ headerShown: false }} />
-          <Stack.Screen name="TimelineScreen" component={TimelineScreen} options={{ headerShown: false }} />
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="FirstScreen">
+            <Stack.Screen name="FirstScreen" component={FirstScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="CadastroAgricultor" component={CadastroAgricultor} options={{ headerShown: false }} />
+            <Stack.Screen name="CadastroPropriedade" component={CadastroPropriedade} options={{ headerShown: false }} />
+            <Stack.Screen name="Obrigado" component={Obrigado} options={{ headerShown: false }} />
+            <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+            <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }} />
+            <Stack.Screen name="Gerenciamento" component={Gerenciamento} options={{ headerShown: false }} />
+            <Stack.Screen name="Gerenciamento2" component={Gerenciamento2} options={{ headerShown: false }} />
+            <Stack.Screen name="MenuConfig" component={MenuConfig} options={{ headerShown: false }} />
+            <Stack.Screen name="EditarPerfil" component={EditarPerfil} options={{ headerShown: false }} />
+            <Stack.Screen name="EditarPropriedade" component={EditarPropriedade} options={{ headerShown: false }} />
+            <Stack.Screen name="EditarTalhao" component={EditarTalhao} options={{ headerShown: false }} />
+            <Stack.Screen name="ExcluirTalhao" component={ExcluirTalhao} options={{ headerShown: false }} />
+            <Stack.Screen name="NovoTalhao" component={NovoTalhao} options={{ headerShown: false }} />
+            <Stack.Screen name="ConfirmaNovoTalhao" component={ConfirmaNovoTalhao} options={{ headerShown: false }} />
+            <Stack.Screen name="GerenciamentoMaquina" component={GerenciamentoMaquina} options={{ headerShown: false }} />
+            <Stack.Screen name="GerenciamentoMaquina2" component={GerenciamentoMaquina2} options={{ headerShown: false }} />
+            <Stack.Screen name="EditarMaquina" component={EditarMaquina} options={{ headerShown: false }} />
+            <Stack.Screen name="NovaMaquina" component={NovaMaquina} options={{ headerShown: false }} />
+            <Stack.Screen name="ExcluirMaquina" component={ExcluirMaquina} options={{ headerShown: false }} />
+            <Stack.Screen name="GerenciamentoInsumos" component={GerenciamentoInsumos} options={{ headerShown: false }} />
+            <Stack.Screen name="GerenciamentoInsumos2" component={GerenciamentoInsumos2} options={{ headerShown: false }} />
+            <Stack.Screen name="NovoInsumo" component={NovoInsumo} options={{ headerShown: false }} />
+            <Stack.Screen name="EditarInsumo" component={EditarInsumo} options={{ headerShown: false }} />
+            <Stack.Screen name="ExcluirInsumo" component={ExcluirInsumo} options={{ headerShown: false }} />
+            <Stack.Screen name="GerenciamentoCultura" component={GerenciamentoCultura} options={{ headerShown: false }} />
+            <Stack.Screen name="GerenciamentoCultura2" component={GerenciamentoCultura2} options={{ headerShown: false }} />
+            <Stack.Screen name="NovaCultura" component={NovaCultura} options={{ headerShown: false }} />
+            <Stack.Screen name="EditarCultura" component={EditarCultura} options={{ headerShown: false }} />
+            <Stack.Screen name="ExcluirCultura" component={ExcluirCultura} options={{ headerShown: false }} />
+            <Stack.Screen name="GerenciamentoCaderno" component={GerenciamentoCaderno} options={{ headerShown: false }} />
+            <Stack.Screen name="GerenciamentoCaderno2" component={GerenciamentoCaderno2} options={{ headerShown: false }} />
+            <Stack.Screen name="RegistroPraticas" component={RegistroPraticas} options={{ headerShown: false }} />
+            <Stack.Screen name="GerenciamentoSafra" component={GerenciamentoSafra} options={{ headerShown: false }} />
+            <Stack.Screen name="GerenciamentoSafra2" component={GerenciamentoSafra2} options={{ headerShown: false }} />
+            <Stack.Screen name="NovaSafra" component={NovaSafra} options={{ headerShown: false }} />
+            <Stack.Screen name="EditarSafra" component={EditarSafra} options={{ headerShown: false }} />
+            <Stack.Screen name="ExcluirSafra" component={ExcluirSafra} options={{ headerShown: false }} />
+            <Stack.Screen name="Qrcodescreen" component={Qrcodescreen} options={{ headerShown: false }} />
+            <Stack.Screen name="TimelineScreen" component={TimelineScreen} options={{ headerShown: false }} />
 
 
 
 
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
     </UserProvider>
   );
 }

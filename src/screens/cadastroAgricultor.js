@@ -1,103 +1,64 @@
-import React, { useEffect, useState } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import React, { useState, useContext } from 'react';
+import { View, Image, StyleSheet, Alert } from 'react-native';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 import logo from '../assets/images/icon.png';
 import TextInputComponent from '../components/input';
 import Btn from '../components/button';
 import BtnVoltar from '../components/btnVoltar';
-import PersonagemComBalao from '../components/PersonagemComBalao';
-
 import axios from 'axios';
+import { UserContext } from '../contexts/UserContext';
 
 const CadastroAgricultor = ({ navigation }) => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const { setToken } = useContext(UserContext);
   const [nome, setNome] = useState('');
   const [cpf, setCPF] = useState('');
   const [email, setEmail] = useState('');
   const [telefone, setTelefone] = useState('');
   const [senha, setSenha] = useState('');
 
-  useEffect(() => {
-    // Mostrar o modal ao carregar a tela
-    setModalVisible(true);
-  }, []);
-
-  const handleCadastroPropriedade = async () => {
+  const handleCadastro = async () => {
     try {
-      await axios.post('http://localhost:3000/api/auth/cadastrar', {
-        nome: nome,
-        email: email,
-        cpf: cpf,
-        telefone: telefone,
-        senha: senha,
+      const response = await axios.post('http://localhost:3000/api/auth/cadastrar', {
+        nome,
+        cpf,
+        email,
+        telefone,
+        senha,
       });
-      navigation.navigate('CadastroPropriedade');
+
+      if (response.status === 201) {
+        const { token, usuarioId } = response.data;
+        setToken(token); // Salva o token no contexto do usuário
+        console.log("Cadastro bem-sucedido. ID do usuário:", usuarioId);
+        
+        // Verifica se o `usuarioId` é válido antes de navegar
+        if (usuarioId) {
+          navigation.navigate('CadastroPropriedade', { usuarioId });
+        } else {
+          Alert.alert("Erro", "ID do usuário ausente. Não é possível continuar para o cadastro de propriedade.");
+          console.error("ID do usuário ausente após o cadastro.");
+        }
+      }
     } catch (error) {
-      console.error(error);
+      console.error('Erro ao cadastrar o agricultor:', error);
+      Alert.alert('Erro', 'Erro ao cadastrar o agricultor. Tente novamente.');
     }
-
-  };
-
-  const closeModal = () => {
-    setModalVisible(false);
   };
 
   return (
     <PaperProvider>
       <View style={styles.container}>
         <BtnVoltar route="FirstScreen" />
-
         <Image source={logo} style={styles.image} />
-
         <Text variant="titleMedium" style={styles.h2}>
           INFORMAÇÕES SOBRE O RESPONSÁVEL PELO EMPREENDIMENTO
         </Text>
-
-        {/* <TextInput
-          label="Nome"
-          mode="outlined"
-          value={nome}
-          onChangeText={text => setNome(text)}
-
-        /> */}
-        <TextInputComponent
-          label="Digite seu nome"
-          value={nome}
-          onChangeText={text => setNome(text)}
-        />
-
-        <TextInputComponent
-          label="Digite seu CPF"
-          value={cpf}
-          onChangeText={text => setCPF(text)}
-        />
-
-        <TextInputComponent
-          label="Digite seu Email"
-          value={email}
-          onChangeText={text => setEmail(text)}
-        />
-        <TextInputComponent
-          label="Digite seu Telefone"
-          value={telefone}
-          onChangeText={text => setTelefone(text)}
-        />
-        <TextInputComponent
-  label="Digite sua Senha"
-  value={senha}
-  onChangeText={text => setSenha(text)}
-  secureTextEntry={true}  
-/>
-
-
-
-        <Btn label="PRÓXIMO" onPress={handleCadastroPropriedade} />
-
-        <PersonagemComBalao
-          texto="Para continuar com o cadastro, informe algumas informações suas"
-          visible={modalVisible}
-          onClose={closeModal}
-        />
+        <TextInputComponent label="Nome" value={nome} onChangeText={setNome} />
+        <TextInputComponent label="CPF" value={cpf} onChangeText={setCPF} />
+        <TextInputComponent label="Email" value={email} onChangeText={setEmail} />
+        <TextInputComponent label="Telefone" value={telefone} onChangeText={setTelefone} />
+        <TextInputComponent label="Senha" value={senha} onChangeText={setSenha} secureTextEntry />
+        <Btn label="PRÓXIMO" onPress={handleCadastro} />
       </View>
     </PaperProvider>
   );
@@ -121,8 +82,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
     color: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
     textAlign: 'center',
   },
 });
