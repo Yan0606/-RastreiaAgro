@@ -8,8 +8,15 @@ import axios from 'axios';
 import { UserContext } from '../contexts/UserContext';
 
 const EditarPropriedade = () => {
-    const { token, usuarioId } = useContext(UserContext); // Acessando token e usuarioId do contexto
-    const [dadosPropriedade, setDadosPropriedade] = useState({});
+    const { token, usuarioId } = useContext(UserContext); // Certifique-se de que `usuarioId` está disponível no contexto
+    const [dadosPropriedade, setDadosPropriedade] = useState({
+        cnpj: '',
+        area: '',
+        estado: '',
+        cidade: '',
+        endereco: '',
+    });
+    const navigation = useNavigation(); // Inicializa o navigation
 
     useEffect(() => {
         const fetchPropriedade = async () => {
@@ -24,7 +31,9 @@ const EditarPropriedade = () => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                setDadosPropriedade(response.data);
+                if (response.status === 200) {
+                    setDadosPropriedade(response.data);
+                }
             } catch (error) {
                 console.error('Erro ao buscar dados da propriedade:', error);
                 Alert.alert('Erro', 'Não foi possível carregar os dados da propriedade.');
