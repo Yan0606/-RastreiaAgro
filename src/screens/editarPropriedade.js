@@ -8,15 +8,8 @@ import axios from 'axios';
 import { UserContext } from '../contexts/UserContext';
 
 const EditarPropriedade = () => {
-    const { token, usuarioId } = useContext(UserContext); // Certifique-se de que `usuarioId` está disponível no contexto
-    const [dadosPropriedade, setDadosPropriedade] = useState({
-        cnpj: '',
-        area: '',
-        estado: '',
-        cidade: '',
-        endereco: '',
-    });
-    const navigation = useNavigation();
+    const { token, usuarioId } = useContext(UserContext); // Acessando token e usuarioId do contexto
+    const [dadosPropriedade, setDadosPropriedade] = useState({});
 
     useEffect(() => {
         const fetchPropriedade = async () => {
@@ -26,15 +19,12 @@ const EditarPropriedade = () => {
             }
 
             try {
-                // Faça a requisição para buscar a propriedade associada ao `usuarioId`
-                const response = await axios.get(`http://localhost:3000/api/propriedade/editar/${usuarioId}`, {
+                const response = await axios.get(`http://localhost:3000/api/propriedade/editar/usuario/${usuarioId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                if (response.status === 200) {
-                    setDadosPropriedade(response.data);
-                }
+                setDadosPropriedade(response.data);
             } catch (error) {
                 console.error('Erro ao buscar dados da propriedade:', error);
                 Alert.alert('Erro', 'Não foi possível carregar os dados da propriedade.');
@@ -47,7 +37,7 @@ const EditarPropriedade = () => {
     const handleEditarPropriedade = async () => {
         try {
             await axios.put(
-                `http://localhost:3000/api/propriedade/editar/${usuarioId}`,
+                `http://localhost:3000/api/propriedade/editar/usuario/${usuarioId}`,
                 dadosPropriedade,
                 {
                     headers: {

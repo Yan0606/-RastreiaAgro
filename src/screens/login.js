@@ -11,32 +11,38 @@ import axios from 'axios';
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-    const { setUser, setToken } = useContext(UserContext); // Adiciona o setToken
+    const { setUser, setToken, setUsuarioId } = useContext(UserContext); // Inclui o setUsuarioId
 
     const handleMenu = async () => {
         try {
             const response = await axios.post('http://localhost:3000/api/auth/login', { email, senha });
+            
+            // Extrai os dados do usuário, token e ID do usuário da resposta
             const userName = response.data.nome;
             const userToken = response.data.token; 
+            const userId = response.data.usuarioId; // Supondo que o ID do usuário esteja na resposta
             
+            // Salva o nome, token e ID do usuário no contexto
             setUser(userName);  
-            setToken(userToken); 
+            setToken(userToken);
+            setUsuarioId(userId); // Salva o ID do usuário
             
+            // Navega para a tela de Menu
             navigation.navigate('Menu');
         } catch (error) {
             if (error.response) {
                 console.error('Erro no servidor:', error.response.data); // Exibe a mensagem detalhada do erro do servidor
+                Alert.alert('Erro', error.response.data.message || 'Erro ao realizar o login.'); // Exibe o erro específico do servidor
             } else {
                 console.error('Erro na requisição:', error.message);
+                Alert.alert('Erro', 'Não foi possível fazer login. Verifique suas credenciais e tente novamente.');
             }
-            Alert.alert('Erro', 'Não foi possível fazer login. Verifique suas credenciais e tente novamente.');
         }
-        
     };
 
     const handleFirstScreen = () => {
         navigation.navigate('FirstScreen');
-    }
+    };
 
     return (
         <PaperProvider>

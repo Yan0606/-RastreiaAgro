@@ -8,8 +8,8 @@ const InputIcon = ({ label, icon, value, onChangeText }) => {
             mode="outlined"
             label={label || 'Nome'}
             style={styles.input}
-            value={value} // Use a prop `value` para exibir o valor inicial
-            onChangeText={onChangeText} // Chame a função `onChangeText` para atualizar o valor no componente pai
+            value={value} // Recebe o valor da prop `value`
+            onChangeText={onChangeText} // Atualiza o estado com `onChangeText`
             right={<TextInput.Icon icon={icon || 'pencil'} />}
             theme={{
                 roundness: 40,

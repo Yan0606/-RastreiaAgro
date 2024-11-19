@@ -4,11 +4,11 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [propriedade, setPropriedade] = useState(null);
-  const [token, setToken] = useState(null); // Adiciona o estado do token
+  const [token, setToken] = useState(null);
+  const [usuarioId, setUsuarioId] = useState(null); // Novo estado para armazenar o ID do usuário
 
   return (
-    <UserContext.Provider value={{ user, setUser, propriedade, setPropriedade, token, setToken }}>
+    <UserContext.Provider value={{ user, setUser, token, setToken, usuarioId, setUsuarioId }}>
       {children}
     </UserContext.Provider>
   );
