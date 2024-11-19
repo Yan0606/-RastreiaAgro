@@ -2,16 +2,14 @@ import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-paper';
 
-const InputIcon = ({ label, icon }) => {
-    const [text, setText] = React.useState('');
-
+const InputIcon = ({ label, icon, value, onChangeText }) => {
     return (
         <TextInput
             mode="outlined"
             label={label || 'Nome'}
             style={styles.input}
-            value={text}
-            onChangeText={setText}
+            value={value} // Use a prop `value` para exibir o valor inicial
+            onChangeText={onChangeText} // Chame a função `onChangeText` para atualizar o valor no componente pai
             right={<TextInput.Icon icon={icon || 'pencil'} />}
             theme={{
                 roundness: 40,
