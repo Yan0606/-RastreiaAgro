@@ -64,18 +64,18 @@ const Login = ({ navigation }) => {
                     </View>
                 </View>
                 <View style={styles.grid}>
-                    {/* {renderButton(safra, 'Safra', () => navigation.navigate('GerenciamentoSafra'))}
-                    {renderButton(caderno, 'Caderno', () => navigation.navigate('GerenciamentoCaderno'))}
+                     {renderButton(safra, 'Safra', () => navigation.navigate('GerenciamentoSafra'))}
+                    {/*{renderButton(caderno, 'Caderno', () => navigation.navigate('GerenciamentoCaderno'))}
                     {renderButton(cultura, 'Cultura', () => navigation.navigate('GerenciamentoCultura'))}
                     {renderButton(talhoes, 'Talhões', () => navigation.navigate('Gerenciamento'))}
                     {renderButton(maquinas, 'Máquinas', () => navigation.navigate('GerenciamentoMaquina'))} */}
                     {renderButton(insumos, 'Insumos', () => navigation.navigate('GerenciamentoInsumos'))}
                 </View>
-                <PersonagemComBalao
+                {/*<PersonagemComBalao
                     texto={`Ola ${user}, seja bem vindo!`}
                     visible={modalVisible}
                     onClose={closeModal}
-                />
+                />*/}
             </View>
         </PaperProvider>
     );

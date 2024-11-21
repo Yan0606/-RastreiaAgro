@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react'; // Import useState
 import { View, Image, StyleSheet } from 'react-native';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 import logo from '../../assets/images/logoInsumos.png';
@@ -8,12 +8,14 @@ import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
 
 const GerenciamentoInsumos = ({ navigation }) => {
+    const [nomeRecebido, setNomeRecebido] = useState(''); // Estado para o nome
+
 
     const handleGerenciamentoInsumos2 = () => {
         navigation.navigate('GerenciamentoInsumos2');
     };
     const handleNovoInsumo = () => {
-        navigation.navigate('NovoInsumo')
+        navigation.navigate('NovoInsumo', { nomeRecebido })
     };
 
     return (
@@ -30,7 +32,7 @@ const GerenciamentoInsumos = ({ navigation }) => {
                     Cadastrar um novo
                 </Text>
 
-                <TextInputComponent />
+                <TextInputComponent label="Nome" value={nomeRecebido} onChangeText={setNomeRecebido} />
                 <Btn label="PRÓXIMO" onPress={handleNovoInsumo} />
 
                 <Text variant="titleSmall" style={styles.second}>
@@ -38,7 +40,7 @@ const GerenciamentoInsumos = ({ navigation }) => {
                 </Text>
                 <Btn label="GERENCIAR EXISTENTES" onPress={handleGerenciamentoInsumos2} />
 
-                <PersonagemComBalao texto="Selecione se deseja cadastrar ou editar seus insumos" />
+                { /*<PersonagemComBalao texto="Insira as informações sobre o insumo " /> - Adryan olha isso seu porra*/}
             </View>
         </PaperProvider>
     );

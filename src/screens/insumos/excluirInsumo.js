@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import React, { useEffect, useState, useContext } from 'react';
+import { View, Image, StyleSheet, Alert } from 'react-native';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 import logo from '../../assets/images/logoInsumos.png';
 import TextInputComponent from '../../components/input';
@@ -7,11 +7,65 @@ import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
 
-const ExcluirInsumo = ({ navigation }) => {
+import axios from 'axios';
+import { UserContext } from '../../contexts/UserContext';
+import { id } from 'react-native-paper-dates';
+
+const ExcluirInsumo = ({ navigation, route }) => {
     const [isReadonly, setIsReadonly] = useState(true); // Estado para controlar o modo readonly
 
-    const handleGerenciamentoInsumos2 = () => {
-        navigation.navigate('GerenciamentoInsumos2');
+    //obtendo os dados do contexto
+    const { token, usuarioId } = useContext(UserContext);
+
+    //id do insumo que foi clicado
+    const insumoId = route.params;
+    console.log(insumoId);
+
+    const [nome, setNome] = useState('');
+    const [marca, setMarca] = useState('');
+    const [descricao, setDescricao] = useState('');
+
+    // Função para buscar dados ao carregar a tela
+    useEffect(() => {
+        const fetchInsumoData = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3000/api/insumo/editar/${insumoId.id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Adiciona o token ao cabeçalho
+                    },
+                });
+                if (response.status === 200) {
+                    const { nome, marca, descricao } = response.data;
+                    setNome(nome);
+                    setMarca(marca);
+                    setDescricao(descricao);
+                }
+            } catch (error) {
+                console.error('Erro ao buscar dados:', error);
+                Alert.alert('Erro', 'Não foi possível carregar os dados.');
+            }
+        };
+
+        fetchInsumoData();
+    }, [insumoId, token]);
+
+
+    const handleGerenciamentoInsumos2 = async () => {
+        try {
+            await axios.delete(
+                `http://localhost:3000/api/insumo/excluir/${insumoId.id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Adiciona o token ao cabeçalho
+                    },
+                }
+            );
+            Alert.alert('Sucesso', 'Insumo excluido com sucesso!');
+            navigation.navigate('GerenciamentoInsumos2');
+        } catch (error) {
+            console.error('Erro ao excluir insumo:', error);
+            Alert.alert('Erro', 'Não foi possível excluir o insumo. Tente novamente.');
+        }
     };
 
     return (
@@ -30,10 +84,22 @@ const ExcluirInsumo = ({ navigation }) => {
 
                 {/* View com pointerEvents="none" para tornar os inputs readonly */}
                 <View style={isReadonly ? styles.readonlyContainer : null} pointerEvents={isReadonly ? 'none' : 'auto'}>
-                    <TextInputComponent text="Adubo orgânico" style={styles.input} />
-                    <TextInputComponent text="Vaca Muu" style={styles.input} />
-                    <TextInputComponent text="Cocô natural de vaca" style={styles.input} />
-                    <TextInputComponent text="Foto" style={styles.input} />
+
+                <TextInputComponent
+                    label="Nome"
+                    value={nome}
+                    onChangeText={setNome}
+                />
+                <TextInputComponent
+                    label="Marca"
+                    value={marca}
+                    onChangeText={setMarca}
+                />
+                <TextInputComponent
+                    label="Descricao"
+                    value={descricao}
+                    onChangeText={setDescricao}
+                />
 
                 </View>
 
@@ -42,7 +108,6 @@ const ExcluirInsumo = ({ navigation }) => {
                     <Btn label="EXCLUIR" onPress={handleGerenciamentoInsumos2} backgroundColor="red" />
                 </View>
 
-                <PersonagemComBalao texto="Tem certeza que deseja excluir essa safra?" />
             </View>
         </PaperProvider>
     );
@@ -55,6 +120,7 @@ const styles = StyleSheet.create({
         paddingTop: 50,
         backgroundColor: '#18603A',
         width: '100%',
+        height: '100%',
     },
     h2: {
         marginTop: 20,

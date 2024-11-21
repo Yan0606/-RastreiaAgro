@@ -13,7 +13,7 @@ import { UserContext } from '../../contexts/UserContext'; // Supondo que você t
 
 const GerenciamentoSafra = () => {
     const navigation = useNavigation();
-    const { token } = useContext(UserContext); // Acessa o token do contexto de usuário
+    const { token, usuarioId } = useContext(UserContext); // Acessa o token do contexto de usuário
     const [modalVisible, setModalVisible] = useState(true); // Modal inicialmente visível
     const [dataInicio, setDataInicio] = useState('');
     const [dataFim, setDataFim] = useState('');
@@ -43,6 +43,7 @@ const GerenciamentoSafra = () => {
                     nome: nomeSafra,
                     dataInicio: formattedDataInicio,
                     dataFim: formattedDataFim,
+                    usuarioId,
                 },
                 {
                     headers: {
