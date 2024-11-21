@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
@@ -7,7 +7,15 @@ import Btn from '../components/button';
 import BtnVoltar from '../components/btnVoltar';
 import PersonagemComBalao from '../components/PersonagemComBalao';
 
+import { UserContext } from '../contexts/UserContext';
+
+
 const Obrigado = () => {
+  //obtendo os dados do contexto
+  const { user } = useContext(UserContext);    // Adiciona o setToken
+  const { usuarioId } = useContext(UserContext);
+  console.log("O ID DO USUARIO É:", usuarioId)
+
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(true); // Modal inicialmente visível
 
@@ -32,13 +40,13 @@ const Obrigado = () => {
         <Text variant="headlineLarge" style={styles.h2}>
           Obrigado por terminar seu cadastro conosco
         </Text>
-        
+
         <Btn text="VOLTAR PARA O INÍCIO" onPress={handleFirstScreen} />
-        
-        <PersonagemComBalao 
-          texto="Ótimo (Nome), agora entraremos em contato para terminar seu cadastro" 
-          visible={modalVisible} 
-          onClose={closeModal} 
+
+        <PersonagemComBalao
+          texto={`Ótimo ${user}, agora entraremos em contato para terminar seu cadastro`}
+          visible={modalVisible}
+          onClose={closeModal}
         />
       </View>
     </PaperProvider>
