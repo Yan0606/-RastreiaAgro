@@ -6,6 +6,8 @@ import Button from '../components/button';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { UserContext } from '../contexts/UserContext';
+import BtnVoltar from '../components/btnVoltar';
+
 
 const EditarPropriedade = () => {
     const { token, usuarioId } = useContext(UserContext); // Certifique-se de que `usuarioId` está disponível no contexto
@@ -62,9 +64,15 @@ const EditarPropriedade = () => {
         }
     };
 
+    const Menu = () => {
+        navigation.navigate('Menu');
+    };
+
     return (
         <PaperProvider>
             <View style={styles.container}>
+            <BtnVoltar route={Menu} />
+
                 <Text variant="headlineLarge" style={styles.title}>EDITAR PROPRIEDADE</Text>
                 <InputIcon
                     label="CNPJ"
