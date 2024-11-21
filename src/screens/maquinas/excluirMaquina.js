@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import React, { useEffect, useState, useContext } from 'react';
+import { View, Image, StyleSheet, Alert } from 'react-native';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 import logo from '../../assets/images/logoMaquina.png';
 import TextInputComponent from '../../components/input';
@@ -8,12 +8,70 @@ import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
 import InputData from '../../components/inputData';
 
-const ExcluirMaquina = ({ navigation }) => {
+import axios from 'axios';
+import { UserContext } from '../../contexts/UserContext';
+import { id } from 'react-native-paper-dates';
+
+const ExcluirMaquina = ({ navigation, route }) => {
 
     const [isReadonly, setIsReadonly] = useState(true); // Estado para controlar o modo readonly
 
-    const handleGerenciamentoMaquina2 = () => {
-        navigation.navigate('GerenciamentoMaquina2');
+    //obtendo os dados do contexto
+    const { token, usuarioId } = useContext(UserContext);
+
+    //id do insumo que foi clicado
+    const maquinaId = route.params;
+    console.log(maquinaId);
+
+    const [nome, setNome] = useState('');
+    const [marca, setMarca] = useState('');
+    const [modelo, setModelo] = useState('');
+    const [placa, setPlaca] = useState('');
+
+    // Função para buscar dados ao carregar a tela
+    useEffect(() => {
+        const fetchMaquinaData = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3000/api/maquina/editar/${maquinaId.id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Adiciona o token ao cabeçalho
+                    },
+                });
+                if (response.status === 200) {
+                    console.log(response.data)
+                    const { marca, modelo, placa, nome } = response.data;
+                    setNome(nome);
+                    setMarca(marca);
+                    setModelo(modelo);
+                    setPlaca(placa);
+
+                }
+            } catch (error) {
+                console.error('Erro ao buscar dados:', error);
+                Alert.alert('Erro', 'Não foi possível carregar os dados.');
+            }
+        };
+
+        fetchMaquinaData();
+    }, [maquinaId, token]);
+
+
+    const handleGerenciamentoMaquina2 = async () => {
+        try {
+            await axios.delete(
+                `http://localhost:3000/api/maquina/excluir/${maquinaId.id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Adiciona o token ao cabeçalho
+                    },
+                }
+            );
+            Alert.alert('Sucesso', 'Insumo excluido com sucesso!');
+            navigation.navigate('GerenciamentoMaquina2');
+        } catch (error) {
+            console.error('Erro ao excluir insumo:', error);
+            Alert.alert('Erro', 'Não foi possível excluir o insumo. Tente novamente.');
+        }
     };
 
     return (
@@ -32,11 +90,26 @@ const ExcluirMaquina = ({ navigation }) => {
 
                 {/* View com pointerEvents="none" para tornar os inputs readonly */}
                 <View style={isReadonly ? styles.readonlyContainer : null} pointerEvents={isReadonly ? 'none' : 'auto'}>
-                    <TextInputComponent text="Nome " defaultValue="JHON DEERE" />
-                    <TextInputComponent text="Marca " defaultValue="6135M" />
-                    <TextInputComponent text="Modelo " defaultValue="AAA-123" />
-
-
+                    <TextInputComponent
+                        label="Nome"
+                        value={nome}
+                        onChangeText={setNome}
+                    />
+                    <TextInputComponent
+                        label="Marca"
+                        value={marca}
+                        onChangeText={setMarca}
+                    />
+                    <TextInputComponent
+                        label="Modelo"
+                        value={modelo}
+                        onChangeText={setModelo}
+                    />
+                    <TextInputComponent
+                        label="Placa"
+                        value={placa}
+                        onChangeText={setPlaca}
+                    />
                 </View>
 
                 {/* Botão de Excluir fora do pointerEvents */}
@@ -44,7 +117,6 @@ const ExcluirMaquina = ({ navigation }) => {
                     <Btn label="EXCLUIR" onPress={handleGerenciamentoMaquina2} backgroundColor="red" />
                 </View>
 
-                <PersonagemComBalao texto="Tem certeza que deseja excluir essa safra?" />
             </View>
         </PaperProvider>
     );
@@ -57,6 +129,8 @@ const styles = StyleSheet.create({
         paddingTop: 50,
         backgroundColor: '#18603A',
         width: '100%',
+        height: '100%',
+
     },
     h2: {
         marginTop: 20,

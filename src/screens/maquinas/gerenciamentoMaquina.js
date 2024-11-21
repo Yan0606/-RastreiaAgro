@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react'; // Import useState
 import { View, Image, StyleSheet } from 'react-native';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 import logo from '../../assets/images/logoMaquina.png';
@@ -9,11 +9,14 @@ import PersonagemComBalao from '../../components/PersonagemComBalao';
 
 const GerenciamentoMaquina = ({ navigation }) => {
 
+    const [nomeRecebido, setNomeRecebido] = useState(''); // Estado para o nome
+
+
     const handleGerenciamentoMaquina2 = () => {
         navigation.navigate('GerenciamentoMaquina2');
     };
     const handleNovaMaquina = () => {
-        navigation.navigate('NovaMaquina')
+        navigation.navigate('NovaMaquina',{ nomeRecebido })
     };
 
     return (
@@ -30,7 +33,7 @@ const GerenciamentoMaquina = ({ navigation }) => {
                     Cadastrar uma nova
                 </Text>
 
-                <TextInputComponent />
+                <TextInputComponent label="Nome" value={nomeRecebido} onChangeText={setNomeRecebido} />
                 <Btn label="PRÓXIMO" onPress={handleNovaMaquina} />
 
                 <Text variant="titleSmall" style={styles.h2}>
@@ -38,7 +41,6 @@ const GerenciamentoMaquina = ({ navigation }) => {
                 </Text>
                 <Btn label="PRÓXIMO" onPress={handleGerenciamentoMaquina2} />
 
-                <PersonagemComBalao texto="Selecione se deseja cadastrar ou editar suas máquinas" />
             </View>
         </PaperProvider>
     );
