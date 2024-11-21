@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import React, { useEffect, useState, useContext } from 'react';
+import { View, Image, StyleSheet, Alert } from 'react-native';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 import logo from '../../assets/images/logoCultura.png';
 import TextInputComponent from '../../components/input';
@@ -7,10 +7,52 @@ import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
 
-const NovaCultura = ({ navigation }) => {
+import axios from 'axios';
+import { UserContext } from '../../contexts/UserContext';
+
+const NovaCultura = ({ navigation, route }) => {
+    //obtendo os dados do contexto
+    const { token } = useContext(UserContext);    // Adiciona o setToken
+    const { usuarioId } = useContext(UserContext);
+    console.log("O ID DO USUARIO É:", usuarioId)
+
+    const { nomeRecebido } = route.params;
+    const [nome, setNome] = useState(nomeRecebido); // Inicializa com o valor recebido
+    const [tempoProducao, setTempoProducao] = useState('');
+
+    useEffect(() => {
+        if (!usuarioId) {
+          Alert.alert('Erro', 'ID do usuário ausente. Retorne e faça o cadastro novamente.');
+          navigation.goBack();
+        }
+      }, [usuarioId]);
+
     const GerenciamentoCultura = () => {
         navigation.navigate('GerenciamentoCultura');
     };
+
+    const handleCadastroCultura = async () => {
+        try {
+          const response = await axios.post('http://localhost:3000/api/cultura/novo', {
+            nome,
+            tempoProducao,
+            usuarioId,
+    
+          }, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+    
+          if (response.status === 201) {
+            console.log("Cadastro de cultura bem-sucedido.");
+            navigation.navigate('GerenciamentoCultura2');
+          }
+        } catch (error) {
+          console.error('Erro ao cadastrar cultura:', error);
+          Alert.alert('Erro', 'Erro ao cadastrar cultura. Tente novamente.');
+        }
+      };
 
     return (
         <PaperProvider>
@@ -23,11 +65,12 @@ const NovaCultura = ({ navigation }) => {
                     Gerenciamento de Cultura
                 </Text>
 
-                <TextInputComponent text="Tempo de produção:" />
-                
-                <Btn label="CADASTRAR"   />
+                <TextInputComponent label="Nome" value={nome} onChangeText={setNome} />
+                <TextInputComponent label="Tempo de produção" value={tempoProducao} onChangeText={setTempoProducao} />
 
-                <PersonagemComBalao texto="Informe o tempo aproximado para produção dessa cultura " />
+                <Btn label="CADASTRAR" onPress={handleCadastroCultura} />
+
+
             </View>
         </PaperProvider>
     );
@@ -47,7 +90,7 @@ const styles = StyleSheet.create({
         height: 80,
         resizeMode: 'contain',
     },
-    input:{
+    input: {
 
     },
     h2: {

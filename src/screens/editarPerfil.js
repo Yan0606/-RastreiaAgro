@@ -3,6 +3,8 @@ import { View, StyleSheet, Alert } from 'react-native';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 import InputIcon from '../components/inputIcon';
 import Button from '../components/button';
+import BtnVoltar from '../components/btnVoltar';
+
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { UserContext } from '../contexts/UserContext';
@@ -66,6 +68,7 @@ const EditarPerfil = () => {
     return (
         <PaperProvider>
             <View style={styles.container}>
+                <BtnVoltar route="Menu" />
                 <Text variant="headlineLarge" style={styles.title}>EDITAR PERFIL</Text>
                 <InputIcon
                     label="Nome"

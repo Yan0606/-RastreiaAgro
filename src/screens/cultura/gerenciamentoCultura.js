@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react'; // Import useState
 import { View, Image, StyleSheet } from 'react-native';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 import logo from '../../assets/images/logoCultura.png';
@@ -8,12 +8,13 @@ import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
 
 const GerenciamentoCultura = ({ navigation }) => {
+    const [nomeRecebido, setNomeRecebido] = useState(''); // Estado para o nome
 
     const handleGerenciamentoCultura2 = () => {
         navigation.navigate('GerenciamentoCultura2');
     };
-    const NovaCultura= () => {
-        navigation.navigate('NovaCultura');
+    const NovaCultura = () => {
+        navigation.navigate('NovaCultura', { nomeRecebido });
     };
 
     return (
@@ -30,15 +31,15 @@ const GerenciamentoCultura = ({ navigation }) => {
                     Cadastrar uma nova
                 </Text>
 
-                <TextInputComponent />
-                <Btn label="PRÓXIMO"  onPress={NovaCultura}/>
+                <TextInputComponent label="Nome" value={nomeRecebido} onChangeText={setNomeRecebido} />
+                <Btn label="PRÓXIMO" onPress={NovaCultura} />
 
                 <Text variant="titleSmall" style={styles.second}>
                     Ou gerenciar existentes
                 </Text>
                 <Btn label="GERENCIAR EXISTENTES" onPress={handleGerenciamentoCultura2} />
 
-                <PersonagemComBalao texto="Selecione se deseja cadastrar ou editar suas culturas" />
+
             </View>
         </PaperProvider>
     );
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 5,
     },
-    second:{
+    second: {
         marginTop: 45,
         marginBottom: 3,
     }

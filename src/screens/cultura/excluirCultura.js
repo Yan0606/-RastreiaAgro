@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import React, { useEffect, useState, useContext } from 'react';
+import { View, Image, StyleSheet, Alert  } from 'react-native';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
 import logo from '../../assets/images/logoInsumos.png';
 import TextInputComponent from '../../components/input';
@@ -7,11 +7,63 @@ import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
 
-const ExcluirCultura = ({ navigation }) => {
+import axios from 'axios';
+import { UserContext } from '../../contexts/UserContext';
+import { id } from 'react-native-paper-dates';
+
+const ExcluirCultura = ({ navigation, route }) => {
     const [isReadonly, setIsReadonly] = useState(true); // Estado para controlar o modo readonly
 
-    const handleGerenciamentoCultura2 = () => {
-        navigation.navigate('GerenciamentoCultura2');
+       //obtendo os dados do contexto
+       const { token, usuarioId } = useContext(UserContext);
+
+       //id do insumo que foi clicado
+       const culturaId = route.params;
+       console.log(culturaId);
+   
+       const [nome, setNome] = useState('');
+       const [tempoProducao, setTempoProducao] = useState('');
+   
+       // Função para buscar dados ao carregar a tela
+       useEffect(() => {
+           const fetchCulturaData = async () => {
+               try {
+                   const response = await axios.get(`http://localhost:3000/api/cultura/editar/${culturaId.id}`, {
+                       headers: {
+                           Authorization: `Bearer ${token}`, // Adiciona o token ao cabeçalho
+                       },
+                   });
+                   if (response.status === 200) {
+                       const { nome, tempoProducao } = response.data;
+                       setNome(nome);
+                       setTempoProducao(tempoProducao);
+                   }
+               } catch (error) {
+                   console.error('Erro ao buscar dados:', error);
+                   Alert.alert('Erro', 'Não foi possível carregar os dados.');
+               }
+           };
+   
+           fetchCulturaData();
+       }, [culturaId, token]);
+
+
+    const handleGerenciamentoCultura2 = async () => {
+        try {
+            await axios.delete(
+                `http://localhost:3000/api/cultura/excluir/${culturaId.id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Adiciona o token ao cabeçalho
+                    },
+                }
+            );
+            Alert.alert('Sucesso', 'Cultura excluida com sucesso!');
+            navigation.navigate('GerenciamentoCultura2');
+        } catch (error) {
+            console.error('Erro ao excluir cultura:', error);
+            Alert.alert('Erro', 'Não foi possível excluir a cultura. Tente novamente.');
+        }
     };
 
     return (
@@ -30,8 +82,16 @@ const ExcluirCultura = ({ navigation }) => {
 
                 {/* View com pointerEvents="none" para tornar os inputs readonly */}
                 <View style={isReadonly ? styles.readonlyContainer : null} pointerEvents={isReadonly ? 'none' : 'auto'}>
-                    <TextInputComponent text="Tomate" style={styles.input} />
-                    <TextInputComponent text="6 meses" style={styles.input} />
+                <TextInputComponent
+                    label="Nome"
+                    value={nome}
+                    onChangeText={setNome}
+                />
+                <TextInputComponent
+                    label="Tempo de produção"
+                    value={tempoProducao}
+                    onChangeText={setTempoProducao}
+                />
 
                 </View>
 
@@ -40,7 +100,6 @@ const ExcluirCultura = ({ navigation }) => {
                     <Btn label="EXCLUIR" onPress={handleGerenciamentoCultura2} backgroundColor="red" />
                 </View>
 
-                <PersonagemComBalao texto="Tem certeza que deseja excluir essa safra?" />
             </View>
         </PaperProvider>
     );
@@ -53,6 +112,8 @@ const styles = StyleSheet.create({
         paddingTop: 50,
         backgroundColor: '#18603A',
         width: '100%',
+        height: '100%',
+
     },
     h2: {
         marginTop: 20,
