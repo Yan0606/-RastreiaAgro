@@ -10,6 +10,7 @@ import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext'; // Supondo que você tenha um contexto de usuário para o token
+import { TextInputMask } from 'react-native-masked-text';
 
 const GerenciamentoSafra = () => {
     const navigation = useNavigation();
@@ -19,24 +20,22 @@ const GerenciamentoSafra = () => {
     const [dataFim, setDataFim] = useState('');
     const [nomeSafra, setNomeSafra] = useState('');
 
-    // Função para formatar a data no padrão "YYYY-MM-DD HH:MM:SS"
-    const formatDateTime = (date) => {
-        if (!date) return null;
-        const day = date.getDate().toString().padStart(2, '0');
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const year = date.getFullYear();
-        const hours = date.getHours().toString().padStart(2, '0');
-        const minutes = date.getMinutes().toString().padStart(2, '0');
-        const seconds = date.getSeconds().toString().padStart(2, '0');
-        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    const formatDate = (date) => {
+        if (!date) return null;  // Se não houver data, retorna null
+    
+        const day = date.getDate().toString().padStart(2, '0'); // Adiciona 0 à esquerda se o dia for menor que 10
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Adiciona 0 à esquerda se o mês for menor que 10
+        const year = date.getFullYear();  // Ano com 4 dígitos
+    
+        return `${year}-${month}-${day}`;  // Formato "YYYY-MM-DD"
     };
 
     const handleNovaSafra = async () => {
-        // Formata as datas no padrão esperado pelo banco de dados
-        const formattedDataInicio = formatDateTime(new Date(dataInicio));
-        const formattedDataFim = formatDateTime(new Date(dataFim));
+        const formattedDataInicio = formatDate(new Date(dataInicio));  // Formata data de início
+        const formattedDataFim = formatDate(new Date(dataFim));  
 
         try {
+
             const response = await axios.post(
                 'http://localhost:3000/api/safra/novo',
                 {
@@ -55,7 +54,7 @@ const GerenciamentoSafra = () => {
             if (response.status === 201) {
                 const safraId = response.data.id; // Captura o ID da safra retornado pela API
                 Alert.alert('Sucesso', 'Safra cadastrada com sucesso!');
-                
+
                 // Navega para a tela NovaSafra, passando o safraId como parâmetro
                 navigation.navigate('NovaSafra', { safraId });
             }
@@ -86,7 +85,7 @@ const GerenciamentoSafra = () => {
                 </Text>
 
                 <View style={styles.inputRow}>
-                    <InputData
+                    {/* <InputData
                         label="Data de início"
                         value={dataInicio}
                         onChangeDate={(date) => setDataInicio(date)} // Captura o valor selecionado no InputData
@@ -95,9 +94,29 @@ const GerenciamentoSafra = () => {
                         label="Data de término"
                         value={dataFim}
                         onChangeDate={(date) => setDataFim(date)} // Captura o valor selecionado no InputData
-                    />
+                    /> */}
                 </View>
 
+                <TextInputMask
+                        type={'custom'}
+                        options={{
+                            mask: '99/99/9999' // Define a máscara de data DD/MM/YYYY
+                        }}
+                        value={dataInicio}
+                        onChangeText={(text) => setDataInicio(text)} // Atualiza o estado com o valor digitado
+                        keyboardType="numeric" // Define o tipo de teclado como numérico
+                        style={styles.maskInput}
+                    />
+                <TextInputMask
+                        type={'custom'}
+                        options={{
+                            mask: '99/99/9999' // Define a máscara de data DD/MM/YYYY
+                        }}
+                        value={dataFim}
+                        onChangeText={(text) => setDataFim(text)} // Atualiza o estado com o valor digitado
+                        keyboardType="numeric" // Define o tipo de teclado como numérico
+                        style={styles.maskInput}
+                    />
                 <TextInputComponent
                     label="Nome da Safra"
                     value={nomeSafra}
@@ -111,10 +130,10 @@ const GerenciamentoSafra = () => {
                 </Text>
                 <Btn label="SELECIONAR" onPress={() => navigation.navigate('GerenciamentoSafra2')} />
 
-                <PersonagemComBalao 
-                    texto="Selecione se deseja cadastrar ou editar suas safras" 
-                    visible={modalVisible} 
-                    onClose={closeModal} 
+                <PersonagemComBalao
+                    texto="Selecione se deseja cadastrar ou editar suas safras"
+                    visible={modalVisible}
+                    onClose={closeModal}
                 />
             </View>
         </PaperProvider>
@@ -150,6 +169,13 @@ const styles = StyleSheet.create({
         flex: 1,
         marginHorizontal: 5,
     },
+    maskInput:{
+        width: '90%',
+        height: 34,
+        marginBottom: 15,
+        backgroundColor: "#fff",
+        paddingVertical: 10,
+    }
 });
 
 export default GerenciamentoSafra;

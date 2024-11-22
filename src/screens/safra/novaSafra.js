@@ -21,7 +21,7 @@ const NovaSafra = ({ route, navigation }) => {
         tipoIrriga: null,
     });
     const [dataInicio, setDataInicio] = useState(''); // Estado para data de início
-    const [dataTermino, setDataTermino] = useState(''); // Estado para data de término
+    const [dataFim, setDataFim] = useState(''); // Estado para data de término
     const [nomeSafra, setNomeSafra] = useState(''); // Nome da safra
 
     // Função para formatar a data no formato "DD/MM/YYYY"
@@ -47,8 +47,8 @@ const NovaSafra = ({ route, navigation }) => {
             if (response.status === 200) {
                 const { nome, dataInicio, dataFim } = response.data;
                 setNomeSafra(nome); // Define o nome da safra
-                setDataInicio(formatDate(dataInicio)); // Define a data de início formatada
-                setDataTermino(formatDate(dataFim)); // Define a data de término formatada
+                setDataInicio((dataInicio)); // Define a data de início formatada
+                setDataFim((dataFim)); // Define a data de término formatada
             }
         } catch (error) {
             console.error('Erro ao buscar dados da safra:', error);
@@ -105,12 +105,12 @@ const NovaSafra = ({ route, navigation }) => {
 
                 <View style={styles.infoRow}>
                     <Text style={styles.label}>Data de Início:</Text>
-                    <Text style={styles.value}>{dataInicio}</Text> {/* Exibe a data de início formatada */}
+                    <Text>{dataInicio}</Text> {/* Exibe a data de início formatada */}
                 </View>
 
                 <View style={styles.infoRow}>
                     <Text style={styles.label}>Data de Término:</Text>
-                    <Text style={styles.value}>{dataTermino}</Text> {/* Exibe a data de término formatada */}
+                    <Text >{dataFim}</Text> {/* Exibe a data de término formatada */}
                 </View>
 
                 <View style={styles.inputRow}>

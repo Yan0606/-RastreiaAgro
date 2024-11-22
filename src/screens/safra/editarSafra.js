@@ -39,8 +39,8 @@ const EditarSafra = ({ route, navigation }) => {
                 if (response.status === 200) {
                     const { nome, dataInicio, dataFim } = response.data;
                     setNome(nome);
-                    setDataInicio(formatDate(dataInicio));
-                    setDataTermino(formatDate(dataFim));
+                    setDataInicio(dataInicio);
+                    setDataTermino(dataFim);
                 }
             } catch (error) {
                 console.error('Erro ao buscar dados da safra:', error);
