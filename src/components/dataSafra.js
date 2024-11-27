@@ -2,10 +2,11 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Text } from 'react-native-paper';
 
-
-export default function DataSafra({ navigation }) {
+export default function DataSafra({ titulo = "Safra", inicio, fim }) {
     return (
-        <Text style={styles.subtitle}>Safra 1 - Início: 26/04/24 - Fim: 02/12/24</Text>
+        <Text style={styles.subtitle}>
+            {titulo} - Início: {inicio} - Fim: {fim}
+        </Text>
     );
 }
 

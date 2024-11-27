@@ -1,34 +1,67 @@
-import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
-import { Card, Text } from 'react-native-paper';
+import React, { useEffect, useState, useContext } from 'react';
+import { View, Image, StyleSheet, ScrollView, Alert } from 'react-native';
 import logo from '../../assets/images/logoCaderno.png';
-import Btn from '../../components/button';
+
+import { Text } from 'react-native-paper';
+import axios from 'axios';
+import { UserContext } from '../../contexts/UserContext';
 import BtnVoltar from '../../components/btnVoltar';
-import PersonagemComBalao from '../../components/PersonagemComBalao';
+import CardCaderno from '../../components/cardCaderno';
 
 export default function GerenciamentoCaderno({ navigation }) {
+    const { token, usuarioId } = useContext(UserContext);
+    const [dadosSafraTalhao, setDadosSafraTalhao] = useState([]);
+
+    const fetchCultura = async () => {
+        if (!usuarioId) {
+            Alert.alert("Erro", "ID do usuário não encontrado.");
+            return;
+        }
+
+        try {
+            const response = await axios.get(`http://localhost:3000/api/safraTalhao/editar/safra/${usuarioId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (response.status === 200) {
+                setDadosSafraTalhao(response.data);
+            }
+        } catch (error) {
+            console.error('Erro ao buscar dados:', error);
+            Alert.alert('Erro', 'Não foi possível carregar os dados.');
+        }
+    };
+
+    useEffect(() => {
+        fetchCultura();
+    }, []);
+
+    const safraSelecionada = (id) => {
+        navigation.navigate('GerenciamentoCaderno2', { id });
+    };
+
     return (
         <View style={styles.container}>
             <BtnVoltar route="Menu" />
             <Image source={logo} style={styles.image} />
-            <Text style={styles.title}>Caderno de campo</Text>
+
+            <Text style={styles.title}>Caderno de Campo</Text>
             <Text style={styles.subtitle}>Selecione a safra</Text>
-            <Card style={styles.card} onPress={() => navigation.navigate('GerenciamentoCaderno2')}>
-                <Card.Content>
-                    <Text>Safra 1</Text>
-                    <Text style={styles.dt}>Início: 26/04/24</Text>
-                    <Text style={styles.dt}>Fim: 02/12/24</Text>
-                </Card.Content>
-            </Card>
-            <Card style={styles.card} onPress={() => navigation.navigate('GerenciamentoCaderno2')}>
-                <Card.Content>
-                    <Text>Safra 2</Text>
-                    <Text style={styles.dt}>Início: 30/02/24</Text>
-                    <Text style={styles.dt}>Fim: 02/02/25</Text>
-                </Card.Content>
-            </Card>
-            <Btn label="PRÓXIMO" />
-            
+            <ScrollView contentContainerStyle={styles.scrollContainer}>
+                {dadosSafraTalhao.map((item) => (
+                    <CardCaderno
+                        key={item.id}
+                        data={{
+                            //titulo: item.nome || `Safra ${item.id}`,
+                            titulo: item.nome,
+                            inicio: item.dataInicio,
+                            fim: item.dataFim,
+                        }}
+                        onClick={() => safraSelecionada(item.id)}
+                    />
+                ))}
+            </ScrollView>
         </View>
     );
 }
@@ -41,42 +74,19 @@ const styles = StyleSheet.create({
         paddingTop: 50,
         backgroundColor: '#18603A',
     },
-    image: {
-        marginTop: 10,
-        width: 80,
-        height: 80,
-        resizeMode: 'contain',
-    },
-    backButton: {
-        alignSelf: 'flex-start',
+    scrollContainer: {
+        paddingBottom: 20,
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',
-        color:'#fff'
+        color: '#fff',
     },
     subtitle: {
         fontSize: 18,
         textAlign: 'center',
         marginVertical: 16,
-        color:'#fff'
+        color: '#fff',
     },
-    dt:{
-        color:'#D5D5D5',
-        fontWeight:'bold',
-    },
-    card: {
-        marginVertical: 8,
-        width: '90%',
-    },
-    button: {
-        marginTop: 16,
-    },
-    label: {
-        margin: 17,
-        textDecorationLine:"underline",
-        color:'#fff'
-    }
-
 });
