@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, Image, StyleSheet, Alert } from 'react-native';
-import { Dropdown } from 'react-native-element-dropdown';
 import { Provider as PaperProvider, Text } from 'react-native-paper';
+import { Dropdown } from 'react-native-element-dropdown';
 import logo from '../../assets/images/logoSafra.png';
 import BtnVoltar from '../../components/btnVoltar';
 import CardSafra from '../../components/cardSafra';
@@ -12,7 +12,7 @@ import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
 
 const NovaSafra = ({ route, navigation }) => {
-    const { token } = useContext(UserContext); // Obtém o token do contexto
+    const { token, usuarioId } = useContext(UserContext); // Obtém o token e o usuarioId do contexto
     const safraId = route?.params?.safraId || null; // Usa um valor padrão para safraId
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItems, setSelectedItems] = useState({
@@ -20,35 +20,26 @@ const NovaSafra = ({ route, navigation }) => {
         cultura: null,
         tipoIrriga: null,
     });
-    const [dataInicio, setDataInicio] = useState(''); // Estado para data de início
-    const [dataFim, setDataFim] = useState(''); // Estado para data de término
-    const [nomeSafra, setNomeSafra] = useState(''); // Nome da safra
+    const [dataInicio, setDataInicio] = useState('');
+    const [dataFim, setDataFim] = useState('');
+    const [nomeSafra, setNomeSafra] = useState('');
+    const [talhoes, setTalhoes] = useState([]); // Estado para armazenar os talhões
+    const [culturas, setCulturas] = useState([]); // Estado para armazenar as culturas
 
-    // Função para formatar a data no formato "DD/MM/YYYY"
-    const formatDate = (dateString) => {
-        if (!dateString) return '';
-        const date = new Date(dateString);
-        const day = date.getDate().toString().padStart(2, '0');
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const year = date.getFullYear();
-        return `${day}/${month}/${year}`;
-    };
-
-    // Função para buscar dados da safra usando o ID
     const fetchSafraData = async () => {
-        if (!safraId) return; // Se safraId for nulo, não faz a requisição
+        if (!safraId) return;
 
         try {
             const response = await axios.get(`http://localhost:3000/api/safra/editar/${safraId}`, {
                 headers: {
-                    Authorization: `Bearer ${token}`, // Adiciona o token ao cabeçalho da requisição
+                    Authorization: `Bearer ${token}`,
                 },
             });
             if (response.status === 200) {
                 const { nome, dataInicio, dataFim } = response.data;
-                setNomeSafra(nome); // Define o nome da safra
-                setDataInicio((dataInicio)); // Define a data de início formatada
-                setDataFim((dataFim)); // Define a data de término formatada
+                setNomeSafra(nome);
+                setDataInicio(dataInicio);
+                setDataFim(dataFim);
             }
         } catch (error) {
             console.error('Erro ao buscar dados da safra:', error);
@@ -56,8 +47,42 @@ const NovaSafra = ({ route, navigation }) => {
         }
     };
 
+    const fetchTalhoes = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3000/api/talhoes?usuarioId=${usuarioId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (response.status === 200) {
+                setTalhoes(response.data); // Define os talhões no estado
+            }
+        } catch (error) {
+            console.error('Erro ao buscar talhões:', error);
+            Alert.alert('Erro', 'Não foi possível carregar os talhões.');
+        }
+    };
+
+    const fetchCulturas = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3000/api/cultura`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (response.status === 200) {
+                setCulturas(response.data); // Define as culturas no estado
+            }
+        } catch (error) {
+            console.error('Erro ao buscar culturas:', error);
+            Alert.alert('Erro', 'Não foi possível carregar as culturas.');
+        }
+    };
+
     useEffect(() => {
-        fetchSafraData(); // Busca os dados da safra ao carregar a tela
+        fetchSafraData();
+        fetchTalhoes(); // Busca os talhões ao carregar a tela
+        fetchCulturas(); // Busca as culturas ao carregar a tela
     }, []);
 
     const handleOpenModal = () => {
@@ -76,22 +101,6 @@ const NovaSafra = ({ route, navigation }) => {
         console.log(`Selected ${type}:`, value);
     };
 
-    const dropdownDataTalhao = [
-        { label: 'Talhão 1', value: '1' },
-        { label: 'Talhão 2', value: '2' },
-        { label: 'Talhão 3', value: '3' },
-    ];
-    const dropdownDataCulturas = [
-        { label: 'Tomate', value: '1' },
-        { label: 'Batata', value: '2' },
-        { label: 'Milho', value: '3' },
-    ];
-    const dropdownDataTipoIrriga = [
-        { label: 'Aspersão', value: '1' },
-        { label: 'Gotejamento', value: '2' },
-        { label: 'Superficie', value: '3' },
-    ];
-
     return (
         <PaperProvider>
             <View style={styles.container}>
@@ -100,37 +109,34 @@ const NovaSafra = ({ route, navigation }) => {
                 <Image source={logo} style={styles.image} />
 
                 <Text style={styles.h1}>
-                    {nomeSafra || 'Safra'} {/* Exibe o nome da safra */}
+                    {nomeSafra || 'Safra'}
                 </Text>
 
                 <View style={styles.infoRow}>
                     <Text style={styles.label}>Data de Início:</Text>
-                    <Text>{dataInicio}</Text> {/* Exibe a data de início formatada */}
+                    <Text>{dataInicio}</Text>
                 </View>
 
                 <View style={styles.infoRow}>
                     <Text style={styles.label}>Data de Término:</Text>
-                    <Text >{dataFim}</Text> {/* Exibe a data de término formatada */}
+                    <Text>{dataFim}</Text>
                 </View>
 
                 <View style={styles.inputRow}>
-                    <Text style={styles.h2}>
-                        Talhões registrados
-                    </Text>
+                    <Text style={styles.h2}>Talhões registrados</Text>
                     <BtnAddTalhao onPress={handleOpenModal} />
                 </View>
 
                 <View>
-                    <CardSafra
-                        talhao="2"
-                        cultura="Tomate"
-                        onDelete={() => console.log('Excluir Talhão 2')}
-                    />
-                    <CardSafra
-                        talhao="1"
-                        cultura="Milho"
-                        onDelete={() => console.log('Excluir Talhão 1')}
-                    />
+                    {/* Renderiza os talhões dinamicamente */}
+                    {talhoes.map((talhao) => (
+                        <CardSafra
+                            key={talhao.id}
+                            talhao={talhao.nome}
+                            cultura={talhao.cultura}
+                            onDelete={() => console.log(`Excluir Talhão ${talhao.id}`)}
+                        />
+                    ))}
                 </View>
 
                 <BottomModal visible={modalVisible} onClose={handleCloseModal}>
@@ -139,10 +145,10 @@ const NovaSafra = ({ route, navigation }) => {
                         style={styles.dropdown}
                         placeholderStyle={styles.placeholderStyle}
                         selectedTextStyle={styles.selectedTextStyle}
-                        data={dropdownDataTalhao}
+                        data={talhoes.map((talhao) => ({ label: talhao.nome, value: talhao.id }))}
                         labelField="label"
                         valueField="value"
-                        placeholder="Selecione um item"
+                        placeholder="Selecione um talhão"
                         value={selectedItems.talhao}
                         onChange={(item) => handleSelect(item.value, 'talhao')}
                     />
@@ -151,27 +157,14 @@ const NovaSafra = ({ route, navigation }) => {
                         style={styles.dropdown}
                         placeholderStyle={styles.placeholderStyle}
                         selectedTextStyle={styles.selectedTextStyle}
-                        data={dropdownDataCulturas}
+                        data={culturas.map((cultura) => ({ label: cultura.nome, value: cultura.id }))}
                         labelField="label"
                         valueField="value"
-                        placeholder="Selecione um item"
+                        placeholder="Selecione uma cultura"
                         value={selectedItems.cultura}
                         onChange={(item) => handleSelect(item.value, 'cultura')}
                     />
-                    <Text>Tipo de irrigação</Text>
-                    <Dropdown
-                        style={styles.dropdown}
-                        placeholderStyle={styles.placeholderStyle}
-                        selectedTextStyle={styles.selectedTextStyle}
-                        data={dropdownDataTipoIrriga}
-                        labelField="label"
-                        valueField="value"
-                        placeholder="Selecione um item"
-                        value={selectedItems.tipoIrriga}
-                        onChange={(item) => handleSelect(item.value, 'tipoIrriga')}
-                    />
-
-                    <Btn label="CADASTRAR" width={'100%'} onPress={() => Alert.alert('Safra cadastrada!')} />
+                    <Btn label="CADASTRAR" width={'100%'} onPress={() => Alert.alert('Talhão cadastrado!')} />
                 </BottomModal>
             </View>
         </PaperProvider>
@@ -216,10 +209,6 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 16,
         fontWeight: 'bold',
-    },
-    value: {
-        color: '#fff',
-        fontSize: 16,
     },
     dropdown: {
         width: '100%',
