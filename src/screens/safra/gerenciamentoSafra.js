@@ -27,7 +27,7 @@ const GerenciamentoSafra = () => {
         const day = date.split('/')[0];
         const month = date.split('/')[1];
         const year = date.split('/')[2];
-        return `${year}-${month}-${day}`; // Formato "YYYY-MM-DD"
+        return `${year}-${month}-${day}`; 
     };
 
     const handleNovaSafra = async () => {
@@ -41,7 +41,7 @@ const GerenciamentoSafra = () => {
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`, // Token adicionado automaticamente
+                        Authorization: `Bearer ${token}`, 
                     },
                 }
             );
@@ -65,22 +65,27 @@ const GerenciamentoSafra = () => {
 
                 <TextInputMask
                     type={'custom'}
+                    label="Data de inicio"
+                    placeholder='Data Inicio'
                     options={{ mask: '99/99/9999' }}
                     value={dataInicio}
                     onChangeText={(text) => setDataInicio(text)}
-                    style={styles.maskInput}
+                    style={styles.maskInput} 
                 />
                 <TextInputMask
                     type={'custom'}
+                    label="Data de fim"
+                    placeholder='Data Fim'
                     options={{ mask: '99/99/9999' }}
                     value={dataFim}
                     onChangeText={(text) => setDataFim(text)}
-                    style={styles.maskInput}
+                    style={styles.maskInput} 
                 />
                 <TextInputComponent
                     label="Nome da Safra"
                     value={nomeSafra}
                     onChangeText={setNomeSafra}
+                    style={styles.input}
                 />
                 <Btn label="PRÓXIMO" onPress={handleNovaSafra} />
 
@@ -88,7 +93,6 @@ const GerenciamentoSafra = () => {
                     Ou gerenciar existentes
                 </Text>
                 <Btn label="GERENCIAR EXISTENTES" onPress={handleGerenciamentoSafra2} />
-
             </View>
         </PaperProvider>
     );
@@ -110,11 +114,33 @@ const styles = StyleSheet.create({
     },
     maskInput: {
         width: '90%',
-        height: 34,
+        height: 50,  
         marginBottom: 15,
         backgroundColor: '#fff',
         paddingVertical: 10,
+        borderRadius: 25, 
+        paddingHorizontal: 20, 
+        fontSize: 16, 
     },
+    input: {
+        width: '90%',
+        height: 50,  
+        marginBottom: 15,
+        backgroundColor: '#fff',
+        paddingVertical: 10,
+        borderRadius: 25, 
+        paddingHorizontal: 20,
+        fontSize: 16, 
+    },
+    h2: {
+        fontSize: 24,
+        marginBottom: 20,
+        color: '#fff',
+    },
+    second: {
+        color: '#fff',
+        marginTop: 15,
+    }
 });
 
 export default GerenciamentoSafra;
