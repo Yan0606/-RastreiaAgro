@@ -17,7 +17,7 @@ const GerenciamentoCaderno2 = ({ navigation, route }) => {
     const [dadosSafraTalhaoSelect, setDadosSafraTalhaoSelect] = useState([]);
     const [safra, setSafra] = useState(null);  // Estado para armazenar as informações da safra
 
-    const fetchCultura = async () => {
+    const fetchSafraTalhao = async () => {
         if (!usuarioId) {
             Alert.alert("Erro", "ID do usuário não encontrado.");
             return;
@@ -31,7 +31,7 @@ const GerenciamentoCaderno2 = ({ navigation, route }) => {
             });
             if (response.status === 200) {
                 setDadosSafraTalhaoSelect(response.data);
-                
+
                 // Aqui assumimos que a primeira safra da resposta é a que queremos exibir
                 if (response.data.length > 0) {
                     setSafra(response.data[0].safra);  // Armazenando os dados da safra
@@ -45,7 +45,7 @@ const GerenciamentoCaderno2 = ({ navigation, route }) => {
 
     useEffect(() => {
         if (isFocused) {
-            fetchCultura();
+            fetchSafraTalhao();
         }
     }, [isFocused]);
 
@@ -55,7 +55,16 @@ const GerenciamentoCaderno2 = ({ navigation, route }) => {
                 <Text>Talhão: {item.talhao.nome}</Text>
                 <Text>Cultura: {item.cultura.nome}</Text>
                 <Text>Status: {item.status}</Text>
-                <Btn label="ABRIR" onPress={() => navigation.navigate('RegistroPraticas', { safraTalhaoId: item.id })} />
+                <Btn
+                    label="ABRIR"
+                    onPress={() =>
+                        navigation.navigate('RegistroPraticas', {
+                            talhaoId: item.talhao.id,
+                            safraTalhaoId: item.id,
+                            culturaId: item.cultura.id,
+                        })
+                    }
+                />
             </Card.Content>
         </Card>
     );
@@ -68,10 +77,10 @@ const GerenciamentoCaderno2 = ({ navigation, route }) => {
 
             {/* Exibindo a DataSafra apenas se safra estiver disponível */}
             {safra && (
-                <DataSafra 
-                    titulo={safra.nome} 
-                    inicio={safra.dataInicio ? safra.dataInicio.split('T')[0] : 'Data não definida'} 
-                    fim={safra.dataFim ? safra.dataFim.split('T')[0] : 'Data não definida'} 
+                <DataSafra
+                    titulo={safra.nome}
+                    inicio={safra.dataInicio ? safra.dataInicio.split('T')[0] : 'Data não definida'}
+                    fim={safra.dataFim ? safra.dataFim.split('T')[0] : 'Data não definida'}
                 />
             )}
 

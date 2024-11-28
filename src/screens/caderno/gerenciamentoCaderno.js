@@ -11,7 +11,7 @@ import CardCaderno from '../../components/cardCaderno';
 export default function GerenciamentoCaderno({ navigation }) {
     const { token, usuarioId } = useContext(UserContext);
     const [dadosSafraTalhao, setDadosSafraTalhao] = useState([]);
-
+    console.log(dadosSafraTalhao)
     const fetchCultura = async () => {
         if (!usuarioId) {
             Alert.alert("Erro", "ID do usuário não encontrado.");
@@ -19,7 +19,7 @@ export default function GerenciamentoCaderno({ navigation }) {
         }
 
         try {
-            const response = await axios.get(`http://localhost:3000/api/safraTalhao/editar/safra/${usuarioId}`, {
+            const response = await axios.get(`http://localhost:3000/api/safra/usuario/${usuarioId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -51,14 +51,14 @@ export default function GerenciamentoCaderno({ navigation }) {
             <ScrollView contentContainerStyle={styles.scrollContainer}>
                 {dadosSafraTalhao.map((item) => (
                     <CardCaderno
-                        key={item.id}
+                        key={item.safra.id}
                         data={{
                             //titulo: item.nome || `Safra ${item.id}`,
-                            titulo: item.nome,
-                            inicio: item.dataInicio,
-                            fim: item.dataFim,
+                            titulo: item.safra.nome,
+                            inicio: item.safra.dataInicio,
+                            fim: item.safra.dataFim,
                         }}
-                        onClick={() => safraSelecionada(item.id)}
+                        onClick={() => safraSelecionada(item.safra.id)}
                     />
                 ))}
             </ScrollView>

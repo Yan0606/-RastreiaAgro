@@ -17,7 +17,7 @@ const CardCaderno = ({ data, onClick }) => {
 const styles = StyleSheet.create({
     card: {
         marginVertical: 8,
-        width: '90%',
+        width: '100%',
         alignSelf: 'center',
     },
     title: {

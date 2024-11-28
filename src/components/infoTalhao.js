@@ -2,16 +2,16 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
-export default function InfoTalhao({ navigation }) {
+export default function InfoTalhao({ talhaoSelecionado, plantio }) {
     return (
         <Text style={styles.subtitle}>
             Talhão Selecionado 
             <View style={styles.bordaArredondada}>
-                <Text style={styles.selecionado}>1</Text>
+                <Text style={styles.selecionado}>{talhaoSelecionado}</Text>
             </View>
             Plantio: 
             <View style={styles.bordaArredondada}>
-                <Text style={styles.plantio}>Batata</Text>
+                <Text style={styles.plantio}>{plantio}</Text>
             </View>
         </Text>
     );
@@ -41,5 +41,5 @@ const styles = StyleSheet.create({
     plantio: {
         backgroundColor: '#BEC127',
         color: '#fff',
-    }
+    },
 });
