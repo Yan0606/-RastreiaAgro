@@ -12,20 +12,21 @@ import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
 
 const NovaSafra = ({ route, navigation }) => {
-    const { token, usuarioId } = useContext(UserContext); // Obtém o token e o usuarioId do contexto
-    const safraId = route?.params?.safraId || null; // Usa um valor padrão para safraId
+    const { token } = useContext(UserContext); // Obtém o token do contexto
+    const safraId = route?.params?.safraId || null; // Usa o safraId passado como parâmetro
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItems, setSelectedItems] = useState({
         talhao: null,
         cultura: null,
-        tipoIrriga: null,
     });
     const [dataInicio, setDataInicio] = useState('');
     const [dataFim, setDataFim] = useState('');
     const [nomeSafra, setNomeSafra] = useState('');
-    const [talhoes, setTalhoes] = useState([]); // Estado para armazenar os talhões
-    const [culturas, setCulturas] = useState([]); // Estado para armazenar as culturas
+    const [safraTalhoes, setSafraTalhoes] = useState([]); // Estado para armazenar os SafraTalhao
+    const [talhoes, setTalhoes] = useState([]); // Estado para armazenar todos os talhões disponíveis
+    const [culturas, setCulturas] = useState([]); // Estado para armazenar todas as culturas disponíveis
 
+    // Busca os dados da safra
     const fetchSafraData = async () => {
         if (!safraId) return;
 
@@ -47,15 +48,43 @@ const NovaSafra = ({ route, navigation }) => {
         }
     };
 
-    const fetchTalhoes = async () => {
+    // Busca os SafraTalhao relacionados ao safraId
+    const fetchSafraTalhoes = async () => {
+        if (!safraId) return;
+
         try {
-            const response = await axios.get(`http://localhost:3000/api/talhoes?usuarioId=${usuarioId}`, {
+            const response = await axios.get(`http://localhost:3000/api/safraTalhao/editar/safra/${safraId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
+
+            console.log('Dados retornados de SafraTalhao:', response.data); // Log para depuração
+
             if (response.status === 200) {
+                setSafraTalhoes(response.data); // Define os SafraTalhao no estado
+            } else {
+                Alert.alert('Erro', 'Nenhum dado encontrado.');
+            }
+        } catch (error) {
+            console.error('Erro ao buscar SafraTalhao:', error.response?.data || error.message);
+            Alert.alert('Erro', 'Não foi possível carregar os SafraTalhao.');
+        }
+    };
+
+
+    const fetchTalhoes = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3000/api/talhoes`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (response.status === 200 && response.data.length > 0) {
                 setTalhoes(response.data); // Define os talhões no estado
+            } else {
+                Alert.alert('Atenção', 'Nenhum talhão encontrado.');
+                setTalhoes([]); // Garante que o estado não fica indefinido
             }
         } catch (error) {
             console.error('Erro ao buscar talhões:', error);
@@ -70,8 +99,11 @@ const NovaSafra = ({ route, navigation }) => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            if (response.status === 200) {
+            if (response.status === 200 && response.data.length > 0) {
                 setCulturas(response.data); // Define as culturas no estado
+            } else {
+                Alert.alert('Atenção', 'Nenhuma cultura encontrada.');
+                setCulturas([]); // Garante que o estado não fica indefinido
             }
         } catch (error) {
             console.error('Erro ao buscar culturas:', error);
@@ -79,10 +111,12 @@ const NovaSafra = ({ route, navigation }) => {
         }
     };
 
+
     useEffect(() => {
         fetchSafraData();
-        fetchTalhoes(); // Busca os talhões ao carregar a tela
-        fetchCulturas(); // Busca as culturas ao carregar a tela
+        fetchSafraTalhoes();
+        fetchTalhoes();
+        fetchCulturas();
     }, []);
 
     const handleOpenModal = () => {
@@ -98,8 +132,51 @@ const NovaSafra = ({ route, navigation }) => {
             ...prevState,
             [type]: value,
         }));
-        console.log(`Selected ${type}:`, value);
     };
+
+    // Cadastra um novo SafraTalhao
+    const handleCadastrarSafraTalhao = async () => {
+        const { talhao, cultura } = selectedItems;
+
+        if (!talhao || !cultura) {
+            Alert.alert('Erro', 'Por favor, selecione um talhão e uma cultura.');
+            return;
+        }
+
+        console.log('Dados para cadastro:', {
+            status: 'ativo',
+            talhaoId: talhao,
+            culturaId: cultura,
+            safraId,
+        });
+
+        try {
+            const response = await axios.post(
+                `http://localhost:3000/api/safraTalhao/novo`,
+                {
+                    status: 'ativo',
+                    talhaoId: talhao,
+                    culturaId: cultura,
+                    safraId,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            if (response.status === 201) {
+                Alert.alert('Sucesso', 'Talhão cadastrado com sucesso!');
+                setModalVisible(false);
+                fetchSafraTalhoes(); // Atualiza a lista de SafraTalhao
+            }
+        } catch (error) {
+            console.error('Erro ao cadastrar SafraTalhao:', error.response?.data || error.message);
+            Alert.alert('Erro', 'Não foi possível cadastrar o SafraTalhao.');
+        }
+    };
+
 
     return (
         <PaperProvider>
@@ -108,18 +185,16 @@ const NovaSafra = ({ route, navigation }) => {
 
                 <Image source={logo} style={styles.image} />
 
-                <Text style={styles.h1}>
-                    {nomeSafra || 'Safra'}
-                </Text>
+                <Text style={styles.h1}>{nomeSafra || 'Safra'}</Text>
 
                 <View style={styles.infoRow}>
                     <Text style={styles.label}>Data de Início:</Text>
-                    <Text>{dataInicio}</Text>
+                    <Text style={styles.value}>{dataInicio}</Text>
                 </View>
 
                 <View style={styles.infoRow}>
                     <Text style={styles.label}>Data de Término:</Text>
-                    <Text>{dataFim}</Text>
+                    <Text style={styles.value}>{dataFim}</Text>
                 </View>
 
                 <View style={styles.inputRow}>
@@ -128,13 +203,12 @@ const NovaSafra = ({ route, navigation }) => {
                 </View>
 
                 <View>
-                    {/* Renderiza os talhões dinamicamente */}
-                    {talhoes.map((talhao) => (
+                    {safraTalhoes.map((safraTalhao) => (
                         <CardSafra
-                            key={talhao.id}
-                            talhao={talhao.nome}
-                            cultura={talhao.cultura}
-                            onDelete={() => console.log(`Excluir Talhão ${talhao.id}`)}
+                            key={safraTalhao.id}
+                            talhao={safraTalhao.talhao.nome}
+                            cultura={safraTalhao.cultura.nome}
+                            onDelete={() => console.log(`Excluir SafraTalhao ${safraTalhao.id}`)}
                         />
                     ))}
                 </View>
@@ -145,26 +219,33 @@ const NovaSafra = ({ route, navigation }) => {
                         style={styles.dropdown}
                         placeholderStyle={styles.placeholderStyle}
                         selectedTextStyle={styles.selectedTextStyle}
-                        data={talhoes.map((talhao) => ({ label: talhao.nome, value: talhao.id }))}
+                        data={talhoes.map((talhao) => {
+                            console.log('Talhão carregado:', talhao); // Debug
+                            return { label: talhao.nome, value: talhao.id };
+                        })}
                         labelField="label"
                         valueField="value"
                         placeholder="Selecione um talhão"
                         value={selectedItems.talhao}
                         onChange={(item) => handleSelect(item.value, 'talhao')}
                     />
-                    <Text>Culturas</Text>
+
                     <Dropdown
                         style={styles.dropdown}
                         placeholderStyle={styles.placeholderStyle}
                         selectedTextStyle={styles.selectedTextStyle}
-                        data={culturas.map((cultura) => ({ label: cultura.nome, value: cultura.id }))}
+                        data={culturas.map((cultura) => {
+                            console.log('Cultura carregada:', cultura); // Debug
+                            return { label: cultura.nome, value: cultura.id };
+                        })}
                         labelField="label"
                         valueField="value"
                         placeholder="Selecione uma cultura"
                         value={selectedItems.cultura}
                         onChange={(item) => handleSelect(item.value, 'cultura')}
                     />
-                    <Btn label="CADASTRAR" width={'100%'} onPress={() => Alert.alert('Talhão cadastrado!')} />
+
+                    <Btn label="CADASTRAR" width={'100%'} onPress={handleCadastrarSafraTalhao} />
                 </BottomModal>
             </View>
         </PaperProvider>
@@ -210,6 +291,10 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
+    value: {
+        color: '#fff',
+        fontSize: 16,
+    },
     dropdown: {
         width: '100%',
         height: 50,
@@ -217,14 +302,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5,
         marginVertical: 10,
-    },
-    placeholderStyle: {
-        fontSize: 16,
-        color: '#999',
-    },
-    selectedTextStyle: {
-        fontSize: 16,
-        color: '#333',
     },
 });
 
