@@ -48,30 +48,30 @@ const NovaSafra = ({ route, navigation }) => {
         }
     };
 
-    // Busca os SafraTalhao relacionados ao safraId
     const fetchSafraTalhoes = async () => {
-        if (!safraId) return;
-
+        if (!safraId) {
+            Alert.alert('Erro', 'ID da safra não fornecido.');
+            return;
+        }
+    
         try {
-            const response = await axios.get(`http://localhost:3000/api/safraTalhao/editar/safra/${safraId}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            console.log('Dados retornados de SafraTalhao:', response.data); // Log para depuração
-
-            if (response.status === 200) {
-                setSafraTalhoes(response.data); // Define os SafraTalhao no estado
-            } else {
-                Alert.alert('Erro', 'Nenhum dado encontrado.');
-            }
+            console.log(`Buscando talhões para safraId: ${safraId}`);
+    
+            const response = await axios.get(
+                `http://localhost:3000/api/safraTalhao/safra/${safraId}`,
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            );
+    
+            console.log('Resposta do servidor:', response.data);
+            setSafraTalhoes(response.data);
         } catch (error) {
-            console.error('Erro ao buscar SafraTalhao:', error.response?.data || error.message);
-            Alert.alert('Erro', 'Não foi possível carregar os SafraTalhao.');
+            console.error('Erro ao buscar talhões:', error.response?.data || error.message);
+            Alert.alert('Erro', error.response?.data?.message || 'Erro ao buscar talhões.');
         }
     };
-
+    
 
     const fetchTalhoes = async () => {
         try {
@@ -137,20 +137,15 @@ const NovaSafra = ({ route, navigation }) => {
     // Cadastra um novo SafraTalhao
     const handleCadastrarSafraTalhao = async () => {
         const { talhao, cultura } = selectedItems;
-
+    
         if (!talhao || !cultura) {
             Alert.alert('Erro', 'Por favor, selecione um talhão e uma cultura.');
             return;
         }
-
-        console.log('Dados para cadastro:', {
-            status: 'ativo',
-            talhaoId: talhao,
-            culturaId: cultura,
-            safraId,
-        });
-
+    
         try {
+            console.log('Dados para cadastro:', { status: 'ativo', talhaoId: talhao, culturaId: cultura, safraId });
+    
             const response = await axios.post(
                 `http://localhost:3000/api/safraTalhao/novo`,
                 {
@@ -165,17 +160,22 @@ const NovaSafra = ({ route, navigation }) => {
                     },
                 }
             );
-
-            if (response.status === 201) {
-                Alert.alert('Sucesso', 'Talhão cadastrado com sucesso!');
-                setModalVisible(false);
-                fetchSafraTalhoes(); // Atualiza a lista de SafraTalhao
-            }
+    
+            console.log('Resposta do backend:', response.data);
+            Alert.alert('Sucesso', 'Talhão cadastrado com sucesso!');
+            
+            // Fechar o modal
+            handleCloseModal();
+            
+            // Atualizar a lista de SafraTalhoes
+            fetchSafraTalhoes();
+    
         } catch (error) {
             console.error('Erro ao cadastrar SafraTalhao:', error.response?.data || error.message);
-            Alert.alert('Erro', 'Não foi possível cadastrar o SafraTalhao.');
+            Alert.alert('Erro', error.response?.data?.message || 'Erro ao cadastrar SafraTalhao.');
         }
     };
+    
 
 
     return (

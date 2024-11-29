@@ -30,12 +30,12 @@ const Login = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(true); // Modal inicialmente visível
     const closeModal = () => {
         setModalVisible(false);
-      };
-    
-      useEffect(() => {
+    };
+
+    useEffect(() => {
         // Mostrar o modal ao carregar a tela
         setModalVisible(true);
-      }, []);
+    }, []);
 
     const renderButton = (icon, label, onPress) => (
         <TouchableOpacity style={styles.button} onPress={onPress}>
@@ -68,8 +68,8 @@ const Login = ({ navigation }) => {
                     {renderButton(caderno, 'Caderno', () => navigation.navigate('GerenciamentoCaderno'))}
                     {renderButton(cultura, 'Cultura', () => navigation.navigate('GerenciamentoCultura'))}
                     {renderButton(talhoes, 'Talhões', () => navigation.navigate('Gerenciamento'))}
-                    {/*{renderButton(maquinas, 'Máquinas', () => navigation.navigate('GerenciamentoMaquina'))} 
-                     {renderButton(insumos, 'Insumos', () => navigation.navigate('GerenciamentoInsumos'))}*/}
+                    {renderButton(maquinas, 'Máquinas', () => navigation.navigate('GerenciamentoMaquina'))}
+                    {renderButton(insumos, 'Insumos', () => navigation.navigate('GerenciamentoInsumos'))}
                 </View>
                 {/*<PersonagemComBalao
                     texto={`Ola ${user}, seja bem vindo!`}
