@@ -11,11 +11,14 @@ import { UserContext } from '../../contexts/UserContext';
 
 const GerenciamentoCaderno2 = ({ navigation, route }) => {
     const isFocused = useIsFocused(); // Hook para detectar quando a tela está em foco
-
+    const safraId = route.params;
+    console.log(safraId)
     // Obtendo os dados do contexto
     const { token, usuarioId } = useContext(UserContext);
     const [dadosSafraTalhaoSelect, setDadosSafraTalhaoSelect] = useState([]);
+    console.log("dados da safra tahao selecionada",dadosSafraTalhaoSelect)
     const [safra, setSafra] = useState(null);  // Estado para armazenar as informações da safra
+    console.log("Dados da safra",safra)
 
     const fetchSafraTalhao = async () => {
         if (!usuarioId) {
@@ -31,14 +34,22 @@ const GerenciamentoCaderno2 = ({ navigation, route }) => {
             });
             if (response.status === 200) {
                 setDadosSafraTalhaoSelect(response.data);
-
-                // Aqui assumimos que a primeira safra da resposta é a que queremos exibir
-                if (response.data.length > 0) {
-                    setSafra(response.data[0].safra);  // Armazenando os dados da safra
-                }
             }
         } catch (error) {
             console.error('Erro ao buscar dados da safra talhao:', error);
+            Alert.alert('Erro', 'Não foi possível carregar os dados da safra.');
+        }
+        try {
+            const response = await axios.get(`http://localhost:3000/api/safra/editar/${safraId.id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (response.status === 200) {
+                setSafra(response.data);
+            }
+        } catch (error) {
+            console.error('Erro ao buscar dados da safra:', error);
             Alert.alert('Erro', 'Não foi possível carregar os dados da safra.');
         }
     };

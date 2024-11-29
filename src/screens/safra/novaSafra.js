@@ -149,7 +149,7 @@ const NovaSafra = ({ route, navigation }) => {
             const response = await axios.post(
                 `http://localhost:3000/api/safraTalhao/novo`,
                 {
-                    status: 'ativo',
+                    status: 'Aberto',
                     talhaoId: talhao,
                     culturaId: cultura,
                     safraId,
