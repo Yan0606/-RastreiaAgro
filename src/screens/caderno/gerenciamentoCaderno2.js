@@ -12,13 +12,17 @@ import { UserContext } from '../../contexts/UserContext';
 const GerenciamentoCaderno2 = ({ navigation, route }) => {
     const isFocused = useIsFocused(); // Hook para detectar quando a tela está em foco
     const safraId = route.params;
-    console.log(safraId)
-    // Obtendo os dados do contexto
-    const { token, usuarioId } = useContext(UserContext);
+    const { token, usuarioId } = useContext(UserContext); // Obtendo os dados do contexto
+
     const [dadosSafraTalhaoSelect, setDadosSafraTalhaoSelect] = useState([]);
-    console.log("dados da safra tahao selecionada",dadosSafraTalhaoSelect)
-    const [safra, setSafra] = useState(null);  // Estado para armazenar as informações da safra
-    console.log("Dados da safra",safra)
+    const [safra, setSafra] = useState(null);
+
+    // Função para formatar a data no formato DD/MM/YYYY
+    const formatDate = (date) => {
+        if (!date) return 'Data não definida';
+        const [year, month, day] = date.split('T')[0].split('-');
+        return `${day}/${month}/${year}`;
+    };
 
     const fetchSafraTalhao = async () => {
         if (!usuarioId) {
@@ -39,6 +43,7 @@ const GerenciamentoCaderno2 = ({ navigation, route }) => {
             console.error('Erro ao buscar dados da safra talhao:', error);
             Alert.alert('Erro', 'Não foi possível carregar os dados da safra.');
         }
+
         try {
             const response = await axios.get(`http://localhost:3000/api/safra/editar/${safraId.id}`, {
                 headers: {
@@ -90,8 +95,8 @@ const GerenciamentoCaderno2 = ({ navigation, route }) => {
             {safra && (
                 <DataSafra
                     titulo={safra.nome}
-                    inicio={safra.dataInicio ? safra.dataInicio.split('T')[0] : 'Data não definida'}
-                    fim={safra.dataFim ? safra.dataFim.split('T')[0] : 'Data não definida'}
+                    inicio={formatDate(safra.dataInicio)}
+                    fim={formatDate(safra.dataFim)}
                 />
             )}
 
@@ -109,8 +114,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
-        alignItems: 'center',
         paddingTop: 50,
+        paddingHorizontal: '10%',
         backgroundColor: '#18603A',
     },
     image: {

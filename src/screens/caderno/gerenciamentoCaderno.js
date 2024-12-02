@@ -11,7 +11,17 @@ import CardCaderno from '../../components/cardCaderno';
 export default function GerenciamentoCaderno({ navigation }) {
     const { token, usuarioId } = useContext(UserContext);
     const [dadosSafraTalhao, setDadosSafraTalhao] = useState([]);
-    console.log(dadosSafraTalhao)
+
+    // Função para formatar a data no formato BR
+    const formatDate = (dateString) => {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    };
+
     const fetchCultura = async () => {
         if (!usuarioId) {
             Alert.alert("Erro", "ID do usuário não encontrado.");
@@ -53,10 +63,9 @@ export default function GerenciamentoCaderno({ navigation }) {
                     <CardCaderno
                         key={item.safra.id}
                         data={{
-                            //titulo: item.nome || `Safra ${item.id}`,
                             titulo: item.safra.nome,
-                            inicio: item.safra.dataInicio,
-                            fim: item.safra.dataFim,
+                            inicio: formatDate(item.safra.dataInicio), // Formata a data de início
+                            fim: formatDate(item.safra.dataFim), // Formata a data de término
                         }}
                         onClick={() => safraSelecionada(item.safra.id)}
                     />
@@ -88,5 +97,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginVertical: 16,
         color: '#fff',
+    },
+    image: {
+        marginBottom: 20,
+        width: 100,
+        height: 100,
+        resizeMode: 'contain',
     },
 });
