@@ -26,6 +26,16 @@ const NovaSafra = ({ route, navigation }) => {
     const [talhoes, setTalhoes] = useState([]); // Estado para armazenar todos os talhões disponíveis
     const [culturas, setCulturas] = useState([]); // Estado para armazenar todas as culturas disponíveis
 
+
+    const formatDate = (dateString) => {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    };
+
     // Busca os dados da safra
     const fetchSafraData = async () => {
         if (!safraId) return;
@@ -53,17 +63,17 @@ const NovaSafra = ({ route, navigation }) => {
             Alert.alert('Erro', 'ID da safra não fornecido.');
             return;
         }
-    
+
         try {
             console.log(`Buscando talhões para safraId: ${safraId}`);
-    
+
             const response = await axios.get(
                 `http://localhost:3000/api/safraTalhao/safra/${safraId}`,
                 {
                     headers: { Authorization: `Bearer ${token}` },
                 }
             );
-    
+
             console.log('Resposta do servidor:', response.data);
             setSafraTalhoes(response.data);
         } catch (error) {
@@ -71,7 +81,7 @@ const NovaSafra = ({ route, navigation }) => {
             Alert.alert('Erro', error.response?.data?.message || 'Erro ao buscar talhões.');
         }
     };
-    
+
 
     const fetchTalhoes = async () => {
         try {
@@ -137,15 +147,15 @@ const NovaSafra = ({ route, navigation }) => {
     // Cadastra um novo SafraTalhao
     const handleCadastrarSafraTalhao = async () => {
         const { talhao, cultura } = selectedItems;
-    
+
         if (!talhao || !cultura) {
             Alert.alert('Erro', 'Por favor, selecione um talhão e uma cultura.');
             return;
         }
-    
+
         try {
             console.log('Dados para cadastro:', { status: 'ativo', talhaoId: talhao, culturaId: cultura, safraId });
-    
+
             const response = await axios.post(
                 `http://localhost:3000/api/safraTalhao/novo`,
                 {
@@ -160,22 +170,22 @@ const NovaSafra = ({ route, navigation }) => {
                     },
                 }
             );
-    
+
             console.log('Resposta do backend:', response.data);
             Alert.alert('Sucesso', 'Talhão cadastrado com sucesso!');
-            
+
             // Fechar o modal
             handleCloseModal();
-            
+
             // Atualizar a lista de SafraTalhoes
             fetchSafraTalhoes();
-    
+
         } catch (error) {
             console.error('Erro ao cadastrar SafraTalhao:', error.response?.data || error.message);
             Alert.alert('Erro', error.response?.data?.message || 'Erro ao cadastrar SafraTalhao.');
         }
     };
-    
+
 
 
     return (
@@ -189,12 +199,12 @@ const NovaSafra = ({ route, navigation }) => {
 
                 <View style={styles.infoRow}>
                     <Text style={styles.label}>Data de Início:</Text>
-                    <Text style={styles.value}>{dataInicio}</Text>
+                    <Text style={styles.value}>{formatDate(dataInicio)}</Text>
                 </View>
 
                 <View style={styles.infoRow}>
                     <Text style={styles.label}>Data de Término:</Text>
-                    <Text style={styles.value}>{dataFim}</Text>
+                    <Text style={styles.value}>{formatDate(dataFim)}</Text>
                 </View>
 
                 <View style={styles.inputRow}>

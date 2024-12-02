@@ -16,6 +16,23 @@ const EditarSafra = ({ route, navigation }) => {
     const [dataInicio, setDataInicio] = useState('');
     const [dataFim, setDataFim] = useState('');
 
+    // Função para formatar data no formato BR
+    const formatDate = (dateString) => {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    };
+
+    // Função para converter data do formato BR para API (YYYY-MM-DD)
+    const unformatDate = (dateString) => {
+        if (!dateString) return '';
+        const [day, month, year] = dateString.split('/');
+        return `${year}-${month}-${day}`;
+    };
+
     useEffect(() => {
         const fetchSafraData = async () => {
             try {
@@ -26,8 +43,8 @@ const EditarSafra = ({ route, navigation }) => {
                 if (response.status === 200) {
                     const { nome, dataInicio, dataFim } = response.data;
                     setNome(nome);
-                    setDataInicio(dataInicio);
-                    setDataFim(dataFim);
+                    setDataInicio(formatDate(dataInicio)); // Formata data para exibição
+                    setDataFim(formatDate(dataFim)); // Formata data para exibição
                 }
             } catch (error) {
                 console.error('Erro ao buscar dados da safra:', error);
@@ -42,7 +59,11 @@ const EditarSafra = ({ route, navigation }) => {
         try {
             await axios.put(
                 `http://localhost:3000/api/safra/editar/${safraId}`,
-                { nome, dataInicio, dataFim },
+                {
+                    nome,
+                    dataInicio: unformatDate(dataInicio), // Converte data para formato aceito pela API
+                    dataFim: unformatDate(dataFim), // Converte data para formato aceito pela API
+                },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             Alert.alert('Sucesso', 'Safra atualizada com sucesso!');
@@ -60,8 +81,18 @@ const EditarSafra = ({ route, navigation }) => {
                 <Image source={logo} style={styles.image} />
                 <Text variant="titleMedium" style={styles.h2}>Editar Safra</Text>
                 <TextInputComponent label="Nome" value={nome} onChangeText={setNome} />
-                <TextInputComponent label="Data de Início" value={dataInicio} onChangeText={setDataInicio} />
-                <TextInputComponent label="Data de Fim" value={dataFim} onChangeText={setDataFim} />
+                <TextInputComponent
+                    label="Data de Início"
+                    value={dataInicio}
+                    onChangeText={setDataInicio}
+                    placeholder="DD/MM/AAAA"
+                />
+                <TextInputComponent
+                    label="Data de Fim"
+                    value={dataFim}
+                    onChangeText={setDataFim}
+                    placeholder="DD/MM/AAAA"
+                />
                 <Btn label="Salvar" onPress={handleEditarSafra} backgroundColor="#D88B30" />
             </View>
         </PaperProvider>
@@ -80,6 +111,12 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 25,
         color: 'white',
+    },
+    image: {
+        marginTop: 10,
+        width: 80,
+        height: 80,
+        resizeMode: 'contain',
     },
 });
 
