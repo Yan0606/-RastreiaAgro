@@ -8,20 +8,18 @@ const ScrollVieww = ({ talhoes, onEdit, onDelete }) => {
             {talhoes.map((talhao) => (
                 <View key={talhao.id} style={styles.talhao}>
                     <Text style={styles.talhaoText}>{talhao.nome}</Text>
-                    <View style={styles.actionButton}>
+                    <View style={styles.actionButtonsContainer}>
                         <IconButton
                             icon="pencil"
-                            color="#FFA500"
                             size={20}
                             onPress={() => onEdit(talhao.id)}
+                            style={[styles.actionButton, styles.editButton]}
                         />
-                    </View>
-                    <View style={styles.actionButton2}>
                         <IconButton
                             icon="delete"
-                            color="#FF6347"
                             size={20}
                             onPress={() => onDelete(talhao.id)}
+                            style={[styles.actionButton, styles.deleteButton]}
                         />
                     </View>
                 </View>
@@ -46,24 +44,23 @@ const styles = StyleSheet.create({
     },
     talhaoText: {
         fontSize: 16,
+        flex: 1,
+    },
+    actionButtonsContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        gap: 5, 
     },
     actionButton: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#D88B30',
         borderRadius: 10,
-        height: '75%',
+        padding: 5,
     },
-    actionButton2: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#BB2929',
-        borderRadius: 10,
-        height: '75%',
+    editButton: {
+        backgroundColor: '#FFA500', 
     },
-    actionButtonText: {
-        marginLeft: 5,
-        marginRight: 10,
+    deleteButton: {
+        backgroundColor: '#BB2929', 
     },
 });
 
