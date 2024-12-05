@@ -217,17 +217,26 @@ const RegistroPraticas = ({ navigation, route }) => {
         );
     };
 
-    const onEncerrarSafra = () => {
+    const onEncerrarSafra = async () => {
+        try {
+            await axios.put(
+                `http://localhost:3000/api/safraTalhao/editar/${RegistroPraticas.safraTalhaoId}`,
+                {
+                    status: "Fechado",
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Adiciona o token ao cabeçalho
+                    },
+                }
+            );
+            Alert.alert('Sucesso', 'Safra encerrada com sucesso!');
+            navigation.navigate('GerenciamentoCaderno');
 
-
-
-
-
-        // if (modalVisible) {
-        //     setMessage('Safra encerrada com sucesso');
-        // } else {
-        //     setModalVisible(true);
-        // }
+        } catch (error) {
+            console.error('Erro ao encerrar safra:', error);
+            Alert.alert('Erro', 'Não foi possível encerrar a safra. Tente novamente.');
+        }
     };
 
     const closeModal = () => {
