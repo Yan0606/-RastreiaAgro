@@ -13,7 +13,7 @@ const GerenciamentoCaderno2 = ({ navigation, route }) => {
     const isFocused = useIsFocused(); // Hook para detectar quando a tela está em foco
     const safraId = route.params;
     const { token, usuarioId } = useContext(UserContext); // Obtendo os dados do contexto
-
+    console.log("safra selecionada:",safraId)
     const [dadosSafraTalhaoSelect, setDadosSafraTalhaoSelect] = useState([]);
     const [safra, setSafra] = useState(null);
 
@@ -31,7 +31,7 @@ const GerenciamentoCaderno2 = ({ navigation, route }) => {
         }
 
         try {
-            const response = await axios.get(`http://localhost:3000/api/safraTalhao/editar/safra/${usuarioId}`, {
+            const response = await axios.get(`http://localhost:3000/api/safraTalhao/detalhes/${usuarioId}/${safraId.id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -78,6 +78,7 @@ const GerenciamentoCaderno2 = ({ navigation, route }) => {
                             talhaoId: item.talhao.id,
                             safraTalhaoId: item.id,
                             culturaId: item.cultura.id,
+                            safraId,
                         })
                     }
                 />
@@ -114,17 +115,20 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
+        alignItems: 'center',
+
         paddingTop: 50,
         paddingHorizontal: '10%',
         backgroundColor: '#18603A',
     },
     image: {
-        marginTop: 10,
+        marginTop: 20,
         width: 80,
         height: 80,
         resizeMode: 'contain',
     },
     title: {
+        marginTop: 20,
         fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',

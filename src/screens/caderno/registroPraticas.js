@@ -51,7 +51,7 @@ const RegistroPraticas = ({ navigation, route }) => {
         }
 
         try {
-            const response = await axios.get(`http://localhost:3000/api/safraTalhao/editar/safra/${usuarioId}`, {
+            const response = await axios.get(`http://localhost:3000/api/safraTalhao/detalhes/${usuarioId}/${RegistroPraticas.safraId.id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -360,7 +360,7 @@ const RegistroPraticas = ({ navigation, route }) => {
                             />
                         )}
                         <InfoTalhao
-                            talhaoSelecionado={dadosTalhao?.id || "Carregando..."}
+                            talhaoSelecionado={dadosTalhao?.nome || "Carregando..."}
                             plantio={dadosCultura?.nome || "Carregando..."}
                         />
                         <View style={styles.talhao}>
