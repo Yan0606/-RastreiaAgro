@@ -4,6 +4,9 @@ import { Text, IconButton, Searchbar } from 'react-native-paper';
 import { Dropdown } from 'react-native-element-dropdown';
 import TextInputComponent from '../../components/input';
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import TimelineEvent from '../TimelineEvent';
+
 import logo from '../../assets/images/logoCaderno.png';
 import BtnVoltar from '../../components/btnVoltar';
 import DataSafra from '../../components/dataSafra';
@@ -18,7 +21,7 @@ import { UserContext } from '../../contexts/UserContext';
 import { id } from 'react-native-paper-dates';
 
 
-const RegistroPraticas = ({ navigation, route }) => {
+const relatorioLinhaTempo = ({ navigation, route }) => {
 
 
     //obtendo os dados do contexto
@@ -344,6 +347,13 @@ const RegistroPraticas = ({ navigation, route }) => {
         console.log('Selected Insumo ID:', item.value);
     };
 
+    const events = [
+        { id: 1, type: 'Irrigação', date: '23/04' },
+        { id: 2, type: 'Irrigação', date: '25/04' },
+        { id: 3, type: 'Adubação', date: '23/04' },
+        { id: 4, type: 'Irrigação', date: '25/04' },
+        { id: 5, type: 'Adubação', date: '23/04' },
+    ];
 
     return (
         <KeyboardAvoidingView
@@ -353,7 +363,7 @@ const RegistroPraticas = ({ navigation, route }) => {
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
                 {!searchBarFocused && (
                     <>
-                        <BtnVoltar route="GerenciamentoCaderno2" />
+                        <BtnVoltar route="RelatorioSafra2" />
                         <Image source={logo} style={styles.image} />
                         <Text style={styles.title}>Registro de Práticas Agrícolas</Text>
                         {/* Exibindo a DataSafra apenas se safra estiver disponível */}
@@ -368,191 +378,23 @@ const RegistroPraticas = ({ navigation, route }) => {
                             talhaoSelecionado={dadosTalhao?.nome || "Carregando..."}
                             plantio={dadosCultura?.nome || "Carregando..."}
                         />
-                        <View style={styles.talhao}>
-                            <TouchableOpacity style={styles.actionButton} onPress={onNovaAtividade}>
-                                <IconButton
-                                    icon="plus-thick"
-                                    iconColor="white"
-                                    size={20}
-                                />
-                                <Text style={styles.actionButtonText}>Nova Atividade</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity style={styles.actionButton2} onPress={onEncerrarSafra}>
-                                <IconButton
-                                    icon="trash-can-outline"
-                                    iconColor="white"
-                                    size={20}
-                                />
-                                <Text style={styles.actionButtonText2}>Encerrar Safra</Text>
-                            </TouchableOpacity>
-                        </View>
                     </>
                 )}
-                <Searchbar
-                    style={styles.searchBar}
-                    placeholder="Procurar atividade"
-                    onFocus={() => setSearchBarFocused(true)}
-                    onBlur={() => setSearchBarFocused(false)}
-                    onChangeText={onChangeSearch}
-                    value={searchQuery}
-                />
-                <Text style={styles.text}>Atividades Relacionadas: </Text>
-                {filteredRegistros.length > 0 ? ( // Garante que há registros antes de renderizar
-                    filteredRegistros.map((registro, index) => (
-                        <BlockRegistro
-                            key={index}
-                            data={new Date(registro.createdAt).toLocaleDateString('pt-BR')} // Formata a data
-                            pratica={registro.descricao || "Sem descrição"} // Mostra descrição ou fallback
+
+                <Text style={styles.title}>SUA LINHA DO TEMPO</Text>
+
+                <View style={styles.timelineContainer}>
+                    {filteredRegistros.map((registro, index) => (
+                        <TimelineEvent
+                            index={index}
+                            type={registro.descricao || "Sem descrição"}
+                            date={new Date(registro.createdAt).toLocaleDateString('pt-BR')}
+                            total={Object.keys(events).length}
                         />
-                    ))
-                ) : (
-                    <Text>Nenhum registro encontrado</Text>
-                )}
+                    ))}
+                </View>
             </ScrollView>
-            <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={closeModal}
-            >
-                <View style={styles.modalOverlay}>
-                    <TouchableOpacity onPress={onEncerrarSafra}>
-                        <PersonagemComBalao texto={message} />
-                    </TouchableOpacity>
-                </View>
-            </Modal>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalNovaAtividadeVisible}
-                onRequestClose={closeModalNovaAtividade}
-            >
-                <View style={styles.modalOverlay}>
-                    <View style={styles.modalContent}>
-                        <Text style={styles.modalTitle}>Cadastro de Prática Agrícola</Text>
 
-                        <TextInputComponent style={styles.input} label="Descrição" value={descricao} onChangeText={setDescricao} />
-
-                        <View style={styles.inputDropDown}>
-                            <Text>Tipo de irrigação</Text>
-                            <Dropdown
-                                style={styles.dropdown}
-                                placeholderStyle={styles.placeholderStyle}
-                                selectedTextStyle={styles.selectedTextStyle}
-                                data={dropdownDataTipoIrriga}
-                                labelField="label"
-                                valueField="label" // O estado agora armazena o label, então usamos isso como valor
-                                placeholder="Selecione um item"
-                                value={irrigacao} // Exibe o item selecionado corretamente
-                                onChange={(item) => handleSelect(item)} // Atualiza o estado com o label selecionado
-                            />
-                        </View>
-
-                        <View style={styles.inputDropDown}>
-                            <Text>Insumo</Text>
-                            <Dropdown
-                                style={styles.dropdown}
-                                placeholderStyle={styles.placeholderStyle}
-                                selectedTextStyle={styles.selectedTextStyle}
-                                data={dropdownDataInsumo}
-                                labelField="label"
-                                valueField="value"
-                                placeholder="Selecione um insumo"
-                                value={insumoId}  // Aqui, apenas o ID do insumo será passado
-                                onChange={(item) => handleSelectInsumo(item)}  // Passando apenas o ID do insumo
-                            />
-                        </View>
-                        <View style={styles.inputDropDown}>
-                            <Text>Maquina</Text>
-                            <Dropdown
-                                style={styles.dropdown}
-                                placeholderStyle={styles.placeholderStyle}
-                                selectedTextStyle={styles.selectedTextStyle}
-                                data={dropdownDataMaquina}
-                                labelField="label"
-                                valueField="value"
-                                placeholder="Selecione uma maquina"
-                                value={maquinaId}  // Aqui, apenas o ID do insumo será passado
-                                onChange={(item) => handleSelectMaquina(item)}  // Passando apenas o ID do insumo
-                            />
-                        </View>
-
-                        <TextInputComponent style={styles.input} label="Quantidade(se houver)" value={qtdInsumo} onChangeText={setQtdInsumo} />
-
-
-
-                        <Btn label="Cadastrar" onPress={onCadastrarAtividade} />
-                    </View>
-                </View>
-            </Modal>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalEditarAtividadeVisible}
-                onRequestClose={closeModalEditarAtividade}
-            >
-                <View style={styles.modalOverlay}>
-                    <View style={styles.modalContent}>
-                        <TouchableOpacity
-                            style={styles.modalCloseButton}
-                            onPress={closeModalEditarAtividade}
-                        >
-                            <Text style={{ fontSize: 34, color: '#FF0000' }}>✕</Text>
-                        </TouchableOpacity>
-                        <TextInput placeholder="Talhão selecionado" style={styles.input} />
-                        <TextInput placeholder="Culturas" style={styles.input} />
-                        <TextInput placeholder="Tipo de Irrigação" style={styles.input} />
-                        <Btn label="Editar" backgroundColor="#D88B30" width={"30%"} onPress={onEditarConfirmacao} />
-                    </View>
-                </View>
-            </Modal>
-            <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modalPersonagemVisible}
-                onRequestClose={closeModalPersonagem}
-            >
-                <View style={styles.modalOverlay}>
-                    <PersonagemComBalao texto="Tem certeza que deseja editar o tipo de irrigação do talhão 1?" />
-                    <Btn style={styles.btnEntrar} label="Editar" backgroundColor="#D88B30" width={"40%"} onPress={onEdicaoConfirmada} />
-                </View>
-            </Modal>
-            <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modalEdicaoConfirmada}
-                onRequestClose={closeModalEdicaoConfirmada}
-            >
-                <View style={styles.modalOverlay}>
-                    <PersonagemComBalao texto="Tipo de irrigação do talhão 1 alterado com sucesso" />
-                </View>
-            </Modal>
-            <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modalAdicionarFotoVisible}
-                onRequestClose={closeModalAdicionarFoto}
-            >
-                <View style={styles.modalOverlay}>
-                    <PersonagemComBalao texto="Antes de cadastrarmos sua atividade podemos armazenar também uma foto do registro. Deseja adicionar uma foto do registro?" />
-                    <Btn style={styles.btnEntrar} label="Sim" backgroundColor="#009846" width={"40%"} onPress={onSimPress} />
-                    <Btn style={styles.btnEntrar} label="Não" backgroundColor="#009846" width={"40%"} onPress={onNaoPress} />
-                </View>
-            </Modal>
-            <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modalEscolherFotoVisible}
-                onRequestClose={closeModalEscolherFoto}
-            >
-                <View style={styles.modalOverlay}>
-                    <Btn style={styles.btnEntrar} label="Tirar foto agora" backgroundColor="#009846" width={"40%"} onPress={onSimPress} />
-                    <Btn style={styles.btnEntrar} label="Escolher" backgroundColor="#009846" width={"40%"} onPress={onNaoPress} />
-
-                    <PersonagemComBalao texto="Deseja tirar uma foto agora ou escolher uma foto da galeria?" />
-                </View>
-            </Modal>
         </KeyboardAvoidingView>
     );
 }
@@ -704,4 +546,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default RegistroPraticas;
+export default relatorioLinhaTempo;

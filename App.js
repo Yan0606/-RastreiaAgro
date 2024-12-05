@@ -42,7 +42,10 @@ import EditarSafra from './src/screens/safra/editarSafra';
 import ExcluirSafra from './src/screens/safra/excluirSafra';
 import Qrcodescreen from './src/screens/qrcodescreen';
 import TimelineScreen from './src/screens/TimelineScreen';
-
+import Relatorio from './src/screens/relatorios/relatorio';
+import RelatorioSafra from './src/screens/relatorios/relatorioSafra';
+import RelatorioSafra2 from './src/screens/relatorios/relatorioSafra2';
+import RelatorioLinhaTempo from './src/screens/relatorios/relatorioLinhaTempo';
 import { UserProvider } from './src/contexts/UserContext';
 
 
@@ -96,9 +99,10 @@ export default function App() {
             <Stack.Screen name="ExcluirSafra" component={ExcluirSafra} options={{ headerShown: false }} />
             <Stack.Screen name="Qrcodescreen" component={Qrcodescreen} options={{ headerShown: false }} />
             <Stack.Screen name="TimelineScreen" component={TimelineScreen} options={{ headerShown: false }} />
-
-
-
+            <Stack.Screen name="Relatorio" component={Relatorio} options={{ headerShown: false }} />
+            <Stack.Screen name="RelatorioSafra" component={RelatorioSafra} options={{ headerShown: false }} />
+            <Stack.Screen name="RelatorioSafra2" component={RelatorioSafra2} options={{ headerShown: false }} />
+            <Stack.Screen name="RelatorioLinhaTempo" component={RelatorioLinhaTempo} options={{ headerShown: false }} />
 
           </Stack.Navigator>
         </NavigationContainer>

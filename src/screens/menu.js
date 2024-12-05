@@ -25,6 +25,9 @@ const Login = ({ navigation }) => {
     const handleMenuConfig = () => {
         navigation.navigate('MenuConfig');
     }
+    const handleRelatorio = () => {
+        navigation.navigate('Relatorio');
+    }
 
     // 29 - 39 necessarias para que o personagem balao apareca
     const [modalVisible, setModalVisible] = useState(true); // Modal inicialmente visível
@@ -58,7 +61,7 @@ const Login = ({ navigation }) => {
                         <TouchableOpacity onPress={handleMenuConfig}>
                             <Image source={config} style={styles.headerIcon} />
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity  onPress={handleRelatorio}>
                             <Image source={rel} style={styles.headerIcon} />
                         </TouchableOpacity>
                     </View>
