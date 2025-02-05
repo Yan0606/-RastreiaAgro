@@ -3,6 +3,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { View, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { PaperProvider, Text } from "react-native-paper";
 import config from '../assets/images/config.png';
+import qrc from '../assets/images/qrcIcon.png';
 import rel from '../assets/images/rel.png';
 import person from '../assets/images/person.png';
 import safra from '../assets/images/safra.png';
@@ -11,8 +12,6 @@ import cultura from '../assets/images/cultura.png';
 import talhoes from '../assets/images/talhoes.png';
 import maquinas from '../assets/images/maquinas.png';
 import insumos from '../assets/images/insumos.png';
-import PersonagemComBalao from '../components/PersonagemComBalao';
-
 
 import { UserContext } from '../contexts/UserContext';
 const windowWidth = Dimensions.get('window').width;
@@ -25,6 +24,11 @@ const Login = ({ navigation }) => {
     const handleMenuConfig = () => {
         navigation.navigate('MenuConfig');
     }
+
+    const handleQrcodescreen = () => {
+        navigation.navigate('Qrcodescreen');
+    }
+
     const handleRelatorio = () => {
         navigation.navigate('Relatorio');
     }
@@ -61,6 +65,11 @@ const Login = ({ navigation }) => {
                         <TouchableOpacity onPress={handleMenuConfig}>
                             <Image source={config} style={styles.headerIcon} />
                         </TouchableOpacity>
+
+                        <TouchableOpacity onPress={handleQrcodescreen}>
+                            <Image source={qrc} style={styles.headerIcon} />
+                        </TouchableOpacity>
+
                         <TouchableOpacity  onPress={handleRelatorio}>
                             <Image source={rel} style={styles.headerIcon} />
                         </TouchableOpacity>
