@@ -47,7 +47,7 @@ import RelatorioSafra from './src/screens/relatorios/relatorioSafra';
 import RelatorioSafra2 from './src/screens/relatorios/relatorioSafra2';
 import RelatorioLinhaTempo from './src/screens/relatorios/relatorioLinhaTempo';
 import { UserProvider } from './src/contexts/UserContext';
-
+import QRCodeRoutes from './src/screens/QRCodeRoutes';
 
 
 
@@ -103,6 +103,7 @@ export default function App() {
             <Stack.Screen name="RelatorioSafra" component={RelatorioSafra} options={{ headerShown: false }} />
             <Stack.Screen name="RelatorioSafra2" component={RelatorioSafra2} options={{ headerShown: false }} />
             <Stack.Screen name="RelatorioLinhaTempo" component={RelatorioLinhaTempo} options={{ headerShown: false }} />
+            <Stack.Screen name="QRCodeRoutes" component={QRCodeRoutes} options={{ headerShown: false }} />
 
           </Stack.Navigator>
         </NavigationContainer>

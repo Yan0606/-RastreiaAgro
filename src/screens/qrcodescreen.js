@@ -1,23 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import Button from '../components/button';
-// import InputIcon from '../components/inputIcon';
 import BtnVoltar from '../components/btnVoltar';
+import QRCode from 'react-native-qrcode-svg';
+import { useNavigation } from '@react-navigation/native';
+
 const Qrcodescreen = () => {
+    const [showQRCode, setShowQRCode] = useState(false);
+    const navigation = useNavigation();
+
+    const handleGenerateQRCode = () => {
+        setShowQRCode(true);
+    };
+
+    const handleViewQRCodeContent = () => {
+        navigation.navigate('QRCodeRoutes');
+    };
+
+    const qrData = {
+        relatorioLinhaTempo: 'http://localhost:3000/relatorioLinhaTempo',
+        relatorio: 'http://localhost:3000/relatorio'
+    };
+
     return (
-        
         <View style={styles.container}>
-             <BtnVoltar route="Menu" />
-             {/* <InputIcon /> */}
+            <BtnVoltar route="Menu" />
             <Text style={styles.scanText}>Scan QR code</Text>
-            <Image source={require('../assets/images/qrcode.png')} style={styles.qrCode} />
-            <Button label="BAIXAR"></Button>
-            <Button label="VER LINHA DO TEMPO"></Button>
-            
+            {showQRCode ? (
+                <TouchableOpacity onPress={handleViewQRCodeContent}>
+                    <QRCode value={JSON.stringify(qrData)} size={200} />
+                </TouchableOpacity>
+            ) : (
+                <Image source={require('../assets/images/qrcode.png')} style={styles.qrCode} />
+            )}
+            <Button label="GERAR QR CODE" onPress={handleGenerateQRCode} />
+            {showQRCode && <Button label="VER CONTEÚDO DO QR CODE" onPress={handleViewQRCodeContent} />}
         </View>
     );
 };
-
 
 const styles = StyleSheet.create({
     container: {
@@ -66,4 +86,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 });
-export default  Qrcodescreen 
+
+export default Qrcodescreen;
