@@ -1,0 +1,6 @@
+<plist version="1.0">
+  <dict>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>Permission to save PDF to your photo library</string>
+  </dict>
+</plist>

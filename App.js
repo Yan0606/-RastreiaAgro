@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -42,18 +43,53 @@ import EditarSafra from './src/screens/safra/editarSafra';
 import ExcluirSafra from './src/screens/safra/excluirSafra';
 import Qrcodescreen from './src/screens/qrcodescreen';
 import TimelineScreen from './src/screens/TimelineScreen';
-import Relatorio from './src/screens/relatorios/relatorio';
-import RelatorioSafra from './src/screens/relatorios/relatorioSafra';
-import RelatorioSafra2 from './src/screens/relatorios/relatorioSafra2';
-import RelatorioLinhaTempo from './src/screens/relatorios/relatorioLinhaTempo';
+import Relatorio from './src/screens/relatorios/relatorioelatorio';
+import RelatorioSafra from './src/screens/relatorios/RelatorioSafra';
+import RelatorioSafra2 from './src/screens/relatorios/RelatorioSafra2';
+import RelatorioLinhaTempo from './src/screens/relatorios/RelatorioLinhaTempo';
 import { UserProvider } from './src/contexts/UserContext';
 import QRCodeRoutes from './src/screens/QRCodeRoutes';
-
-
+import config from './config';
 
 const Stack = createNativeStackNavigator();
 
+const login = async (username, password) => {
+  try {
+    const response = await fetch(`${config.serverIp}/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
+    });
+    const data = await response.json();
+    // ...existing code...
+  } catch (error) {
+    console.error('Error logging in:', error);
+  }
+};
+
+const testConnectivity = async () => {
+  console.log(`Testing connectivity to ${config.serverIp}/test`);
+  try {
+    const response = await fetch(`${config.serverIp}/test`);
+    if (response.ok) {
+      Alert.alert('Conexão bem-sucedida', 'O servidor está acessível.');
+    } else {
+      console.error('Erro de Conexão: Resposta não OK', response.status, response.statusText);
+      Alert.alert('Erro de Conexão', 'Não foi possível acessar o servidor.');
+    }
+  } catch (error) {
+    console.error('Erro de Conexão:', error);
+    Alert.alert('Erro de Conexão', 'Não foi possível acessar o servidor #catch.');
+  }
+};
+
 export default function App() {
+  useEffect(() => {
+    testConnectivity();
+  }, []);
+
   return (
     <UserProvider>
       <SafeAreaProvider>
@@ -104,7 +140,6 @@ export default function App() {
             <Stack.Screen name="RelatorioSafra2" component={RelatorioSafra2} options={{ headerShown: false }} />
             <Stack.Screen name="RelatorioLinhaTempo" component={RelatorioLinhaTempo} options={{ headerShown: false }} />
             <Stack.Screen name="QRCodeRoutes" component={QRCodeRoutes} options={{ headerShown: false }} />
-
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

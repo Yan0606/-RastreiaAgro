@@ -15,7 +15,7 @@ import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
 import { id } from 'react-native-paper-dates';
 
-const relatorioSafra = ({ navigation }) => {
+const RelatorioSafra = ({ navigation }) => {
 
     const isFocused = useIsFocused(); // Hook para detectar quando a tela está em foco
 
@@ -179,4 +179,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default relatorioSafra;
+export default RelatorioSafra;

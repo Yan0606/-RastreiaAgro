@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Alert, Platform } from 'react-native';
 import Button from '../components/button';
 import BtnVoltar from '../components/btnVoltar';
 import QRCode from 'react-native-qrcode-svg';
 import { useNavigation } from '@react-navigation/native';
+import { jsPDF } from 'jspdf';
+import * as FileSystem from 'expo-file-system';
+import config from '../../config';
 
 const Qrcodescreen = () => {
     const [showQRCode, setShowQRCode] = useState(false);
@@ -17,9 +20,30 @@ const Qrcodescreen = () => {
         navigation.navigate('QRCodeRoutes');
     };
 
+    const handleGeneratePDF = async () => {
+        const doc = new jsPDF();
+        doc.text('Relatorio Linha Tempo', 10, 10);
+        doc.text('http://localhost:3000/relatorioLinhaTempo', 10, 20);
+        doc.text('Relatorio', 10, 30);
+        doc.text('http://localhost:3000/relatorio', 10, 40);
+
+        const pdfOutput = doc.output('blob');
+        const pdfUri = `${FileSystem.documentDirectory}QRCodeContent.pdf`;
+
+        try {
+            await FileSystem.writeAsStringAsync(pdfUri, pdfOutput, {
+                encoding: FileSystem.EncodingType.Base64,
+            });
+            Alert.alert('PDF Gerado', `PDF salvo em: ${pdfUri}`);
+        } catch (error) {
+            console.error('Erro ao gerar PDF:', error);
+            Alert.alert('Erro', 'Não foi possível gerar o PDF.');
+        }
+    };
+
     const qrData = {
-        relatorioLinhaTempo: 'http://localhost:3000/relatorioLinhaTempo',
-        relatorio: 'http://localhost:3000/relatorio'
+        relatorioLinhaTempo: `${config.serverIp}/relatorioLinhaTempo`,
+        relatorio: `${config.serverIp}/relatorio`
     };
 
     return (
@@ -34,7 +58,12 @@ const Qrcodescreen = () => {
                 <Image source={require('../assets/images/qrcode.png')} style={styles.qrCode} />
             )}
             <Button label="GERAR QR CODE" onPress={handleGenerateQRCode} />
-            {showQRCode && <Button label="VER CONTEÚDO DO QR CODE" onPress={handleViewQRCodeContent} />}
+            {showQRCode && (
+                <>
+                    <Button label="VER CONTEÚDO DO QR CODE" onPress={handleViewQRCodeContent} />
+                    <Button label="GERAR PDF" onPress={handleGeneratePDF} />
+                </>
+            )}
         </View>
     );
 };

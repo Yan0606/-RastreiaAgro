@@ -12,7 +12,7 @@ import { useNavigation, useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
 
-const relatorio = ({ navigation }) => {
+const Relatorio = ({ navigation }) => {
 
     const isFocused = useIsFocused(); // Hook para detectar quando a tela está em foco
 
@@ -206,4 +206,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default relatorio;
+export default Relatorio;

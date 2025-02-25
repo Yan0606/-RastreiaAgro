@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useIsFocused } from '@react-navigation/native';
 import { UserContext } from '../../contexts/UserContext';
 
-const relatorioSafra2 = ({ navigation, route }) => {
+const RelatorioSafra2 = ({ navigation, route }) => {
     const isFocused = useIsFocused(); // Hook para detectar quando a tela está em foco
     const safraId = route.params;
     const { token, usuarioId } = useContext(UserContext); // Obtendo os dados do contexto
@@ -144,4 +144,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default relatorioSafra2;
+export default RelatorioSafra2;

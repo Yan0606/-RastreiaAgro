@@ -21,7 +21,7 @@ import { UserContext } from '../../contexts/UserContext';
 import { id } from 'react-native-paper-dates';
 
 
-const relatorioLinhaTempo = ({ navigation, route }) => {
+const RelatorioLinhaTempo = ({ navigation, route }) => {
 
 
     //obtendo os dados do contexto
@@ -546,4 +546,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default relatorioLinhaTempo;
+export default RelatorioLinhaTempo;
