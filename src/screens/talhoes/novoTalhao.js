@@ -7,6 +7,7 @@ import TextInputComponent from '../../components/input';
 import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
+import API_URL from '../../config/api';
 
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
@@ -36,7 +37,7 @@ const NovoTalhao = ({ navigation, route }) => {
 
     const ConfirmaNovoTalhao = async () => {
         try {
-            const response = await axios.post('http://localhost:3000/api/talhoes/novo', {
+            const response = await axios.post(`${API_URL}talhoes/novo`, {
                 nome,
                 localizacao,
                 area,

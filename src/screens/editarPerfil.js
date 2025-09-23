@@ -4,6 +4,7 @@ import { Provider as PaperProvider, Text } from 'react-native-paper';
 import InputIcon from '../components/inputIcon';
 import Button from '../components/button';
 import BtnVoltar from '../components/btnVoltar';
+import API_URL from '../config/api';
 
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
@@ -28,7 +29,7 @@ const EditarPerfil = () => {
 
             try {
                 // Requisição para buscar o perfil do usuário pelo `usuarioId`
-                const response = await axios.get(`http://localhost:3000/api/usuario/perfil/usuario/${usuarioId}`, {
+                const response = await axios.get(`${API_URL}usuario/perfil/usuario/${usuarioId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -49,7 +50,7 @@ const EditarPerfil = () => {
     const handleEditarPerfil = async () => {
         try {
             await axios.put(
-                `http://localhost:3000/api/usuario/perfil/usuario/${usuarioId}`,
+                `${API_URL}usuario/perfil/usuario/${usuarioId}`,
                 dadosPerfil,
                 {
                     headers: {

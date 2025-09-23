@@ -6,6 +6,7 @@ import TextInputComponent from '../../components/input';
 import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
+import API_URL from '../../config/api';
 
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
@@ -28,7 +29,7 @@ const ExcluirCultura = ({ navigation, route }) => {
        useEffect(() => {
            const fetchCulturaData = async () => {
                try {
-                   const response = await axios.get(`http://localhost:3000/api/cultura/editar/${culturaId.id}`, {
+                   const response = await axios.get(`${API_URL}cultura/editar/${culturaId.id}`, {
                        headers: {
                            Authorization: `Bearer ${token}`, // Adiciona o token ao cabeçalho
                        },
@@ -51,7 +52,7 @@ const ExcluirCultura = ({ navigation, route }) => {
     const handleGerenciamentoCultura2 = async () => {
         try {
             await axios.delete(
-                `http://localhost:3000/api/cultura/excluir/${culturaId.id}`,
+                `${API_URL}cultura/excluir/${culturaId.id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`, // Adiciona o token ao cabeçalho

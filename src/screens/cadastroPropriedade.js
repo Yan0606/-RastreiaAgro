@@ -7,6 +7,7 @@ import Btn from '../components/button';
 import BtnVoltar from '../components/btnVoltar';
 import axios from 'axios';
 import { UserContext } from '../contexts/UserContext';
+import API_URL from '../config/api';
 
 const CadastroPropriedade = ({ route, navigation }) => {
   const { token } = useContext(UserContext);
@@ -28,7 +29,7 @@ const CadastroPropriedade = ({ route, navigation }) => {
 
   const handleCadastroPropriedade = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/api/propriedade/novo', {
+      const response = await axios.post(`${API_URL}propriedade/novo`, {
         nome,
         cnpj,
         area,

@@ -4,6 +4,7 @@ import { PaperProvider, Text } from "react-native-paper";
 import logo from "../assets/images/icon.png";
 import TextInputComponent from "../components/input";
 import Btn from '../components/button';
+import API_URL from '../config/api';
 
 import { UserContext } from '../contexts/UserContext';
 import axios from 'axios';
@@ -15,7 +16,7 @@ const Login = ({ navigation }) => {
 
     const handleMenu = async () => {
         try {
-            const response = await axios.post('http://localhost:3000/api/auth/login', { email, senha });
+            const response = await axios.post(`${API_URL}auth/login`, { email, senha });
             
             // Extrai os dados do usuário, token e ID do usuário da resposta
             const userName = response.data.nome;

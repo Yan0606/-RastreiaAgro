@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import BtnVoltar from '../components/btnVoltar';
 import axios from 'axios';
 import { UserContext } from '../contexts/UserContext';
+import API_URL from '../config/api';
 
 const QRCodeRoutes = () => {
     const [routeContents, setRouteContents] = useState([]);
@@ -12,12 +13,12 @@ const QRCodeRoutes = () => {
         const fetchRouteContents = async () => {
             try {
                 const responses = await Promise.all([
-                    axios.get(`http://localhost:3000/api/talhoes/editar/${usuarioId}`, {
+                    axios.get(`${API_URL}talhoes/editar/${usuarioId}`, {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
                     }),
-                    axios.get(`http://localhost:3000/api/caderno/editar/${usuarioId}`, {
+                    axios.get(`${API_URL}caderno/editar/${usuarioId}`, {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },

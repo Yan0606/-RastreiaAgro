@@ -7,6 +7,7 @@ import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
 import Imagem from '../../components/image';
+import API_URL from '../../config/api';
 
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
@@ -31,7 +32,7 @@ const ExcluirTalhao = ({ navigation, route }) => {
     useEffect(() => {
         const fetchTalhoesData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/talhoes/editar/${talhaoId.id}`, {
+                const response = await axios.get(`${API_URL}talhoes/editar/${talhaoId.id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`, // Adiciona o token ao cabeçalho
                     },
@@ -54,7 +55,7 @@ const ExcluirTalhao = ({ navigation, route }) => {
     const handleGerenciamento2 = async () => {
         try {
             await axios.delete(
-                `http://localhost:3000/api/talhoes/excluir/${talhaoId.id}`,
+                `${API_URL}talhoes/excluir/${talhaoId.id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`, // Adiciona o token ao cabeçalho

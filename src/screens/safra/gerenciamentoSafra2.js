@@ -8,6 +8,7 @@ import PersonagemComBalao from '../../components/PersonagemComBalao';
 import ScrollVieww from '../../components/scrollView';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
+import API_URL from '../../config/api';
 
 const GerenciamentoSafra2 = () => {
     const navigation = useNavigation();
@@ -19,7 +20,7 @@ const GerenciamentoSafra2 = () => {
     // Função para buscar todas as safras
     const fetchSafras = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/api/safra', {
+            const response = await axios.get(`${API_URL}safra`, {
                 headers: {
                     Authorization: `Bearer ${token}`, // Adiciona o token ao cabeçalho da requisição
                 },
@@ -46,7 +47,7 @@ const GerenciamentoSafra2 = () => {
 
     const handleExcluirSafra = async (id) => {
         try {
-            await axios.delete(`http://localhost:3000/api/safra/excluir/${id}`, {
+            await axios.delete(`${API_URL}safra/excluir/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

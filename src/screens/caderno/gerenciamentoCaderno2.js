@@ -8,6 +8,7 @@ import DataSafra from '../../components/dataSafra';
 import axios from 'axios';
 import { useIsFocused } from '@react-navigation/native';
 import { UserContext } from '../../contexts/UserContext';
+import API_URL from '../../config/api';
 
 const GerenciamentoCaderno2 = ({ navigation, route }) => {
     const isFocused = useIsFocused(); // Hook para detectar quando a tela está em foco
@@ -31,7 +32,7 @@ const GerenciamentoCaderno2 = ({ navigation, route }) => {
         }
 
         try {
-            const response = await axios.get(`http://localhost:3000/api/safraTalhao/detalhes/${usuarioId}/${safraId.id}`, {
+            const response = await axios.get(`${API_URL}safraTalhao/detalhes/${usuarioId}/${safraId.id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -45,7 +46,7 @@ const GerenciamentoCaderno2 = ({ navigation, route }) => {
         }
 
         try {
-            const response = await axios.get(`http://localhost:3000/api/safra/editar/${safraId.id}`, {
+            const response = await axios.get(`${API_URL}safra/editar/${safraId.id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

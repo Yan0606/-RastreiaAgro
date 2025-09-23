@@ -7,6 +7,7 @@ import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
 import BtnVoltar from '../../components/btnVoltar';
 import CardCaderno from '../../components/cardCaderno';
+import API_URL from '../../config/api';
 
 export default function GerenciamentoCaderno({ navigation }) {
     const { token, usuarioId } = useContext(UserContext);
@@ -29,7 +30,7 @@ export default function GerenciamentoCaderno({ navigation }) {
         }
 
         try {
-            const response = await axios.get(`http://localhost:3000/api/safra/usuario/${usuarioId}`, {
+            const response = await axios.get(`${API_URL}safra/usuario/${usuarioId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

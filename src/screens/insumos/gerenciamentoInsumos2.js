@@ -6,6 +6,7 @@ import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
 import ScrollVieww from '../../components/scrollView';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
+import API_URL from '../../config/api';
 
 //importacoes necessarias para consumir api
 import axios from 'axios';
@@ -44,7 +45,7 @@ const GerenciamentoInsumos2 = ({ navigation }) => {
             }
 
             try {
-                const response = await axios.get(`http://localhost:3000/api/insumo/editar/usuario/${usuarioId}`, {
+                const response = await axios.get(`${API_URL}insumo/editar/usuario/${usuarioId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
