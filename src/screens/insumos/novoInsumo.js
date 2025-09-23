@@ -8,6 +8,7 @@ import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
 
+import API_URL from '../../config/api';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
 
@@ -40,7 +41,7 @@ const NovoInsumo = ({ navigation, route }) => {
 
   const handleCadastroInsumo = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/api/insumo/novo', {
+      const response = await axios.post(`${API_URL}insumo/novo`, {
         nome,
         marca,
         descricao,

@@ -10,6 +10,7 @@ import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
+import API_URL from '../../config/api';
 
 const GerenciamentoSafra = () => {
     const navigation = useNavigation();
@@ -33,7 +34,7 @@ const GerenciamentoSafra = () => {
     const handleNovaSafra = async () => {
         try {
             const response = await axios.post(
-                'http://localhost:3000/api/safra/novo',
+                `${API_URL}safra/novo`,
                 {
                     nome: nomeSafra,
                     dataInicio: formatDate(dataInicio),

@@ -6,6 +6,7 @@ import TextInputComponent from '../../components/input';
 import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
+import API_URL from '../../config/api';
 
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
@@ -28,7 +29,7 @@ const EditarInsumo = ({ navigation, route }) => {
     useEffect(() => {
         const fetchInsumoData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/insumo/editar/${insumoId.id}`, {
+                const response = await axios.get(`${API_URL}insumo/editar/${insumoId.id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`, // Adiciona o token ao cabeçalho
                     },
@@ -52,7 +53,7 @@ const EditarInsumo = ({ navigation, route }) => {
     const handleGerenciamentoInsumos2 = async () => {
         try {
             await axios.put(
-                `http://localhost:3000/api/insumo/editar/${insumoId.id}`,
+                `${API_URL}insumo/editar/${insumoId.id}`,
                 {
                     nome,
                     marca,

@@ -6,6 +6,7 @@ import TextInputComponent from '../../components/input';
 import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
+import API_URL from '../../config/api';
 
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
@@ -27,7 +28,7 @@ const EditarCultura = ({ navigation, route }) => {
     useEffect(() => {
         const fetchCulturaData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/cultura/editar/${culturaId.id}`, {
+                const response = await axios.get(`${API_URL}cultura/editar/${culturaId.id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`, // Adiciona o token ao cabeçalho
                     },
@@ -49,7 +50,7 @@ const EditarCultura = ({ navigation, route }) => {
     const handleGerenciamentoCultura2 = async () => {
         try {
             await axios.put(
-                `http://localhost:3000/api/cultura/editar/${culturaId.id}`,
+                `${API_URL}cultura/editar/${culturaId.id}`,
                 {
                     nome,
                     tempoProducao,

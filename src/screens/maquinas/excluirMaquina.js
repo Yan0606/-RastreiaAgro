@@ -7,6 +7,7 @@ import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
 import InputData from '../../components/inputData';
+import API_URL from '../../config/api';
 
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
@@ -32,7 +33,7 @@ const ExcluirMaquina = ({ navigation, route }) => {
     useEffect(() => {
         const fetchMaquinaData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/maquina/editar/${maquinaId.id}`, {
+                const response = await axios.get(`${API_URL}maquina/editar/${maquinaId.id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`, // Adiciona o token ao cabeçalho
                     },
@@ -59,7 +60,7 @@ const ExcluirMaquina = ({ navigation, route }) => {
     const handleGerenciamentoMaquina2 = async () => {
         try {
             await axios.delete(
-                `http://localhost:3000/api/maquina/excluir/${maquinaId.id}`,
+                `${API_URL}maquina/excluir/${maquinaId.id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`, // Adiciona o token ao cabeçalho

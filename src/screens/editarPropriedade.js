@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { UserContext } from '../contexts/UserContext';
 import BtnVoltar from '../components/btnVoltar';
+import API_URL from '../config/api';
 
 
 const EditarPropriedade = () => {
@@ -28,7 +29,7 @@ const EditarPropriedade = () => {
             }
 
             try {
-                const response = await axios.get(`http://localhost:3000/api/propriedade/editar/usuario/${usuarioId}`, {
+                const response = await axios.get(`${API_URL}propriedade/editar/usuario/${usuarioId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -48,7 +49,7 @@ const EditarPropriedade = () => {
     const handleEditarPropriedade = async () => {
         try {
             await axios.put(
-                `http://localhost:3000/api/propriedade/editar/usuario/${usuarioId}`,
+                `${API_URL}propriedade/editar/usuario/${usuarioId}`,
                 dadosPropriedade,
                 {
                     headers: {

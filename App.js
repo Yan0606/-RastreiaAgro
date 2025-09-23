@@ -49,8 +49,6 @@ import RelatorioLinhaTempo from './src/screens/relatorios/relatorioLinhaTempo';
 import { UserProvider } from './src/contexts/UserContext';
 import QRCodeRoutes from './src/screens/QRCodeRoutes';
 
-
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {

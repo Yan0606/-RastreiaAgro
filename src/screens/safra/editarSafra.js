@@ -7,6 +7,7 @@ import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
+import API_URL from '../../config/api';
 
 const EditarSafra = ({ route, navigation }) => {
     const { token } = useContext(UserContext);
@@ -36,7 +37,7 @@ const EditarSafra = ({ route, navigation }) => {
     useEffect(() => {
         const fetchSafraData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/safra/editar/${safraId}`, {
+                const response = await axios.get(`${API_URL}safra/editar/${safraId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
 
@@ -58,7 +59,7 @@ const EditarSafra = ({ route, navigation }) => {
     const handleEditarSafra = async () => {
         try {
             await axios.put(
-                `http://localhost:3000/api/safra/editar/${safraId}`,
+                `${API_URL}safra/editar/${safraId}`,
                 {
                     nome,
                     dataInicio: unformatDate(dataInicio), // Converte data para formato aceito pela API

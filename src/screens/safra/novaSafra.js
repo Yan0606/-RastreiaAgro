@@ -10,6 +10,7 @@ import BottomModal from '../../components/bottomModal';
 import Btn from '../../components/button';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
+import API_URL from '../../config/api';
 
 const NovaSafra = ({ route, navigation }) => {
     const { token } = useContext(UserContext); // Obtém o token do contexto
@@ -41,7 +42,7 @@ const NovaSafra = ({ route, navigation }) => {
         if (!safraId) return;
 
         try {
-            const response = await axios.get(`http://localhost:3000/api/safra/editar/${safraId}`, {
+            const response = await axios.get(`${API_URL}safra/editar/${safraId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -68,7 +69,7 @@ const NovaSafra = ({ route, navigation }) => {
             console.log(`Buscando talhões para safraId: ${safraId}`);
 
             const response = await axios.get(
-                `http://localhost:3000/api/safraTalhao/safra/${safraId}`,
+                `${API_URL}safraTalhao/safra/${safraId}`,
                 {
                     headers: { Authorization: `Bearer ${token}` },
                 }
@@ -85,7 +86,7 @@ const NovaSafra = ({ route, navigation }) => {
 
     const fetchTalhoes = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/api/talhoes`, {
+            const response = await axios.get(`${API_URL}talhoes`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -104,7 +105,7 @@ const NovaSafra = ({ route, navigation }) => {
 
     const fetchCulturas = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/api/cultura`, {
+            const response = await axios.get(`${API_URL}cultura`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -157,7 +158,7 @@ const NovaSafra = ({ route, navigation }) => {
             console.log('Dados para cadastro:', { status: 'ativo', talhaoId: talhao, culturaId: cultura, safraId });
 
             const response = await axios.post(
-                `http://localhost:3000/api/safraTalhao/novo`,
+                `${API_URL}safraTalhao/novo`,
                 {
                     status: 'Aberto',
                     talhaoId: talhao,

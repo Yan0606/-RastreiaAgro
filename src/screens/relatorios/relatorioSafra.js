@@ -14,6 +14,7 @@ import CardCaderno from '../../components/cardCaderno';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
 import { id } from 'react-native-paper-dates';
+import API_URL from '../../config/api';
 
 const relatorioSafra = ({ navigation }) => {
 
@@ -43,7 +44,7 @@ const relatorioSafra = ({ navigation }) => {
         }
 
         try {
-            const response = await axios.get(`http://localhost:3000/api/safra/usuario/${usuarioId}`, {
+            const response = await axios.get(`${API_URL}safra/usuario/${usuarioId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -84,7 +85,7 @@ const relatorioSafra = ({ navigation }) => {
         }
 
         try {
-            const response = await axios.get(`http://localhost:3000/api/talhoes/editar/usuario/${usuarioId}`, {
+            const response = await axios.get(`${API_URL}talhoes/editar/usuario/${usuarioId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

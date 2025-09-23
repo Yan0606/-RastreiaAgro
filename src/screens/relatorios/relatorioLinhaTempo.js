@@ -19,6 +19,7 @@ import { useNavigation, useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
 import { id } from 'react-native-paper-dates';
+import API_URL from '../../config/api';
 
 
 const relatorioLinhaTempo = ({ navigation, route }) => {
@@ -54,7 +55,7 @@ const relatorioLinhaTempo = ({ navigation, route }) => {
         }
 
         try {
-            const response = await axios.get(`http://localhost:3000/api/safraTalhao/detalhes/${usuarioId}/${RegistroPraticas.safraId.id}`, {
+            const response = await axios.get(`${API_URL}safraTalhao/detalhes/${usuarioId}/${RegistroPraticas.safraId.id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -74,7 +75,7 @@ const relatorioLinhaTempo = ({ navigation, route }) => {
         //GET PARA TALHOES
         try {
             // Segundo GET
-            const anotherResponse = await axios.get(`http://localhost:3000/api/talhoes/editar/${RegistroPraticas.talhaoId}`, {
+            const anotherResponse = await axios.get(`${API_URL}talhoes/editar/${RegistroPraticas.talhaoId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -91,7 +92,7 @@ const relatorioLinhaTempo = ({ navigation, route }) => {
         //GET PARA CULTURAS
         try {
             // terceiro GET
-            const anotherResponse2 = await axios.get(`http://localhost:3000/api/cultura/editar/${RegistroPraticas.culturaId}`, {
+            const anotherResponse2 = await axios.get(`${API_URL}cultura/editar/${RegistroPraticas.culturaId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -108,7 +109,7 @@ const relatorioLinhaTempo = ({ navigation, route }) => {
         //GET PARA CADERNO
         try {
             // quarto GET
-            const anotherResponse3 = await axios.get(`http://localhost:3000/api/caderno/editar/usuario/${usuarioId}/${RegistroPraticas.safraTalhaoId}`, {
+            const anotherResponse3 = await axios.get(`${API_URL}caderno/editar/usuario/${usuarioId}/${RegistroPraticas.safraTalhaoId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -125,7 +126,7 @@ const relatorioLinhaTempo = ({ navigation, route }) => {
         //GET PARA INSUMO
         try {
             // QUINTO GET
-            const anotherResponse4 = await axios.get(`http://localhost:3000/api/insumo/editar/usuario/${usuarioId}`, {
+            const anotherResponse4 = await axios.get(`${API_URL}insumo/editar/usuario/${usuarioId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -141,7 +142,7 @@ const relatorioLinhaTempo = ({ navigation, route }) => {
         }
         //GET PARA MAQUINAS
         try {//SEXTO GET
-            const response = await axios.get(`http://localhost:3000/api/maquina/editar/usuario/${usuarioId}`, {
+            const response = await axios.get(`${API_URL}maquina/editar/usuario/${usuarioId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -290,7 +291,7 @@ const relatorioLinhaTempo = ({ navigation, route }) => {
     const onCadastrarAtividade = async () => {
         //setModalAdicionarFotoVisible(true);
         try {
-            const response = await axios.post('http://localhost:3000/api/caderno/novo', {
+            const response = await axios.post('${API_URL}caderno/novo', {
                 irrigacao: irrigacao,
                 safraTalhaoId: RegistroPraticas.safraTalhaoId,
                 insumosId: insumoId || "",

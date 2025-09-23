@@ -7,6 +7,7 @@ import Btn from '../../components/button';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
 import ScrollVieww from '../../components/scrollView';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
+import API_URL from '../../config/api';
 
 // Importações necessárias para consumir API
 import axios from 'axios';
@@ -36,7 +37,7 @@ const relatorio = ({ navigation }) => {
         }
 
         try {
-            const response = await axios.get(`http://localhost:3000/api/caderno/editar/${usuarioId}`, {
+            const response = await axios.get(`${API_URL}caderno/editar/${usuarioId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

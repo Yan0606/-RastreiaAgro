@@ -6,6 +6,7 @@ import TextInputComponent from '../../components/input';
 import Btn from '../../components/button';
 import BtnVoltar from '../../components/btnVoltar';
 import PersonagemComBalao from '../../components/PersonagemComBalao';
+import API_URL from '../../config/api';
 
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
@@ -38,7 +39,7 @@ const NovaMaquina = ({ navigation, route }) => {
 
     const handleCadastroMaquina = async () => {
         try {
-            const response = await axios.post('http://localhost:3000/api/maquina/novo', {
+            const response = await axios.post(`${API_URL}maquina/novo`, {
                 marca,
                 modelo,
                 placa,
